@@ -693,6 +693,113 @@
           font-size: 0.8rem;
       }
 
+      /* --- MESS COUPON PAGE STYLES --- */
+      .mess-coupon-page-content {
+        padding: 15px;
+      }
+
+      .mess-coupon-header {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        background-color: #31353a;
+        color: white;
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        justify-content: space-between;
+      }
+      .mess-coupon-header .title {
+        font-weight: 500;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .mess-coupon-header .link {
+        font-size: 0.9rem;
+        cursor: pointer;
+        margin-left: auto;
+      }
+      
+      .mess-profile-card {
+        background: linear-gradient(to right, var(--sidebar-grad-start), var(--sidebar-grad-end));
+        border-radius: 5px;
+        padding: 20px;
+        color: var(--profile-text-color);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      }
+
+      .mess-profile-card .profile-pic {
+        width: 100px;
+        height: 100px;
+        border-radius: 12px;
+        object-fit: cover;
+        margin-bottom: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .mess-profile-card .name {
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 400;
+        margin: 0 0 20px 0;
+      }
+      
+      .mess-profile-card .detail {
+        margin-bottom: 12px;
+        font-size: 0.85rem;
+        line-height: 1.5;
+      }
+
+      .mess-profile-card .detail-label {
+        font-weight: 500;
+        display: block;
+      }
+      
+      .mess-meal-selection {
+        height: 300px;
+        background-color: #ffffff;
+        padding: 20px 15px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+      }
+
+      .scan-instruction {
+        text-align: center;
+        margin: 12px 0 20px 0;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: #444;
+      }
+
+      .meal-buttons-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 15px;
+      }
+      
+      .meal-button.dinner-btn {
+        grid-column: 1 / 2;
+      }
+
+      .meal-button {
+        background: linear-gradient(to right, var(--sidebar-grad-start), var(--sidebar-grad-end));
+        color: var(--profile-text-color);
+        border: none;
+        padding: 15px 10px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(228, 94, 32, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+      }
+
     </style>
   </head>
   <body>
@@ -714,7 +821,7 @@
           <div class="search-container">
             <div class="search-box">
               <i class="bx bx-search"></i>
-              <input type="text" placeholder="Search" />
+              <input type="text" id="sidebar-search" placeholder="Search" />
             </div>
           </div>
           <nav class="sidebar-menu">
@@ -768,7 +875,7 @@
             <a href="#"><i class="bx bx-wrench"></i> Make Up Adjustment</a>
             <a href="#"><i class="bx bx-user-check"></i> Mentor Meeting Details</a>
             <a href="#"><i class="bx bx-restaurant"></i> Mess Food Feedback</a>
-            <a href="#"><i class="bx bx-camera"></i> Mess Food Scanner</a>
+            <a href="#" id="mess-scanner-link"><i class="bx bx-camera"></i> Mess Food Scanner</a>
             <a href="#"
               ><i class="bx bx-layer"></i> Open Minor Area Preference</a
             >
@@ -1155,6 +1262,52 @@
         </main>
     </div>
 
+    <div id="mess-coupon-page" class="full-page hidden">
+      <header class="mess-coupon-header">
+        <i class="bx bx-arrow-back icon" id="back-to-dashboard-from-mess"></i>
+        <span class="title">Mess Coupon</span>
+        <span class="link">Meal History</span>
+      </header>
+      <main class="mess-coupon-page-content">
+        <div class="mess-profile-card">
+            <img src="avdesh.png" alt="Profile Picture" class="profile-pic" />
+            <h2 class="name">Avdesh Jadon</h2>
+            <div class="detail">
+              <span class="detail-label">Father's Name</span>
+              Kumarpal Jadon
+            </div>
+             <div class="detail">
+              <span class="detail-label">Mother's Name</span>
+              Suman Devi
+            </div>
+             <div class="detail">
+              <span class="detail-label">Program Name</span>
+              P132:B.Tech. (Computer Science and Engineering)(2023)
+            </div>
+             <div class="detail">
+              <span class="detail-label">Hostel</span>
+              Boys Apartment- B817-Bed D
+            </div>
+        </div>
+        
+        <div class="mess-meal-selection">
+            <p class="scan-instruction">Tap on the meal name to scan and avail food.</p>
+            <div class="meal-buttons-container">
+              <button class="meal-button">
+                <span>Breakfast</span> <i class='bx bx-right-arrow-alt'></i>
+              </button>
+              <button class="meal-button">
+                <span>Lunch</span> <i class='bx bx-right-arrow-alt'></i>
+              </button>
+              <button class="meal-button dinner-btn">
+                <span>Dinner</span> <i class='bx bx-right-arrow-alt'></i>
+              </button>
+            </div>
+        </div>
+      </main>
+    </div>
+
+
     <script>
       const hamburgerMenu = document.getElementById("hamburger-menu");
       const sidebar = document.getElementById("sidebar");
@@ -1178,6 +1331,25 @@
       hamburgerMenu.addEventListener("click", toggleSidebar);
       overlay.addEventListener("click", toggleSidebar);
 
+      const sidebarSearchInput = document.getElementById("sidebar-search");
+      const sidebarMenuItems = document.querySelectorAll(".sidebar-menu a");
+
+      sidebarSearchInput.addEventListener("input", (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+
+        sidebarMenuItems.forEach((item) => {
+          const itemText = item.textContent.toLowerCase();
+          if (itemText.includes(searchTerm)) {
+            item.style.display = "flex";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+
+      
+      // --- PAGE NAVIGATION LOGIC ---
+      
       const notificationIcon = document.querySelector(".notification-icon");
       const messagesPage = document.getElementById("messages-page");
       const backToDashboardBtn = document.getElementById("back-to-dashboard");
@@ -1186,39 +1358,42 @@
       const profilePage = document.getElementById("profile-page");
       const backToDashboardFromProfile = document.getElementById("back-to-dashboard-from-profile");
 
+      const messScannerLink = document.getElementById("mess-scanner-link");
+      const messCouponPage = document.getElementById("mess-coupon-page");
+      const backToDashboardFromMess = document.getElementById("back-to-dashboard-from-mess");
+
+
       const mainHeader = document.querySelector(".main-header");
       const mainContent = document.querySelector(".main-content");
       const bottomNav = document.querySelector(".bottom-nav");
       const dashboardElements = [mainHeader, mainContent, bottomNav];
 
-      function showMessagesPage() {
-        dashboardElements.forEach((el) => el.classList.add("hidden"));
-        messagesPage.classList.remove("hidden");
-      }
-
-      function hideMessagesPage() {
-        messagesPage.classList.add("hidden");
-        dashboardElements.forEach((el) => el.classList.remove("hidden"));
-      }
-      
-      function showProfilePage() {
+      function showPage(pageToShow) {
         if(sidebar.classList.contains("open")) {
             toggleSidebar();
         }
         dashboardElements.forEach((el) => el.classList.add("hidden"));
-        profilePage.classList.remove("hidden");
+        pageToShow.classList.remove("hidden");
       }
-      
-      function hideProfilePage() {
+
+      function hideAllPages() {
+        messagesPage.classList.add("hidden");
         profilePage.classList.add("hidden");
+        messCouponPage.classList.add("hidden");
         dashboardElements.forEach((el) => el.classList.remove("hidden"));
       }
 
-      notificationIcon.addEventListener("click", showMessagesPage);
-      backToDashboardBtn.addEventListener("click", hideMessagesPage);
+      notificationIcon.addEventListener("click", () => showPage(messagesPage));
+      backToDashboardBtn.addEventListener("click", hideAllPages);
       
-      sidebarProfileLink.addEventListener("click", showProfilePage);
-      backToDashboardFromProfile.addEventListener("click", hideProfilePage);
+      sidebarProfileLink.addEventListener("click", () => showPage(profilePage));
+      backToDashboardFromProfile.addEventListener("click", hideAllPages);
+
+      messScannerLink.addEventListener("click", (e) => {
+        e.preventDefault(); 
+        showPage(messCouponPage)
+      });
+      backToDashboardFromMess.addEventListener("click", hideAllPages);
 
     </script>
   </body>
