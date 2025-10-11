@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --sidebar-grad-start: #e47520;
+        --sidebar-grad-end: #f7a532;
+        --profile-text-color: #000;
+        --main-bg: #f8f9fa;
+        --main-grad: linear-gradient(to right, #ff8373, #fed278);
+        --tile-bg: #fffbef;
+        --tile-label-bg: #fdc894;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: var(--main-bg);
+        color: #333;
+        padding-bottom: 80px;
+        overflow-x: hidden;
+      }
+
+      .main-content {
+        padding: 0 15px;
+        transition: filter 0.3s ease;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 150;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      body.sidebar-open .main-content,
+      body.sidebar-open .main-header,
+      body.sidebar-open .bottom-nav {
+        filter: blur(4px);
+      }
+
+      .main-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        transition: filter 0.3s ease;
+      }
+
+      .hamburger-menu {
+        width: 24px;
+        height: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        cursor: pointer;
+        position: relative;
+        z-index: 201;
+        border-radius: 0;
+      }
+
+      .hamburger-line {
+        height: 3px;
+        background: var(--main-grad);
+        border-radius: 0;
+        transition: width 0.3s ease;
+        width: 100%;
+      }
+
+      .hamburger-line:nth-child(3) {
+        width: 60%;
+      }
+
+      .header-title {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .notification-icon {
+        position: relative;
+        font-size: 1.5rem;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -6px;
+        right: -9px;
+        background: var(--main-grad);
+        color: black;
+        border-radius: 50%;
+        font-size: 0.7rem;
+        font-weight: 600;
+        height: 18px;
+        width: 18px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 1;
+      }
+
+      .sidebar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 200;
+        top: 0;
+        left: 0;
+        background-color: #fff;
+        overflow: hidden;
+        transition: width 0.3s ease;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .sidebar.open {
+        width: 85%;
+        max-width: 320px;
+      }
+
+      .sidebar-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .sidebar-header {
+        padding: 25px 20px 35px 20px;
+        text-align: center;
+        flex-shrink: 0;
+        background: linear-gradient(
+          to right,
+          var(--sidebar-grad-start),
+          var(--sidebar-grad-end)
+        );
+        color: var(--profile-text-color);
+      }
+
+      .sidebar-header .profile-picture {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid white;
+        object-fit: cover;
+        margin-bottom: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar-header .profile-name {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .sidebar-header .profile-id,
+      .sidebar-header .profile-details {
+        margin: 4px 0 0;
+        font-size: 0.85rem;
+        line-height: 1.4;
+      }
+
+      .sidebar-body {
+        background-color: #fff;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        margin-top: -20px;
+        position: relative;
+        padding-top: 20px;
+        box-shadow: 0 -5px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      .search-container {
+        padding: 0 20px 15px;
+        flex-shrink: 0;
+      }
+
+      .search-box {
+        display: flex;
+        align-items: center;
+        background-color: #f1f3f4;
+        border-radius: 8px;
+        padding: 10px 15px;
+      }
+
+      .search-box input {
+        flex-grow: 1;
+        border: none;
+        background: transparent;
+        color: #333;
+        font-size: 1rem;
+        outline: none;
+        margin-left: 10px;
+      }
+
+      .search-box input::placeholder {
+        color: #aaa;
+      }
+
+      .search-box i {
+        color: #888;
+        font-size: 1.1rem;
+      }
+
+      .sidebar-menu {
+        flex-grow: 1;
+        overflow-y: auto;
+      }
+
+      .sidebar-menu a {
+        padding: 14px 20px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        font-size: 0.9rem;
+        color: #777;
+        font-weight: 500;
+        transition: background-color 0.2s;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .sidebar-menu a:last-child {
+        border-bottom: none;
+      }
+
+      .sidebar-menu a:hover {
+        background-color: #f5f5f5;
+      }
+
+      .sidebar-menu a i {
+        font-size: 1.3rem;
+        margin-right: 20px;
+        min-width: 25px;
+        text-align: center;
+        color: #888;
+      }
+
+      .sidebar-footer {
+        padding: 20px;
+        flex-shrink: 0;
+        background-color: #fff;
+      }
+
+      .logout-button {
+        background: linear-gradient(to left, #ffb347, #ff8a3b);
+        color: black;
+        border: none;
+        padding: 14px 20px;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        box-shadow: 0 4px 10px rgba(255, 138, 59, 0.4);
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .section-header h2 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .section-header p {
+        font-size: 0.9rem;
+        color: #666;
+        margin: 5px 0 0;
+      }
+
+      .timetable-section {
+        margin-top: 20px;
+      }
+
+      .cta-button {
+        background: var(--main-grad);
+        color: black;
+        border: none;
+        padding: 7px 15px;
+        border-radius: 8px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+      }
+
+      .horizontal-scroll-container {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      .horizontal-scroll-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .timetable-card {
+        flex: 0 0 calc(50% - 7.5px);
+        min-width: 150px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: none;
+      }
+
+      .timetable-card .card-header {
+        background-color: #31353a;
+        color: white;
+        padding: 10px 12px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      .timetable-card .card-body {
+        padding: 15px 12px;
+        font-size: 0.8rem;
+        line-height: 1.5;
+        color: #555;
+        text-align: center;
+      }
+
+      .dashboard-tiles-section {
+        margin-top: 30px;
+      }
+
+      .add-button {
+        background-color: #2c3e50;
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        cursor: pointer;
+        border: none;
+      }
+
+      .tiles-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        margin-top: 20px;
+      }
+
+      .tile {
+        position: relative;
+        background-color: var(--tile-bg);
+        border: 1px solid #eef0f3;
+        border-radius: 12px;
+        padding: 15px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        text-decoration: none;
+        color: #333;
+        min-height: 155px;
+        box-sizing: border-box;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+      }
+
+      .tile-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: var(--main-grad);
+        color: black;
+        border-radius: 8px;
+        padding: 3px 8px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        border: 2px solid var(--tile-bg);
+      }
+
+      .tile-image {
+        width: 90px;
+        height: 80px;
+        margin-bottom: 15px;
+        object-fit: contain;
+      }
+
+      .tile-label {
+        background-color: var(--tile-label-bg);
+        color: black;
+        border-radius: 8px;
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        width: auto;
+        max-width: 90%;
+        text-align: center;
+      }
+
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+        z-index: 100;
+        transition: filter 0.3s ease;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #999;
+        text-decoration: none;
+        font-size: 0.75rem;
+      }
+
+      .nav-item i {
+        font-size: 1.4rem;
+        margin-bottom: 4px;
+      }
+
+      .nav-item.active {
+        color: #f39c12;
+      }
+    </style>
+  </head>
+  <body>
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-content">
+        <div class="sidebar-header">
+          <img
+            src="avdesh.png"
+            alt="User Profile Picture"
+            class="profile-picture"
+          />
+          <h3 class="profile-name">Avdesh Jadon</h3>
+          <p class="profile-id">12319278</p>
+          <p class="profile-details">
+            P132:B.Tech. (Computer Science and<br />Engineering)(2023)
+          </p>
+        </div>
+        <div class="sidebar-body">
+          <div class="search-container">
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" placeholder="Search" />
+            </div>
+          </div>
+          <nav class="sidebar-menu">
+            <a href="#"><i class="fas fa-user-tie"></i> Alumni Mentor Selection</a>
+            <a href="#"><i class="fas fa-file-signature"></i> Assignment (CA)</a>
+            <a href="#"><i class="fas fa-clipboard-list"></i> Backlog Registration</a>
+            <a href="#"><i class="fas fa-handshake-angle"></i> Book Appointment</a>
+            <a href="#"><i class="fas fa-key"></i> Change UMS Password</a>
+            <a href="#"><i class="fas fa-file-contract"></i> Continue Exit Undertaking</a>
+            <a href="#"><i class="fas fa-user-doctor"></i> Doctor Appointment</a>
+            <a href="#"><i class="fas fa-file-arrow-up"></i> Document Upload</a>
+            <a href="#"><i class="fas fa-people-arrows"></i> Electives Polling</a>
+            <a href="#"><i class="fas fa-right-left"></i> Entry Exit Logs</a>
+            <a href="#"><i class="fas fa-person-chalkboard"></i> Evaluation of Teaching Internship</a>
+            <a href="#"><i class="fas fa-calendar-check"></i> Event Attendance</a>
+            <a href="#"><i class="fas fa-qrcode"></i> Event Attendance QR Scanner</a>
+            <a href="#"><i class="fas fa-clipboard-check"></i> Exam Attendance</a>
+            <a href="#"><i class="fas fa-rupee-sign"></i> Fee Payment</a>
+            <a href="#"><i class="fas fa-arrows-rotate"></i> Fee Payment Schedule</a>
+            <a href="#"><i class="fas fa-file-invoice-dollar"></i> Fee Statement</a>
+            <a href="#"><i class="fas fa-comments"></i> Feedback on Mentor Meeting</a>
+            <a href="#"><i class="fas fa-store"></i> Food Shops</a>
+            <a href="#"><i class="fas fa-microphone-alt"></i> Guest Lecture/Workshop Feedback</a>
+            <a href="#"><i class="fas fa-door-open"></i> Hostel Entry Exit</a>
+            <a href="#"><i class="fas fa-person-walking-luggage"></i> Hostel Leave Slip</a>
+            <a href="#"><i class="fas fa-boxes-stacked"></i> Inventory</a>
+            <a href="#"><i class="fas fa-flask-vial"></i> Lab Resource Feedback</a>
+            <a href="#"><i class="fas fa-language"></i> Language Lab Slot Booking</a>
+            <a href="#"><i class="fas fa-shirt"></i> Laundry</a>
+            <a href="#"><i class="fas fa-chalkboard-user"></i> Lecture Feedback</a>
+            <a href="#"><i class="fas fa-book-open-reader"></i> Library Resource Feedback</a>
+            <a href="#"><i class="fas fa-search"></i> Library Search</a>
+            <a href="#"><i class="fas fa-calendar-alt"></i> List of Holidays</a>
+            <a href="#"><i class="fas fa-wrench"></i> Make Up Adjustment</a>
+            <a href="#"><i class="fas fa-users"></i> Mentor Meeting Details</a>
+            <a href="#"><i class="fas fa-utensils"></i> Mess Food Feedback</a>
+            <a href="#"><i class="fas fa-camera"></i> Mess Food Scanner</a>
+            <a href="#"><i class="fas fa-layer-group"></i> Open Minor Area Preference</a>
+            <a href="#"><i class="fas fa-running"></i> PEP Activities</a>
+            <a href="#"><i class="fas fa-barcode"></i> Placement Barcode Scanner</a>
+            <a href="#"><i class="fas fa-briefcase"></i> Placement Drive</a>
+            <a href="#"><i class="fas fa-poll"></i> Placement Drive Summary</a>
+            <a href="#"><i class="fas fa-train"></i> Railway Concession Form</a>
+            <a href="#"><i class="fas fa-redo-alt"></i> ReAppear Registration</a>
+            <a href="#"><i class="fas fa-chart-bar"></i> Report Card</a>
+            <a href="#"><i class="fas fa-file-waveform"></i> Residential Reporting Slip</a>
+            <a href="#"><i class="fas fa-tasks"></i> RMS Request Status</a>
+            <a href="#"><i class="fas fa-qrcode"></i> RMS Scanner</a>
+            <a href="#"><i class="fas fa-lightbulb"></i> Skill Development Feedback</a>
+            <a href="#"><i class="fas fa-hand-holding-heart"></i> Special Food Services</a>
+            <a href="#"><i class="fas fa-users-viewfinder"></i> Student Class Feedback</a>
+            <a href="#"><i class="fas fa-comment-alt"></i> Student Feedback</a>
+            <a href="#"><i class="fas fa-user-clock"></i> Teacher on Leave</a>
+            <a href="#"><i class="fas fa-calendar-day"></i> Time table</a>
+            <a href="#"><i class="fas fa-bus"></i> Transport Preference</a>
+            <a href="#"><i class="fas fa-headset"></i> Uni Hospital Help Line</a>
+            <a href="#"><i class="fas fa-store-alt"></i> Vendor Facility Search</a>
+            <a href="#"><i class="fas fa-graduation-cap"></i> View Marks</a>
+            <a href="#"><i class="fas fa-vr-cardboard"></i> Virtual Tour</a>
+          </nav>
+        </div>
+        <div class="sidebar-footer">
+          <button class="logout-button">
+            LOGOUT <i class="fas fa-arrow-right-from-bracket"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <header class="main-header">
+      <div id="hamburger-menu" class="hamburger-menu">
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+        <div class="hamburger-line"></div>
+      </div>
+      <h1 class="header-title">Dashboard</h1>
+      <div class="header-actions">
+        <div class="notification-icon">
+          <i class="far fa-bell"></i>
+          <span class="notification-badge">12</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <div class="content-wrapper">
+        <section class="timetable-section">
+          <div class="section-header">
+            <h2>Today's Timetable</h2>
+            <button class="cta-button">Your Dost</button>
+          </div>
+          <div class="horizontal-scroll-container">
+            <div class="timetable-card">
+              <div class="card-header">11-12 AM</div>
+              <div class="card-body">
+                Practical / G:1 C:CSE377 / <br />R: 37-705 / S:K23SE
+              </div>
+            </div>
+            <div class="timetable-card">
+              <div class="card-header">12-01 PM</div>
+              <div class="card-body">
+                Practical / G:1 C:CSE377 / <br />R: 37-705 / S:K23SE
+              </div>
+            </div>
+            <div class="timetable-card">
+              <div class="card-header">02-03 PM</div>
+              <div class="card-body">
+                Tutorial / G:1 C:PEV301 / R: <br />37-609 / S:K23SE
+              </div>
+            </div>
+            <div class="timetable-card">
+              <div class="card-header">03-04 PM</div>
+              <div class="card-body">
+                Tutorial / G:1 C:PEV301 / R: <br />37-609 / S:K23SE
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-tiles-section">
+          <div class="section-header">
+            <div>
+              <h2>Add More Tiles</h2>
+              <p>Click on the plus button to add menu grids.</p>
+            </div>
+            <button class="add-button"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="tiles-grid">
+            <a href="#" class="tile">
+              <span class="tile-badge">0</span>
+              <img
+                src="ann.png"
+                alt="Announcements Icon"
+                class="tile-image"
+              />
+              <span class="tile-label">Announce</span>
+            </a>
+            <a href="#" class="tile">
+              <img
+                src="edu.png"
+                alt="Edu Revolution Icon"
+                class="tile-image"
+              />
+              <span class="tile-label">Edu Revolution</span>
+            </a>
+            <a href="#" class="tile">
+              <img
+                src="fee.png"
+                alt="Fee Statement Icon"
+                class="tile-image"
+              />
+              <span class="tile-label">Fee Statement</span>
+            </a>
+            <a href="#" class="tile">
+              <span class="tile-badge">88%</span>
+              <img src="att.png" alt="Attendance Icon" class="tile-image" />
+              <span class="tile-label">Attendance</span>
+            </a>
+            <a href="#" class="tile">
+              <span class="tile-badge">0</span>
+              <img src="ass.png" alt="Assignment Icon" class="tile-image" />
+              <span class="tile-label">Assignment</span>
+            </a>
+            <a href="#" class="tile">
+              <span class="tile-badge">6.62</span>
+              <img src="results.png" alt="Results Icon" class="tile-image" />
+              <span class="tile-label">Results</span>
+            </a>
+            <a href="#" class="tile">
+              <span class="tile-badge">0</span>
+              <img src="exams.png" alt="Exams Icon" class="tile-image" />
+              <span class="tile-label">Exams</span>
+            </a>
+            <a href="#" class="tile">
+              <img src="rms.png" alt="RMS Status Icon" class="tile-image" />
+              <span class="tile-label">RMS Status</span>
+            </a>
+            <a href="#" class="tile">
+              <img src="events.png" alt="Events Icon" class="tile-image" />
+              <span class="tile-label">Events</span>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="#" class="nav-item active">
+        <i class="fas fa-border-all"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-newspaper"></i>
+        <span>Happenings</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-square-check"></i>
+        <span>RMS</span>
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-list-ol"></i>
+        <span>Quick Quiz</span>
+      </a>
+    </nav>
+
+    <script>
+      const hamburgerMenu = document.getElementById("hamburger-menu");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const body = document.body;
+
+      function toggleSidebar() {
+        const isSidebarOpen = sidebar.classList.contains("open");
+
+        if (isSidebarOpen) {
+          sidebar.classList.remove("open");
+          overlay.classList.remove("active");
+          body.classList.remove("sidebar-open");
+        } else {
+          sidebar.classList.add("open");
+          overlay.classList.add("active");
+          body.classList.add("sidebar-open");
+        }
+      }
+
+      hamburgerMenu.addEventListener("click", toggleSidebar);
+      overlay.addEventListener("click", toggleSidebar);
+    </script>
+  </body>
+</html>
