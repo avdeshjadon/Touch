@@ -500,7 +500,6 @@
         display: none !important;
       }
 
-      /* Base styles for full-screen pages */
       .full-page {
         position: fixed;
         top: 0;
@@ -613,7 +612,6 @@
         color: var(--author-text-color);
       }
       
-      /* --- NEW/MODIFIED PROFILE PAGE STYLES --- */
       .profile-page-content {
           padding: 15px;
       }
@@ -652,7 +650,6 @@
           white-space: nowrap; 
       }
       
-      /* MODIFICATION: New container for the profile sections */
       .profile-details-container {
         background-color: #ffffff;
         box-shadow: 0 4px 15px rgba(0,0,0,0.05);
@@ -662,13 +659,12 @@
           padding: 0 20px;
       }
 
-      /* MODIFICATION: Added padding to the last section */
       .profile-section:last-child {
         padding-bottom: 15px;
       }
       
       .profile-section h3 {
-          margin: 0 -20px 5px -20px; /* Reduced bottom margin */
+          margin: 0 -20px 5px -20px;
           padding: 8px 20px;
           font-size: 1rem;
           font-weight: 400;
@@ -681,7 +677,7 @@
       }
       
       .profile-field {
-          padding: 4px 0; /* Reduced padding for "congested" feel */
+          padding: 4px 0;
       }
       
       .field-label {
@@ -1182,8 +1178,6 @@
       hamburgerMenu.addEventListener("click", toggleSidebar);
       overlay.addEventListener("click", toggleSidebar);
 
-      // --- PAGE NAVIGATION LOGIC ---
-      
       const notificationIcon = document.querySelector(".notification-icon");
       const messagesPage = document.getElementById("messages-page");
       const backToDashboardBtn = document.getElementById("back-to-dashboard");
