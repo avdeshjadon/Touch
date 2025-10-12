@@ -513,6 +513,12 @@
         overflow-y: auto;
       }
 
+      /* Class to blur content behind the loader */
+      .content-blurred {
+        filter: blur(8px);
+        transition: filter 0.3s ease-in-out;
+      }
+
       .page-header {
         display: flex;
         justify-content: space-between;
@@ -784,11 +790,8 @@
       .meal-buttons-container {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 15px;
-      }
-
-      .meal-button.dinner-btn {
-        grid-column: 1 / 2;
+        gap: 15px 8px;
+        justify-items: center;
       }
 
       .meal-button {
@@ -799,8 +802,9 @@
         );
         color: var(--profile-text-color);
         border: none;
-        padding: 15px 10px;
-        border-radius: 12px;
+        width: 80%;
+        padding: 20px 10px;
+        border-radius: 5px;
         font-size: 0.9rem;
         font-weight: 500;
         cursor: pointer;
@@ -812,7 +816,7 @@
         gap: 8px;
       }
 
-      /* --- SCANNER, LOADING, and PASS STYLES --- */
+      /* --- SCANNER, LOADING, and PASS STYLES (MODIFIED) --- */
       .camera-scanner-page {
         background-color: #000;
         display: flex;
@@ -820,6 +824,16 @@
         justify-content: center;
         align-items: center;
         color: white;
+        overflow: hidden; /* Prevent scrollbars from video */
+      }
+      #video-stream {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 501; /* Above page background, below viewfinder */
       }
       .viewfinder {
         width: 70vw;
@@ -829,46 +843,66 @@
         border: 2px solid rgba(255, 255, 255, 0.7);
         position: relative;
         background: transparent;
+        z-index: 502; /* Above video stream */
+        box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5); /* Dimming overlay */
       }
-      .scan-line {
+      .viewfinder .center-line {
         position: absolute;
         top: 50%;
         left: 0;
         width: 100%;
-        height: 1px;
-        background: red;
-        box-shadow: 0 0 10px red;
-        animation: scan-anim 2.5s linear infinite;
-      }
-      @keyframes scan-anim {
-        0% { top: 0%; }
-        50% { top: 100%; }
-        100% { top: 0%; }
+        height: 1.5px; /* Very thin */
+        background-color: #e45e20; /* Orange color */
+        box-shadow: 0 0 5px #e45e20;
+        transform: translateY(-50%);
       }
       .scanner-instruction {
-        margin-top: 20px;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        text-align: center;
         font-size: 0.9rem;
         color: #ccc;
+        z-index: 502;
       }
 
       .loading-page {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: rgba(255,255,255,0.9);
+        /* Semi-transparent background to show blurred content behind */
+        background-color: rgba(255, 255, 255, 0.5);
+        z-index: 600; /* Ensure it's on top */
       }
 
+      .loading-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loading-seal {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+      }
       .loading-spinner {
-        width: 80px;
-        height: 80px;
-        border: 8px solid #f3f3f3;
-        border-top: 8px solid #e45e20;
+        width: 90px;
+        height: 90px;
+        border: 5px solid rgba(228, 94, 32, 0.2);
+        border-top: 5px solid var(--sidebar-grad-start);
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
       @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
       }
 
       .mess-pass-page-content {
@@ -878,9 +912,9 @@
         background-color: #fff;
         border-radius: 15px;
         padding: 20px;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         position: relative;
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
       }
       .pass-countdown {
         position: absolute;
@@ -961,7 +995,6 @@
       .accepted-box i {
         font-size: 2.5rem;
       }
-
     </style>
   </head>
   <body>
@@ -1481,7 +1514,6 @@
             Boys Apartment- B817-Bed D
           </div>
         </div>
-
         <div class="mess-meal-selection">
           <p class="scan-instruction">
             Tap on the meal name to scan and avail food.
@@ -1502,50 +1534,65 @@
     </div>
 
     <div id="camera-scanner-page" class="full-page camera-scanner-page hidden">
+      <video id="video-stream" playsinline></video>
       <div class="viewfinder">
-        <div class="scan-line"></div>
+        <div class="center-line"></div>
       </div>
       <p class="scanner-instruction">
-        Place a barcode inside the viewfinder rectangle to scan it.
+        Place barcode inside the viewfinder to scan.
       </p>
     </div>
 
     <div id="loading-page" class="full-page loading-page hidden">
-      <div class="loading-spinner"></div>
+      <div class="loading-container">
+        <img
+          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iI2YwZjBmMCIgc3Ryb2tlPSIjZWVlIiBzdHJva2Utd2lkdGg9IjQiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjQwIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2M5OGEwMCI+UzwvdGV4dD48L3N2Zz4="
+          alt="University Seal"
+          class="loading-seal"
+        />
+        <div class="loading-spinner"></div>
+      </div>
     </div>
 
     <div id="mess-pass-page" class="full-page hidden">
-        <header class="page-header">
-            <i class="bx bx-arrow-back icon" id="back-to-dashboard-from-pass"></i>
-            <h1>Mess Pass</h1>
-        </header>
-        <main class="mess-pass-page-content">
-            <div class="mess-pass-card">
-                <div id="pass-countdown" class="pass-countdown">30</div>
-                <div class="pass-header">
-                    <img src="avdesh.png" alt="Profile Pic">
-                    <div class="info">
-                        <h2 id="pass-meal-type">Lunch</h2>
-                        <p id="pass-reg-no">12319278</p>
-                        <p id="pass-name">Avdesh Jadon</p>
-                        <p id="pass-location">Mess-1 B-8</p>
-                    </div>
-                </div>
-                <p id="pass-program">P132:B.Tech. (Computer Science and Engineering) (2023)</p>
-                <div class="pass-time">
-                    <span id="pass-date">Oct 05, 2025</span>
-                    <span id="pass-time">01:34 PM</span>
-                </div>
-                <div class="meal-approved">Meal Approved</div>
-                <div class="accepted-box">
-                    <div class="accepted-text">
-                        <i class='bx bxs-check-circle'></i>
-                        <span>ACCEPTED</span>
-                    </div>
-                </div>
+      <header class="page-header">
+        <i
+          class="bx bx-arrow-back icon"
+          id="back-to-dashboard-from-pass"
+        ></i>
+        <h1>Mess Pass</h1>
+      </header>
+      <main class="mess-pass-page-content">
+        <div class="mess-pass-card">
+          <div id="pass-countdown" class="pass-countdown">30</div>
+          <div class="pass-header">
+            <img src="avdesh.png" alt="Profile Pic" />
+            <div class="info">
+              <h2 id="pass-meal-type">Lunch</h2>
+              <p id="pass-reg-no">12319278</p>
+              <p id="pass-name">Avdesh Jadon</p>
+              <p id="pass-location">Mess-1 B-8</p>
             </div>
-        </main>
+          </div>
+          <p id="pass-program">
+            P132:B.Tech. (Computer Science and Engineering) (2023)
+          </p>
+          <div class="pass-time">
+            <span id="pass-date">Oct 12, 2025</span>
+            <span id="pass-time">09:41 AM</span>
+          </div>
+          <div class="meal-approved">Meal Approved</div>
+          <div class="accepted-box">
+            <div class="accepted-text">
+              <i class="bx bxs-check-circle"></i>
+              <span>ACCEPTED</span>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
 
     <script>
       const hamburgerMenu = document.getElementById("hamburger-menu");
@@ -1555,7 +1602,6 @@
 
       function toggleSidebar() {
         const isSidebarOpen = sidebar.classList.contains("open");
-
         if (isSidebarOpen) {
           sidebar.classList.remove("open");
           overlay.classList.remove("active");
@@ -1575,7 +1621,6 @@
 
       sidebarSearchInput.addEventListener("input", (e) => {
         const searchTerm = e.target.value.toLowerCase();
-
         sidebarMenuItems.forEach((item) => {
           const itemText = item.textContent.toLowerCase();
           if (itemText.includes(searchTerm)) {
@@ -1587,60 +1632,60 @@
       });
 
       // --- PAGE NAVIGATION LOGIC ---
-
       const notificationIcon = document.querySelector(".notification-icon");
       const messagesPage = document.getElementById("messages-page");
       const backToDashboardBtn = document.getElementById("back-to-dashboard");
-
       const sidebarProfileLink = document.getElementById("sidebar-profile-link");
       const profilePage = document.getElementById("profile-page");
       const backToDashboardFromProfile = document.getElementById(
         "back-to-dashboard-from-profile"
       );
-
       const messScannerLink = document.getElementById("mess-scanner-link");
       const messCouponPage = document.getElementById("mess-coupon-page");
       const backToDashboardFromMess = document.getElementById(
         "back-to-dashboard-from-mess"
       );
-
-      // New pages for scanner flow
       const cameraScannerPage = document.getElementById("camera-scanner-page");
       const loadingPage = document.getElementById("loading-page");
       const messPassPage = document.getElementById("mess-pass-page");
-      const backToDashboardFromPass = document.getElementById("back-to-dashboard-from-pass");
-
-
+      const backToDashboardFromPass = document.getElementById(
+        "back-to-dashboard-from-pass"
+      );
       const mainHeader = document.querySelector(".main-header");
       const mainContent = document.querySelector(".main-content");
       const bottomNav = document.querySelector(".bottom-nav");
       const dashboardElements = [mainHeader, mainContent, bottomNav];
-
-      const allPages = [messagesPage, profilePage, messCouponPage, cameraScannerPage, loadingPage, messPassPage];
-      
-      let countdownInterval; // To hold the interval ID
+      const allPages = [
+        messagesPage,
+        profilePage,
+        messCouponPage,
+        cameraScannerPage,
+        loadingPage,
+        messPassPage,
+      ];
+      let countdownInterval;
 
       function showPage(pageToShow) {
         if (sidebar.classList.contains("open")) {
           toggleSidebar();
         }
         dashboardElements.forEach((el) => el.classList.add("hidden"));
-        allPages.forEach(p => p.classList.add("hidden"));
+        allPages.forEach((p) => p.classList.add("hidden"));
         pageToShow.classList.remove("hidden");
       }
 
       function hideAllPages() {
-        clearInterval(countdownInterval); // Stop timer when leaving the pass page
-        allPages.forEach(p => p.classList.add("hidden"));
+        stopCamera(); // Ensure camera is stopped when returning to dashboard
+        clearInterval(countdownInterval);
+        allPages.forEach((p) => p.classList.add("hidden"));
+        messCouponPage.classList.remove("content-blurred"); // Remove blur just in case
         dashboardElements.forEach((el) => el.classList.remove("hidden"));
       }
 
       notificationIcon.addEventListener("click", () => showPage(messagesPage));
       backToDashboardBtn.addEventListener("click", hideAllPages);
-
       sidebarProfileLink.addEventListener("click", () => showPage(profilePage));
       backToDashboardFromProfile.addEventListener("click", hideAllPages);
-
       messScannerLink.addEventListener("click", (e) => {
         e.preventDefault();
         showPage(messCouponPage);
@@ -1648,66 +1693,102 @@
       backToDashboardFromMess.addEventListener("click", hideAllPages);
       backToDashboardFromPass.addEventListener("click", hideAllPages);
 
-
       // --- MESS SCANNER FLOW LOGIC ---
       const mealButtons = document.querySelectorAll(".meal-button");
+      let codeReader = null;
+      let videoStream = null;
 
-      mealButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const mealType = button.querySelector('span').textContent;
+      function stopCamera() {
+        if (videoStream) {
+          videoStream.getTracks().forEach((track) => track.stop());
+          videoStream = null;
+        }
+        if (codeReader) {
+          codeReader.reset();
+        }
+      }
+
+      mealButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const mealType = button.querySelector("span").textContent;
           startScanFlow(mealType);
         });
       });
 
       function startScanFlow(mealType) {
-        // 1. Show Scanner
         showPage(cameraScannerPage);
-        
-        // 2. Simulate scan after 3 seconds
-        setTimeout(() => {
-          // 3. Hide scanner, show loading spinner
-          showPage(loadingPage);
+        codeReader = new ZXingBrowser.BrowserMultiFormatReader();
 
-          // 4. Simulate loading for 4.5 seconds
-          setTimeout(() => {
-            // 5. Hide loading, show the final mess pass
-            populateAndShowMessPass(mealType);
-          }, 4500);
+        navigator.mediaDevices
+          .getUserMedia({
+            video: { facingMode: "environment" },
+            audio: false,
+          })
+          .then((stream) => {
+            videoStream = stream;
+            const videoElement = document.getElementById("video-stream");
+            videoElement.srcObject = stream;
 
-        }, 3000);
+            codeReader
+              .decodeFromVideoStream(stream, "video-stream", (result, err) => {
+                if (result) {
+                  // Barcode DETECTED!
+                  console.log("Barcode detected:", result.getText());
+                  stopCamera();
+                  showLoadingAnimation(mealType);
+                }
+                if (err && !(err instanceof ZXingBrowser.NotFoundException)) {
+                  console.error("Barcode scan error:", err);
+                }
+              })
+              .catch((err) => {
+                console.error("Error initializing camera:", err);
+                alert("Could not initialize camera. Please check permissions.");
+                stopCamera();
+                showPage(messCouponPage);
+              });
+          })
+          .catch((err) => {
+            console.error("Camera permission error:", err);
+            alert("Camera access was denied. Please allow camera access.");
+            showPage(messCouponPage);
+          });
       }
-      
-      function populateAndShowMessPass(mealType) {
-        // Populate the data
-        document.getElementById('pass-meal-type').textContent = mealType;
-        // You can fetch these details from a data source or use static ones
-        document.getElementById('pass-reg-no').textContent = "12319278";
-        document.getElementById('pass-name').textContent = "Avdesh Jadon";
-        document.getElementById('pass-location').textContent = "Mess-1 B-8";
-        document.getElementById('pass-program').textContent = "P132:B.Tech. (Computer Science and Engineering) (2023)";
-        
-        // Set current date and time
-        const now = new Date();
-        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
-        document.getElementById('pass-date').textContent = now.toLocaleDateString('en-US', dateOptions).replace(/,/g, '');
 
-        const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
-        document.getElementById('pass-time').textContent = now.toLocaleTimeString('en-US', timeOptions);
+      function showLoadingAnimation(mealType) {
+        cameraScannerPage.classList.add("hidden");
+        messCouponPage.classList.remove("hidden");
+        messCouponPage.classList.add("content-blurred");
+        loadingPage.classList.remove("hidden");
         
-        // Show the page
+        setTimeout(() => {
+            loadingPage.classList.add("hidden");
+            messCouponPage.classList.remove("content-blurred");
+            messCouponPage.classList.add("hidden");
+            populateAndShowMessPass(mealType);
+        }, 4500);
+      }
+
+      function populateAndShowMessPass(mealType) {
+        document.getElementById("pass-meal-type").textContent = mealType;
+        const now = new Date();
+        const dateOptions = { month: "short", day: "2-digit", year: "numeric" };
+        document.getElementById("pass-date").textContent = now
+          .toLocaleDateString("en-US", dateOptions)
+          .replace(/,/g, "");
+        const timeOptions = { hour: "2-digit", minute: "2-digit", hour12: true };
+        document.getElementById("pass-time").textContent =
+          now.toLocaleTimeString("en-US", timeOptions);
+
         showPage(messPassPage);
-        
-        // Start the countdown
         startCountdown();
       }
 
       function startCountdown() {
-        clearInterval(countdownInterval); // Clear any existing timer
+        clearInterval(countdownInterval);
         let seconds = 30;
-        const countdownElement = document.getElementById('pass-countdown');
-        
+        const countdownElement = document.getElementById("pass-countdown");
         countdownElement.textContent = seconds;
-
         countdownInterval = setInterval(() => {
           seconds--;
           countdownElement.textContent = seconds;
@@ -1717,7 +1798,6 @@
           }
         }, 1000);
       }
-
     </script>
   </body>
 </html>
