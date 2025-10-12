@@ -1715,45 +1715,29 @@
         });
       });
 
+      
       function startScanFlow(mealType) {
         showPage(cameraScannerPage);
         codeReader = new ZXingBrowser.BrowserMultiFormatReader();
+        
+        // This is the most stable method that finds the first barcode and then stops.
+        codeReader.decodeOnceFromVideoDevice(undefined, 'video-stream')
+          .then(result => {
+              // Barcode DETECTED!
+              console.log("Barcode detected:", result.getText());
 
-        navigator.mediaDevices
-          .getUserMedia({
-            video: { facingMode: "environment" },
-            audio: false,
+              // This method automatically stops the camera, so we don't need to call a stop function.
+              
+              showLoadingAnimation(mealType);
           })
-          .then((stream) => {
-            videoStream = stream;
-            const videoElement = document.getElementById("video-stream");
-            videoElement.srcObject = stream;
-
-            codeReader
-              .decodeFromVideoStream(stream, "video-stream", (result, err) => {
-                if (result) {
-                  // Barcode DETECTED!
-                  console.log("Barcode detected:", result.getText());
-                  stopCamera();
-                  showLoadingAnimation(mealType);
-                }
-                if (err && !(err instanceof ZXingBrowser.NotFoundException)) {
-                  console.error("Barcode scan error:", err);
-                }
-              })
-              .catch((err) => {
-                console.error("Error initializing camera:", err);
-                alert("Could not initialize camera. Please check permissions.");
-                stopCamera();
-                showPage(messCouponPage);
-              });
-          })
-          .catch((err) => {
-            console.error("Camera permission error:", err);
-            alert("Camera access was denied. Please allow camera access.");
-            showPage(messCouponPage);
+          .catch(err => {
+              console.error("Camera or Scan Error:", err);
+              // We go back to the mess page if the user denies camera permission or another error occurs.
+              alert("Could not start camera. Please check permissions and try again.");
+              showPage(messCouponPage);
           });
       }
+       
 
       function showLoadingAnimation(mealType) {
         cameraScannerPage.classList.add("hidden");
