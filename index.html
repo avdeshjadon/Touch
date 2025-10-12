@@ -525,7 +525,7 @@
         position: sticky;
         top: 0;
       }
-      
+
       .page-header .icon {
         font-size: 1.6rem;
         cursor: pointer;
@@ -611,13 +611,17 @@
         font-weight: 300;
         color: var(--author-text-color);
       }
-      
+
       .profile-page-content {
-          padding: 15px;
+        padding: 15px;
       }
-      
+
       .profile-header-card {
-        background: linear-gradient( to right, var(--sidebar-grad-start), var(--sidebar-grad-end) );
+        background: linear-gradient(
+          to right,
+          var(--sidebar-grad-start),
+          var(--sidebar-grad-end)
+        );
         border-radius: 5px;
         padding: 20px;
         display: flex;
@@ -630,67 +634,67 @@
       }
 
       .profile-header-card img {
-          width: 130px;
-          height: 130px;
-          border-radius: 5px;
-          object-fit: cover;
-          margin-bottom: 15px;
+        width: 130px;
+        height: 130px;
+        border-radius: 5px;
+        object-fit: cover;
+        margin-bottom: 15px;
       }
 
       .profile-header-card h2 {
-          margin: 0 0 5px 0;
-          font-size: 1rem;
-          font-weight: 400;
+        margin: 0 0 5px 0;
+        font-size: 1rem;
+        font-weight: 400;
       }
-      
+
       .profile-header-card p {
-          margin: 0;
-          font-size: 0.8rem;
-          line-height: 1.4;
-          white-space: nowrap; 
+        margin: 0;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        white-space: nowrap;
       }
-      
+
       .profile-details-container {
         background-color: #ffffff;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
       }
 
       .profile-section {
-          padding: 0 20px;
+        padding: 0 20px;
       }
 
       .profile-section:last-child {
         padding-bottom: 15px;
       }
-      
+
       .profile-section h3 {
-          margin: 0 -20px 5px -20px;
-          padding: 8px 20px;
-          font-size: 1rem;
-          font-weight: 400;
-          background-color: #323232;
-          color: white;
-          border-bottom: 1px solid #1a1a1a;
-          border-radius: 0;
-          text-align: center;
-          margin-top: 20px;
+        margin: 0 -20px 5px -20px;
+        padding: 8px 20px;
+        font-size: 1rem;
+        font-weight: 400;
+        background-color: #323232;
+        color: white;
+        border-bottom: 1px solid #1a1a1a;
+        border-radius: 0;
+        text-align: center;
+        margin-top: 20px;
       }
-      
+
       .profile-field {
-          padding: 4px 0;
+        padding: 4px 0;
       }
-      
+
       .field-label {
-          color: #212121;
-          font-weight: 400;
-          font-size: 1rem;
-          line-height: 1.4;
+        color: #212121;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.4;
       }
-      
+
       .field-value {
-          color: #555;
-          font-weight: 300;
-          font-size: 0.8rem;
+        color: #555;
+        font-weight: 300;
+        font-size: 0.8rem;
       }
 
       /* --- MESS COUPON PAGE STYLES --- */
@@ -720,13 +724,17 @@
         cursor: pointer;
         margin-left: auto;
       }
-      
+
       .mess-profile-card {
-        background: linear-gradient(to right, var(--sidebar-grad-start), var(--sidebar-grad-end));
+        background: linear-gradient(
+          to right,
+          var(--sidebar-grad-start),
+          var(--sidebar-grad-end)
+        );
         border-radius: 5px;
         padding: 20px;
         color: var(--profile-text-color);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
       }
 
       .mess-profile-card .profile-pic {
@@ -746,7 +754,7 @@
         font-weight: 400;
         margin: 0 0 20px 0;
       }
-      
+
       .mess-profile-card .detail {
         margin-bottom: 12px;
         font-size: 0.85rem;
@@ -757,12 +765,12 @@
         font-weight: 500;
         display: block;
       }
-      
+
       .mess-meal-selection {
         height: 300px;
         background-color: #ffffff;
         padding: 20px 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
       }
 
       .scan-instruction {
@@ -775,16 +783,20 @@
 
       .meal-buttons-container {
         display: grid;
-        grid-template-columns: 1fr 1fr; 
+        grid-template-columns: 1fr 1fr;
         gap: 15px;
       }
-      
+
       .meal-button.dinner-btn {
         grid-column: 1 / 2;
       }
 
       .meal-button {
-        background: linear-gradient(to right, var(--sidebar-grad-start), var(--sidebar-grad-end));
+        background: linear-gradient(
+          to right,
+          var(--sidebar-grad-start),
+          var(--sidebar-grad-end)
+        );
         color: var(--profile-text-color);
         border: none;
         padding: 15px 10px;
@@ -798,6 +810,156 @@
         justify-content: center;
         align-items: center;
         gap: 8px;
+      }
+
+      /* --- SCANNER, LOADING, and PASS STYLES --- */
+      .camera-scanner-page {
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+      }
+      .viewfinder {
+        width: 70vw;
+        height: 70vw;
+        max-width: 280px;
+        max-height: 280px;
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        position: relative;
+        background: transparent;
+      }
+      .scan-line {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: red;
+        box-shadow: 0 0 10px red;
+        animation: scan-anim 2.5s linear infinite;
+      }
+      @keyframes scan-anim {
+        0% { top: 0%; }
+        50% { top: 100%; }
+        100% { top: 0%; }
+      }
+      .scanner-instruction {
+        margin-top: 20px;
+        font-size: 0.9rem;
+        color: #ccc;
+      }
+
+      .loading-page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255,255,255,0.9);
+      }
+
+      .loading-spinner {
+        width: 80px;
+        height: 80px;
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #e45e20;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .mess-pass-page-content {
+        padding: 20px;
+      }
+      .mess-pass-card {
+        background-color: #fff;
+        border-radius: 15px;
+        padding: 20px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        position: relative;
+        font-family: 'Poppins', sans-serif;
+      }
+      .pass-countdown {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: #e9ecef;
+        color: #495057;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        font-size: 1rem;
+        border: 2px solid #adb5bd;
+      }
+      .pass-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #ddd;
+        margin-bottom: 15px;
+      }
+      .pass-header img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      .pass-header .info h2 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #000;
+      }
+      .pass-header .info p {
+        margin: 2px 0;
+        font-size: 0.9rem;
+        color: #555;
+      }
+      .pass-details p {
+        margin: 4px 0 10px;
+        font-size: 0.85rem;
+        color: #666;
+      }
+      .pass-time {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1rem;
+        font-weight: 500;
+        margin-bottom: 15px;
+        color: #333;
+      }
+      .meal-approved {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2b9348;
+        margin-bottom: 15px;
+      }
+      .accepted-box {
+        border: 5px solid #6930c3;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+      }
+      .accepted-box .accepted-text {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #2b9348;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+      .accepted-box i {
+        font-size: 2.5rem;
       }
 
     </style>
@@ -875,7 +1037,9 @@
             <a href="#"><i class="bx bx-wrench"></i> Make Up Adjustment</a>
             <a href="#"><i class="bx bx-user-check"></i> Mentor Meeting Details</a>
             <a href="#"><i class="bx bx-restaurant"></i> Mess Food Feedback</a>
-            <a href="#" id="mess-scanner-link"><i class="bx bx-camera"></i> Mess Food Scanner</a>
+            <a href="#" id="mess-scanner-link"
+              ><i class="bx bx-camera"></i> Mess Food Scanner</a
+            >
             <a href="#"
               ><i class="bx bx-layer"></i> Open Minor Area Preference</a
             >
@@ -1061,205 +1225,233 @@
         </div>
       </div>
       <main class="messages-list">
-         <a href="#" class="message-card">
-           <h3>Suggestion Boxes Installed Across Campus</h3>
-           <p class="preview">
-             Dear Student, This is to inform you that suggestion boxes have
-             already been installed at various key locations to gather your valuable feedback.
-           </p>
-           <p class="meta">Dr. Neha Malhotra (Oct 10, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Provide Feedback on Student Support Services</h3>
-           <p class="preview">
-             Dear Student, this is to inform all students that the University
-             has initiated a feedback and rating system for all student support services.
-           </p>
-           <p class="meta">Dr. Neha Malhotra (Oct 09, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Registration for Interschool Armwrestling</h3>
-           <p class="preview">
-             Dear Students, Registrations are now open for the 2025 University
-             Interschool and USC Sports Championship. Please register before the deadline.
-           </p>
-           <p class="meta">Sandeep kaur (Oct 08, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Opening of Labs in Extended Hours</h3>
-           <p class="preview">
-             Dear Student, To facilitate the research work and enhancement of
-             practical learning, the labs will now be open until 8 PM on weekdays.
-           </p>
-           <p class="meta">Niraj Sharma (Oct 08, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Mid-Term Examination Schedule Published</h3>
-           <p class="preview">
-             This is to notify all students that the schedule for the upcoming Mid-Term examinations has been published on the UMS.
-           </p>
-           <p class="meta">Controller of Examinations (Oct 07, 2025)</p>
-         </a>
-          <a href="#" class="message-card">
-           <h3>Holiday Notice: University Closed on Monday</h3>
-           <p class="preview">
-             The university will remain closed on Monday, October 6th, 2025, on account of a national holiday. All classes will resume on Tuesday.
-           </p>
-           <p class="meta">University Administration (Oct 05, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Guest Lecture on Artificial Intelligence</h3>
-           <p class="preview">
-             A guest lecture by industry expert Dr. Anil Kumar on the future of AI is scheduled for this Friday. All CSE students are encouraged to attend.
-           </p>
-           <p class="meta">CSE Department (Oct 04, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Library Books Due Date Reminder</h3>
-           <p class="preview">
-             This is a reminder to return any overdue library books by the end of this week to avoid late fees. Please check your UMS portal.
-           </p>
-           <p class="meta">Central Library (Oct 03, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Placement Drive for Final Year Students</h3>
-           <p class="preview">
-             A placement drive by a leading tech company will be conducted next week for all final year B.Tech students. Details have been shared via email.
-           </p>
-           <p class="meta">Placement Cell (Oct 02, 2025)</p>
-         </a>
-          <a href="#" class="message-card">
-           <h3>Sports Fest "Spardha 2025" Registrations</h3>
-           <p class="preview">
-             Registrations for our annual sports fest "Spardha" are now open. Participate and showcase your talent in various sporting events.
-           </p>
-           <p class="meta">Student Welfare (Oct 01, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Hostel Mess Menu for October</h3>
-           <p class="preview">
-             The new mess menu for the month of October has been finalized and is available on the notice board and UMS.
-           </p>
-           <p class="meta">Hostel Administration (Sep 30, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Fee Payment Deadline Approaching</h3>
-           <p class="preview">
-             This is a final reminder that the last date for fee payment for the current semester is September 28th.
-           </p>
-           <p class="meta">Accounts Department (Sep 25, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Workshop on Ethical Hacking</h3>
-           <p class="preview">
-             A two-day workshop on ethical hacking will be conducted over the weekend. Limited seats available, register now.
-           </p>
-           <p class="meta">CSE Department (Sep 24, 2025)</p>
-         </a>
-         <a href="#" class="message-card">
-           <h3>Academic Calendar for the New Session</h3>
-           <p class="preview">
-             The complete academic calendar for the session 2025-26, including all holidays and examination dates, has been uploaded.
-           </p>
-           <p class="meta">Registrar Office (Sep 22, 2025)</p>
-         </a>
-          <a href="#" class="message-card">
-           <h3>Welcome Message for New Students</h3>
-           <p class="preview">
-             A warm welcome to all the new students joining our university. We wish you a successful and enriching academic journey.
-           </p>
-           <p class="meta">Vice Chancellor (Sep 20, 2025)</p>
-         </a>
+        <a href="#" class="message-card">
+          <h3>Suggestion Boxes Installed Across Campus</h3>
+          <p class="preview">
+            Dear Student, This is to inform you that suggestion boxes have
+            already been installed at various key locations to gather your
+            valuable feedback.
+          </p>
+          <p class="meta">Dr. Neha Malhotra (Oct 10, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Provide Feedback on Student Support Services</h3>
+          <p class="preview">
+            Dear Student, this is to inform all students that the University has
+            initiated a feedback and rating system for all student support
+            services.
+          </p>
+          <p class="meta">Dr. Neha Malhotra (Oct 09, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Registration for Interschool Armwrestling</h3>
+          <p class="preview">
+            Dear Students, Registrations are now open for the 2025 University
+            Interschool and USC Sports Championship. Please register before the
+            deadline.
+          </p>
+          <p class="meta">Sandeep kaur (Oct 08, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Opening of Labs in Extended Hours</h3>
+          <p class="preview">
+            Dear Student, To facilitate the research work and enhancement of
+            practical learning, the labs will now be open until 8 PM on
+            weekdays.
+          </p>
+          <p class="meta">Niraj Sharma (Oct 08, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Mid-Term Examination Schedule Published</h3>
+          <p class="preview">
+            This is to notify all students that the schedule for the upcoming
+            Mid-Term examinations has been published on the UMS.
+          </p>
+          <p class="meta">Controller of Examinations (Oct 07, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Holiday Notice: University Closed on Monday</h3>
+          <p class="preview">
+            The university will remain closed on Monday, October 6th, 2025, on
+            account of a national holiday. All classes will resume on Tuesday.
+          </p>
+          <p class="meta">University Administration (Oct 05, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Guest Lecture on Artificial Intelligence</h3>
+          <p class="preview">
+            A guest lecture by industry expert Dr. Anil Kumar on the future of
+            AI is scheduled for this Friday. All CSE students are encouraged to
+            attend.
+          </p>
+          <p class="meta">CSE Department (Oct 04, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Library Books Due Date Reminder</h3>
+          <p class="preview">
+            This is a reminder to return any overdue library books by the end of
+            this week to avoid late fees. Please check your UMS portal.
+          </p>
+          <p class="meta">Central Library (Oct 03, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Placement Drive for Final Year Students</h3>
+          <p class="preview">
+            A placement drive by a leading tech company will be conducted next
+            week for all final year B.Tech students. Details have been shared
+            via email.
+          </p>
+          <p class="meta">Placement Cell (Oct 02, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Sports Fest "Spardha 2025" Registrations</h3>
+          <p class="preview">
+            Registrations for our annual sports fest "Spardha" are now open.
+            Participate and showcase your talent in various sporting events.
+          </p>
+          <p class="meta">Student Welfare (Oct 01, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Hostel Mess Menu for October</h3>
+          <p class="preview">
+            The new mess menu for the month of October has been finalized and is
+            available on the notice board and UMS.
+          </p>
+          <p class="meta">Hostel Administration (Sep 30, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Fee Payment Deadline Approaching</h3>
+          <p class="preview">
+            This is a final reminder that the last date for fee payment for the
+            current semester is September 28th.
+          </p>
+          <p class="meta">Accounts Department (Sep 25, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Workshop on Ethical Hacking</h3>
+          <p class="preview">
+            A two-day workshop on ethical hacking will be conducted over the
+            weekend. Limited seats available, register now.
+          </p>
+          <p class="meta">CSE Department (Sep 24, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Academic Calendar for the New Session</h3>
+          <p class="preview">
+            The complete academic calendar for the session 2025-26, including
+            all holidays and examination dates, has been uploaded.
+          </p>
+          <p class="meta">Registrar Office (Sep 22, 2025)</p>
+        </a>
+        <a href="#" class="message-card">
+          <h3>Welcome Message for New Students</h3>
+          <p class="preview">
+            A warm welcome to all the new students joining our university. We
+            wish you a successful and enriching academic journey.
+          </p>
+          <p class="meta">Vice Chancellor (Sep 20, 2025)</p>
+        </a>
       </main>
     </div>
 
     <div id="profile-page" class="full-page hidden">
-        <header class="page-header">
-            <i class="bx bx-arrow-back icon" id="back-to-dashboard-from-profile"></i>
-            <h1>Profile</h1>
-            <i class="bx bx-qr icon"></i>
-        </header>
-        <main class="profile-page-content">
-            <div class="profile-header-card">
-                <img src="avdesh.png" alt="User Profile Picture" />
-                <h2>Avdesh Jadon</h2>
-                <p>P132:B.Tech. (Computer Science and Engineering)(2023)</p>
+      <header class="page-header">
+        <i
+          class="bx bx-arrow-back icon"
+          id="back-to-dashboard-from-profile"
+        ></i>
+        <h1>Profile</h1>
+        <i class="bx bx-qr icon"></i>
+      </header>
+      <main class="profile-page-content">
+        <div class="profile-header-card">
+          <img src="avdesh.png" alt="User Profile Picture" />
+          <h2>Avdesh Jadon</h2>
+          <p>P132:B.Tech. (Computer Science and Engineering)(2023)</p>
+        </div>
+
+        <div class="profile-details-container">
+          <div class="profile-section">
+            <h3>Basic</h3>
+            <div class="profile-field">
+              <div class="field-label">Father's Name</div>
+              <div class="field-value">Kumarpal Jadon</div>
             </div>
-
-            <div class="profile-details-container">
-              <div class="profile-section">
-                  <h3>Basic</h3>
-                  <div class="profile-field">
-                      <div class="field-label">Father's Name</div>
-                      <div class="field-value">Kumarpal Jadon</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Mother's Name</div>
-                      <div class="field-value">Suman Devi</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Permanent Address</div>
-                      <div class="field-value">Jatpura, Agra - 283111- Distt:Agra -(Uttar Pradesh) - India</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Correspondence Address</div>
-                      <div class="field-value">Jatpura, Agra - 283111- Distt:Agra -(Uttar Pradesh) - India</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Contact No.</div>
-                      <div class="field-value">7302090526</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Email</div>
-                      <div class="field-value">avdeshjadon2003@gmail.com</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Date of Birth</div>
-                      <div class="field-value">06 Jul 2006</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Gender</div>
-                      <div class="field-value">Male</div>
-                  </div>
-              </div>
-
-              <div class="profile-section">
-                  <h3>Academic Details</h3>
-                  <div class="profile-field">
-                      <div class="field-label">Program</div>
-                      <div class="field-value">P132:B.Tech. (Computer Science and Engineering)(2023)</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Admission Session</div>
-                      <div class="field-value">2023-1</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Batch</div>
-                      <div class="field-value">2023</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Section</div>
-                      <div class="field-value">K23SE</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">TPC</div>
-                      <div class="field-value">Not Applicable</div>
-                  </div>
-              </div>
-
-              <div class="profile-section">
-                  <h3>Hostel Details</h3>
-                  <div class="profile-field">
-                      <div class="field-label">Hostel</div>
-                      <div class="field-value">Boys Apartment- B817-Bed D (Apt AC Four Seater (With Pantry))</div>
-                  </div>
-                  <div class="profile-field">
-                      <div class="field-label">Warden</div>
-                      <div class="field-value">24305::Vishal Bhanot (9915020440)</div>
-                  </div>
+            <div class="profile-field">
+              <div class="field-label">Mother's Name</div>
+              <div class="field-value">Suman Devi</div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Permanent Address</div>
+              <div class="field-value">
+                Jatpura, Agra - 283111- Distt:Agra -(Uttar Pradesh) - India
               </div>
             </div>
-        </main>
+            <div class="profile-field">
+              <div class="field-label">Correspondence Address</div>
+              <div class="field-value">
+                Jatpura, Agra - 283111- Distt:Agra -(Uttar Pradesh) - India
+              </div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Contact No.</div>
+              <div class="field-value">7302090526</div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Email</div>
+              <div class="field-value">avdeshjadon2003@gmail.com</div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Date of Birth</div>
+              <div class="field-value">06 Jul 2006</div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Gender</div>
+              <div class="field-value">Male</div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h3>Academic Details</h3>
+            <div class="profile-field">
+              <div class="field-label">Program</div>
+              <div class="field-value">
+                P132:B.Tech. (Computer Science and Engineering)(2023)
+              </div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Admission Session</div>
+              <div class="field-value">2023-1</div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Batch</div>
+              <div class="field-value">2023</div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Section</div>
+              <div class="field-value">K23SE</div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">TPC</div>
+              <div class="field-value">Not Applicable</div>
+            </div>
+          </div>
+
+          <div class="profile-section">
+            <h3>Hostel Details</h3>
+            <div class="profile-field">
+              <div class="field-label">Hostel</div>
+              <div class="field-value">
+                Boys Apartment- B817-Bed D (Apt AC Four Seater (With Pantry))
+              </div>
+            </div>
+            <div class="profile-field">
+              <div class="field-label">Warden</div>
+              <div class="field-value">24305::Vishal Bhanot (9915020440)</div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
     <div id="mess-coupon-page" class="full-page hidden">
@@ -1270,43 +1462,90 @@
       </header>
       <main class="mess-coupon-page-content">
         <div class="mess-profile-card">
-            <img src="avdesh.png" alt="Profile Picture" class="profile-pic" />
-            <h2 class="name">Avdesh Jadon</h2>
-            <div class="detail">
-              <span class="detail-label">Father's Name</span>
-              Kumarpal Jadon
-            </div>
-             <div class="detail">
-              <span class="detail-label">Mother's Name</span>
-              Suman Devi
-            </div>
-             <div class="detail">
-              <span class="detail-label">Program Name</span>
-              P132:B.Tech. (Computer Science and Engineering)(2023)
-            </div>
-             <div class="detail">
-              <span class="detail-label">Hostel</span>
-              Boys Apartment- B817-Bed D
-            </div>
+          <img src="avdesh.png" alt="Profile Picture" class="profile-pic" />
+          <h2 class="name">Avdesh Jadon</h2>
+          <div class="detail">
+            <span class="detail-label">Father's Name</span>
+            Kumarpal Jadon
+          </div>
+          <div class="detail">
+            <span class="detail-label">Mother's Name</span>
+            Suman Devi
+          </div>
+          <div class="detail">
+            <span class="detail-label">Program Name</span>
+            P132:B.Tech. (Computer Science and Engineering)(2023)
+          </div>
+          <div class="detail">
+            <span class="detail-label">Hostel</span>
+            Boys Apartment- B817-Bed D
+          </div>
         </div>
-        
+
         <div class="mess-meal-selection">
-            <p class="scan-instruction">Tap on the meal name to scan and avail food.</p>
-            <div class="meal-buttons-container">
-              <button class="meal-button">
-                <span>Breakfast</span> <i class='bx bx-right-arrow-alt'></i>
-              </button>
-              <button class="meal-button">
-                <span>Lunch</span> <i class='bx bx-right-arrow-alt'></i>
-              </button>
-              <button class="meal-button dinner-btn">
-                <span>Dinner</span> <i class='bx bx-right-arrow-alt'></i>
-              </button>
-            </div>
+          <p class="scan-instruction">
+            Tap on the meal name to scan and avail food.
+          </p>
+          <div class="meal-buttons-container">
+            <button class="meal-button">
+              <span>Breakfast</span> <i class="bx bx-right-arrow-alt"></i>
+            </button>
+            <button class="meal-button">
+              <span>Lunch</span> <i class="bx bx-right-arrow-alt"></i>
+            </button>
+            <button class="meal-button dinner-btn">
+              <span>Dinner</span> <i class="bx bx-right-arrow-alt"></i>
+            </button>
+          </div>
         </div>
       </main>
     </div>
 
+    <div id="camera-scanner-page" class="full-page camera-scanner-page hidden">
+      <div class="viewfinder">
+        <div class="scan-line"></div>
+      </div>
+      <p class="scanner-instruction">
+        Place a barcode inside the viewfinder rectangle to scan it.
+      </p>
+    </div>
+
+    <div id="loading-page" class="full-page loading-page hidden">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <div id="mess-pass-page" class="full-page hidden">
+        <header class="page-header">
+            <i class="bx bx-arrow-back icon" id="back-to-dashboard-from-pass"></i>
+            <h1>Mess Pass</h1>
+        </header>
+        <main class="mess-pass-page-content">
+            <div class="mess-pass-card">
+                <div id="pass-countdown" class="pass-countdown">30</div>
+                <div class="pass-header">
+                    <img src="avdesh.png" alt="Profile Pic">
+                    <div class="info">
+                        <h2 id="pass-meal-type">Lunch</h2>
+                        <p id="pass-reg-no">12319278</p>
+                        <p id="pass-name">Avdesh Jadon</p>
+                        <p id="pass-location">Mess-1 B-8</p>
+                    </div>
+                </div>
+                <p id="pass-program">P132:B.Tech. (Computer Science and Engineering) (2023)</p>
+                <div class="pass-time">
+                    <span id="pass-date">Oct 05, 2025</span>
+                    <span id="pass-time">01:34 PM</span>
+                </div>
+                <div class="meal-approved">Meal Approved</div>
+                <div class="accepted-box">
+                    <div class="accepted-text">
+                        <i class='bx bxs-check-circle'></i>
+                        <span>ACCEPTED</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
 
     <script>
       const hamburgerMenu = document.getElementById("hamburger-menu");
@@ -1347,20 +1586,29 @@
         });
       });
 
-      
       // --- PAGE NAVIGATION LOGIC ---
-      
+
       const notificationIcon = document.querySelector(".notification-icon");
       const messagesPage = document.getElementById("messages-page");
       const backToDashboardBtn = document.getElementById("back-to-dashboard");
-      
+
       const sidebarProfileLink = document.getElementById("sidebar-profile-link");
       const profilePage = document.getElementById("profile-page");
-      const backToDashboardFromProfile = document.getElementById("back-to-dashboard-from-profile");
+      const backToDashboardFromProfile = document.getElementById(
+        "back-to-dashboard-from-profile"
+      );
 
       const messScannerLink = document.getElementById("mess-scanner-link");
       const messCouponPage = document.getElementById("mess-coupon-page");
-      const backToDashboardFromMess = document.getElementById("back-to-dashboard-from-mess");
+      const backToDashboardFromMess = document.getElementById(
+        "back-to-dashboard-from-mess"
+      );
+
+      // New pages for scanner flow
+      const cameraScannerPage = document.getElementById("camera-scanner-page");
+      const loadingPage = document.getElementById("loading-page");
+      const messPassPage = document.getElementById("mess-pass-page");
+      const backToDashboardFromPass = document.getElementById("back-to-dashboard-from-pass");
 
 
       const mainHeader = document.querySelector(".main-header");
@@ -1368,32 +1616,107 @@
       const bottomNav = document.querySelector(".bottom-nav");
       const dashboardElements = [mainHeader, mainContent, bottomNav];
 
+      const allPages = [messagesPage, profilePage, messCouponPage, cameraScannerPage, loadingPage, messPassPage];
+      
+      let countdownInterval; // To hold the interval ID
+
       function showPage(pageToShow) {
-        if(sidebar.classList.contains("open")) {
-            toggleSidebar();
+        if (sidebar.classList.contains("open")) {
+          toggleSidebar();
         }
         dashboardElements.forEach((el) => el.classList.add("hidden"));
+        allPages.forEach(p => p.classList.add("hidden"));
         pageToShow.classList.remove("hidden");
       }
 
       function hideAllPages() {
-        messagesPage.classList.add("hidden");
-        profilePage.classList.add("hidden");
-        messCouponPage.classList.add("hidden");
+        clearInterval(countdownInterval); // Stop timer when leaving the pass page
+        allPages.forEach(p => p.classList.add("hidden"));
         dashboardElements.forEach((el) => el.classList.remove("hidden"));
       }
 
       notificationIcon.addEventListener("click", () => showPage(messagesPage));
       backToDashboardBtn.addEventListener("click", hideAllPages);
-      
+
       sidebarProfileLink.addEventListener("click", () => showPage(profilePage));
       backToDashboardFromProfile.addEventListener("click", hideAllPages);
 
       messScannerLink.addEventListener("click", (e) => {
-        e.preventDefault(); 
-        showPage(messCouponPage)
+        e.preventDefault();
+        showPage(messCouponPage);
       });
       backToDashboardFromMess.addEventListener("click", hideAllPages);
+      backToDashboardFromPass.addEventListener("click", hideAllPages);
+
+
+      // --- MESS SCANNER FLOW LOGIC ---
+      const mealButtons = document.querySelectorAll(".meal-button");
+
+      mealButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const mealType = button.querySelector('span').textContent;
+          startScanFlow(mealType);
+        });
+      });
+
+      function startScanFlow(mealType) {
+        // 1. Show Scanner
+        showPage(cameraScannerPage);
+        
+        // 2. Simulate scan after 3 seconds
+        setTimeout(() => {
+          // 3. Hide scanner, show loading spinner
+          showPage(loadingPage);
+
+          // 4. Simulate loading for 4.5 seconds
+          setTimeout(() => {
+            // 5. Hide loading, show the final mess pass
+            populateAndShowMessPass(mealType);
+          }, 4500);
+
+        }, 3000);
+      }
+      
+      function populateAndShowMessPass(mealType) {
+        // Populate the data
+        document.getElementById('pass-meal-type').textContent = mealType;
+        // You can fetch these details from a data source or use static ones
+        document.getElementById('pass-reg-no').textContent = "12319278";
+        document.getElementById('pass-name').textContent = "Avdesh Jadon";
+        document.getElementById('pass-location').textContent = "Mess-1 B-8";
+        document.getElementById('pass-program').textContent = "P132:B.Tech. (Computer Science and Engineering) (2023)";
+        
+        // Set current date and time
+        const now = new Date();
+        const dateOptions = { month: 'short', day: '2-digit', year: 'numeric' };
+        document.getElementById('pass-date').textContent = now.toLocaleDateString('en-US', dateOptions).replace(/,/g, '');
+
+        const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+        document.getElementById('pass-time').textContent = now.toLocaleTimeString('en-US', timeOptions);
+        
+        // Show the page
+        showPage(messPassPage);
+        
+        // Start the countdown
+        startCountdown();
+      }
+
+      function startCountdown() {
+        clearInterval(countdownInterval); // Clear any existing timer
+        let seconds = 30;
+        const countdownElement = document.getElementById('pass-countdown');
+        
+        countdownElement.textContent = seconds;
+
+        countdownInterval = setInterval(() => {
+          seconds--;
+          countdownElement.textContent = seconds;
+          if (seconds <= 0) {
+            clearInterval(countdownInterval);
+            countdownElement.textContent = "0";
+          }
+        }, 1000);
+      }
 
     </script>
   </body>
