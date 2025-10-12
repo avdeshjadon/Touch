@@ -905,16 +905,21 @@
         }
       }
 
+      /* === MODIFIED MESS PASS STYLES === */
       .mess-pass-page-content {
         padding: 20px;
       }
       .mess-pass-card {
         background-color: #fff;
-        border-radius: 15px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
         padding: 20px;
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         position: relative;
         font-family: "Poppins", sans-serif;
+        margin-bottom: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
       }
       .pass-countdown {
         position: absolute;
@@ -936,26 +941,25 @@
         display: flex;
         align-items: center;
         gap: 15px;
-        padding-bottom: 15px;
-        border-bottom: 1px dashed #ddd;
-        margin-bottom: 15px;
       }
       .pass-header img {
-        width: 70px;
-        height: 70px;
+        width: 140px;
+        height: 140px;
         border-radius: 50%;
         object-fit: cover;
+        border: 2px solid black;
       }
       .pass-header .info h2 {
         margin: 0;
-        font-size: 1.2rem;
-        font-weight: 600;
+        font-size: 1.6rem;
+        font-weight: 700;
         color: #000;
       }
       .pass-header .info p {
         margin: 2px 0;
         font-size: 0.9rem;
         color: #555;
+        font-weight: 500;
       }
       .pass-details p {
         margin: 4px 0 10px;
@@ -965,23 +969,30 @@
       .pass-time {
         display: flex;
         justify-content: space-between;
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 500;
-        margin-bottom: 15px;
+        margin: 15px 0;
         color: #333;
       }
       .meal-approved {
         text-align: center;
-        font-size: 1.1rem;
+        font-size: 1.4rem;
         font-weight: 600;
-        color: #2b9348;
+        color: #71bb3f;
         margin-bottom: 15px;
       }
+
+      /* === CORRECTED STYLES FOR ACCEPTED BOX === */
       .accepted-box {
-        border: 5px solid #6930c3;
-        border-radius: 10px;
+        background-color: #fff;
+        border: 20px solid #551149;
         padding: 15px;
-        text-align: center;
+        height: 400px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .accepted-box .accepted-text {
         font-size: 2rem;
@@ -1553,19 +1564,15 @@
 
     <div id="loading-page" class="full-page loading-page hidden">
       <div class="loading-container">
-        <img
-          src="seal.svg"
-          alt="University Seal"
-          class="loading-seal"
-        />
+        <img src="seal.svg" alt="University Seal" class="loading-seal" />
         <div class="loading-spinner"></div>
       </div>
     </div>
 
     <div id="mess-pass-page" class="full-page hidden">
       <header class="page-header">
-        <i class="bx bx-arrow-back icon" id="back-to-dashboard-from-pass"></i>
         <h1>Mess Pass</h1>
+        <i class="bx bx-x icon" id="back-to-dashboard-from-pass"></i>
       </header>
       <main class="mess-pass-page-content">
         <div class="mess-pass-card">
@@ -1587,17 +1594,15 @@
             <span id="pass-time">09:41 AM</span>
           </div>
           <div class="meal-approved">Meal Approved</div>
-          <div class="accepted-box">
-            <div class="accepted-text">
-              <i class="bx bxs-check-circle"></i>
-              <span>ACCEPTED</span>
-            </div>
+        </div>
+        <div class="accepted-box">
+          <div class="accepted-text">
+            <i class="bx bxs-check-circle"></i>
+            <span>ACCEPTED</span>
           </div>
         </div>
       </main>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
 
