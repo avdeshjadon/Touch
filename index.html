@@ -889,10 +889,10 @@
         position: absolute;
       }
       .loading-spinner {
-        width: 90px;
-        height: 90px;
-        border: 5px solid rgba(228, 94, 32, 0.2);
-        border-top: 5px solid var(--sidebar-grad-start);
+        width: 70px;
+        height: 70px;
+        border: 4px solid rgba(228, 94, 32, 0.2);
+        border-top: 3px solid var(--sidebar-grad-start);
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
@@ -1036,7 +1036,9 @@
               ><i class="bx bx-chalkboard"></i> Evaluation of Teaching
               Internship</a
             >
-            <a href="#"><i class="bx bx-calendar-check"></i> Event Attendance</a>
+            <a href="#"
+              ><i class="bx bx-calendar-check"></i> Event Attendance</a
+            >
             <a href="#"
               ><i class="bx bx-qr-scan"></i> Event Attendance QR Scanner</a
             >
@@ -1066,9 +1068,13 @@
               ><i class="bx bx-book-open"></i> Library Resource Feedback</a
             >
             <a href="#"><i class="bx bx-search-alt"></i> Library Search</a>
-            <a href="#"><i class="bx bx-calendar-heart"></i> List of Holidays</a>
+            <a href="#"
+              ><i class="bx bx-calendar-heart"></i> List of Holidays</a
+            >
             <a href="#"><i class="bx bx-wrench"></i> Make Up Adjustment</a>
-            <a href="#"><i class="bx bx-user-check"></i> Mentor Meeting Details</a>
+            <a href="#"
+              ><i class="bx bx-user-check"></i> Mentor Meeting Details</a
+            >
             <a href="#"><i class="bx bx-restaurant"></i> Mess Food Feedback</a>
             <a href="#" id="mess-scanner-link"
               ><i class="bx bx-camera"></i> Mess Food Scanner</a
@@ -1081,9 +1087,7 @@
               ><i class="bx bx-barcode-reader"></i> Placement Barcode Scanner</a
             >
             <a href="#"><i class="bx bx-briefcase-alt"></i> Placement Drive</a>
-            <a href="#"
-              ><i class="bx bx-poll"></i> Placement Drive Summary</a
-            >
+            <a href="#"><i class="bx bx-poll"></i> Placement Drive Summary</a>
             <a href="#"><i class="bx bx-train"></i> Railway Concession Form</a>
             <a href="#"><i class="bx bx-revision"></i> ReAppear Registration</a>
             <a href="#"><i class="bx bx-line-chart"></i> Report Card</a>
@@ -1095,8 +1099,12 @@
             <a href="#"
               ><i class="bx bx-bulb"></i> Skill Development Feedback</a
             >
-            <a href="#"><i class="bx bx-bowl-rice"></i> Special Food Services</a>
-            <a href="#"><i class="bx bx-user-pin"></i> Student Class Feedback</a>
+            <a href="#"
+              ><i class="bx bx-bowl-rice"></i> Special Food Services</a
+            >
+            <a href="#"
+              ><i class="bx bx-user-pin"></i> Student Class Feedback</a
+            >
             <a href="#"
               ><i class="bx bx-message-detail"></i> Student Feedback</a
             >
@@ -1546,7 +1554,7 @@
     <div id="loading-page" class="full-page loading-page hidden">
       <div class="loading-container">
         <img
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0OCIgZmlsbD0iI2YwZjBmMCIgc3Ryb2tlPSIjZWVlIiBzdHJva2Utd2lkdGg9IjQiLz48dGV4dCB4PSI1MCUiIHk9IjU1JSIgZm9udC1mYW1pbHk9InNlcmlmIiBmb250LXNpemU9IjQwIiBmb250LXdlaWdodD0iYm9sZCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iI2M5OGEwMCI+UzwvdGV4dD48L3N2Zz4="
+          src="seal.svg"
           alt="University Seal"
           class="loading-seal"
         />
@@ -1556,10 +1564,7 @@
 
     <div id="mess-pass-page" class="full-page hidden">
       <header class="page-header">
-        <i
-          class="bx bx-arrow-back icon"
-          id="back-to-dashboard-from-pass"
-        ></i>
+        <i class="bx bx-arrow-back icon" id="back-to-dashboard-from-pass"></i>
         <h1>Mess Pass</h1>
       </header>
       <main class="mess-pass-page-content">
@@ -1591,6 +1596,8 @@
         </div>
       </main>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
 
@@ -1635,7 +1642,9 @@
       const notificationIcon = document.querySelector(".notification-icon");
       const messagesPage = document.getElementById("messages-page");
       const backToDashboardBtn = document.getElementById("back-to-dashboard");
-      const sidebarProfileLink = document.getElementById("sidebar-profile-link");
+      const sidebarProfileLink = document.getElementById(
+        "sidebar-profile-link"
+      );
       const profilePage = document.getElementById("profile-page");
       const backToDashboardFromProfile = document.getElementById(
         "back-to-dashboard-from-profile"
@@ -1698,14 +1707,16 @@
       let codeReader = null;
       let videoStream = null;
 
+      // ✅ CORRECTED FUNCTION
       function stopCamera() {
+        // This is the most important part: stopping the video tracks releases the camera.
         if (videoStream) {
           videoStream.getTracks().forEach((track) => track.stop());
           videoStream = null;
         }
-        if (codeReader) {
-          codeReader.reset();
-        }
+
+        // The line that caused the error is removed. We'll just nullify the reader.
+        codeReader = null;
       }
 
       mealButtons.forEach((button) => {
@@ -1715,41 +1726,38 @@
         });
       });
 
-      
       function startScanFlow(mealType) {
         showPage(cameraScannerPage);
         codeReader = new ZXingBrowser.BrowserMultiFormatReader();
-        
-        // This is the most stable method that finds the first barcode and then stops.
-        codeReader.decodeOnceFromVideoDevice(undefined, 'video-stream')
-          .then(result => {
-              // Barcode DETECTED!
-              console.log("Barcode detected:", result.getText());
 
-              // This method automatically stops the camera, so we don't need to call a stop function.
-              
-              showLoadingAnimation(mealType);
+        codeReader
+          .decodeOnceFromVideoDevice(undefined, "video-stream")
+          .then((result) => {
+            console.log("Barcode detected:", result.getText());
+            // This method automatically stops the stream, but we still define a robust stopCamera function for manual back actions.
+            showLoadingAnimation(mealType);
           })
-          .catch(err => {
-              console.error("Camera or Scan Error:", err);
-              // We go back to the mess page if the user denies camera permission or another error occurs.
-              alert("Could not start camera. Please check permissions and try again.");
-              showPage(messCouponPage);
+          .catch((err) => {
+            console.error("Camera or Scan Error:", err);
+            // We go back to the mess page if the user denies camera permission or another error occurs.
+            alert(
+              "Could not start camera. Please check permissions and try again."
+            );
+            hideAllPages(); // Go back to the dashboard if there's an error
           });
       }
-       
 
       function showLoadingAnimation(mealType) {
         cameraScannerPage.classList.add("hidden");
         messCouponPage.classList.remove("hidden");
         messCouponPage.classList.add("content-blurred");
         loadingPage.classList.remove("hidden");
-        
+
         setTimeout(() => {
-            loadingPage.classList.add("hidden");
-            messCouponPage.classList.remove("content-blurred");
-            messCouponPage.classList.add("hidden");
-            populateAndShowMessPass(mealType);
+          loadingPage.classList.add("hidden");
+          messCouponPage.classList.remove("content-blurred");
+          messCouponPage.classList.add("hidden");
+          populateAndShowMessPass(mealType);
         }, 4500);
       }
 
@@ -1758,9 +1766,13 @@
         const now = new Date();
         const dateOptions = { month: "short", day: "2-digit", year: "numeric" };
         document.getElementById("pass-date").textContent = now
-          .toLocaleDateString("en-US", dateOptions)
+          .toLocaleString("en-US", dateOptions)
           .replace(/,/g, "");
-        const timeOptions = { hour: "2-digit", minute: "2-digit", hour12: true };
+        const timeOptions = {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        };
         document.getElementById("pass-time").textContent =
           now.toLocaleTimeString("en-US", timeOptions);
 
