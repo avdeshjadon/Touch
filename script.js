@@ -97,14 +97,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   notificationIcon.addEventListener("click", () => showPage(messagesPage));
   sidebarProfileLink.addEventListener("click", () => showPage(profilePage));
-  messScannerLink.addEventListener("click", (e) => {
+
+  function handleMessScannerClick(e) {
     e.preventDefault();
-    showPage(messCouponPage);
-  });
-  messScannerTile.addEventListener("click", (e) => {
-    e.preventDefault();
-    showPage(messCouponPage);
-  });
+    if (window.currentUserTokens > 0) {
+      showPage(messCouponPage);
+    } else {
+      alert("You don't have sufficient tokens");
+    }
+  }
+
+  messScannerLink.addEventListener("click", handleMessScannerClick);
+  messScannerTile.addEventListener("click", handleMessScannerClick);
 
   backToDashboardBtn.addEventListener("click", hideAllPages);
   backToDashboardFromProfile.addEventListener("click", hideAllPages);
@@ -117,7 +121,10 @@ document.addEventListener("DOMContentLoaded", function () {
       videoStream.getTracks().forEach((track) => track.stop());
       videoStream = null;
     }
-    codeReader = null;
+    if (codeReader) {
+      codeReader.reset();
+      codeReader = null;
+    }
   }
 
   mealButtons.forEach((button) => {
@@ -134,18 +141,20 @@ document.addEventListener("DOMContentLoaded", function () {
     codeReader
       .decodeOnceFromVideoDevice(undefined, "video-stream")
       .then((result) => {
-        navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then((stream) => {
             videoStream = stream;
-        });
+          });
         console.log("Barcode detected:", result.getText());
         showLoadingAnimation(mealType);
       })
       .catch((err) => {
         console.error("Camera or Scan Error:", err);
-        alert(
-          "Could not start camera. Please check permissions and try again."
-        );
-        hideAllPages();
+        if (err && !(err instanceof ZXingBrowser.NotFoundException)) {
+            alert("Could not start camera. Please check permissions and try again.");
+            hideAllPages();
+        }
       });
   }
 
@@ -165,6 +174,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function populateAndShowMessPass(mealType) {
+    if (window.deductToken && typeof window.deductToken === 'function') {
+        window.deductToken(window.UNIQUE_USER_ID);
+    }
+
     document.getElementById("pass-meal-type").textContent = mealType;
     const now = new Date();
     const dateOptions = {

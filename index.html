@@ -98,6 +98,12 @@
               ><i class="bx bx-user-check"></i> Mentor Meeting Details</a
             >
             <a href="#"><i class="bx bx-restaurant"></i> Mess Food Feedback</a>
+
+            <a href="#" id="tokens-link">
+              <i class="bx bx-coin-stack"></i>
+              <span>Tokens</span>
+            </a>
+
             <a href="#" id="mess-scanner-link"
               ><i class="bx bx-camera"></i> Mess Food Scanner</a
             >
@@ -723,6 +729,26 @@
       </main>
     </div>
 
+    <div id="tokens-modal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <span id="modal-close-btn" class="modal-close">&times;</span>
+        <h2>Available Tokens</h2>
+        <div class="token-display">
+          <i class="bx bxs-coin-stack"></i>
+          <p id="modal-token-count">0</p>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"
+      type="module"
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js"
+      type="module"
+    ></script>
+    <script src="registration.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
     <script src="script.js"></script>
   </body>

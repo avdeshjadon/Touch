@@ -528,7 +528,6 @@ body.sidebar-open .bottom-nav {
   transition: filter 0.3s ease-in-out;
 }
 
-/* ***** START OF HEADER FIX ***** */
 .page-header {
   display: flex;
   justify-content: space-between;
@@ -540,7 +539,6 @@ body.sidebar-open .bottom-nav {
   flex-shrink: 0;
   position: sticky;
   top: 0;
-  /* Added to act as a reference for absolute children */
   position: relative; 
 }
 
@@ -553,12 +551,10 @@ body.sidebar-open .bottom-nav {
   margin: 0;
   font-size: 1.2rem;
   font-weight: 500;
-  /* Making it a flex item to center it */
   flex-grow: 1; 
   text-align: center;
 }
 
-/* This targets the 'X' icon ONLY on the mess pass page */
 #mess-pass-page .page-header .icon {
   position: absolute;
   right: 15px;
@@ -566,13 +562,10 @@ body.sidebar-open .bottom-nav {
   transform: translateY(-50%);
 }
 
-/* This ensures the H1 on the mess pass page doesn't overlap the icon */
 #mess-pass-page .page-header h1 {
-  padding-right: 30px; /* Space for the icon */
-  padding-left: 30px; /* Balance the space */
+  padding-right: 30px;
+  padding-left: 30px;
 }
-/* ***** END OF HEADER FIX ***** */
-
 
 .messages-search-container {
   padding: 15px;
@@ -1028,4 +1021,81 @@ body.sidebar-open .bottom-nav {
 }
 .accepted-box i {
   font-size: 2.5rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  width: 80%;
+  max-width: 300px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  position: relative;
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.hidden .modal-content {
+    transform: scale(0.9);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2rem;
+  color: #aaa;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #333;
+}
+
+.token-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+.token-display i {
+  font-size: 3rem;
+  color: #f39c12;
+}
+
+.token-display p {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 600;
+  color: #333;
 }
