@@ -1,3 +1,5 @@
+// script.js (UPDATED AND FIXED)
+
 document.addEventListener("DOMContentLoaded", function () {
   // --- CORE UI ELEMENTS ---
   const hamburgerMenu = document.getElementById("hamburger-menu");
@@ -121,10 +123,9 @@ document.addEventListener("DOMContentLoaded", function () {
       videoStream.getTracks().forEach((track) => track.stop());
       videoStream = null;
     }
-    if (codeReader) {
-      codeReader.reset();
-      codeReader = null;
-    }
+    // FIX 1: codeReader.reset() is removed as it was causing an error.
+    // The instance will be nulled out and recreated on the next scan anyway.
+    codeReader = null;
   }
 
   mealButtons.forEach((button) => {
@@ -141,20 +142,26 @@ document.addEventListener("DOMContentLoaded", function () {
     codeReader
       .decodeOnceFromVideoDevice(undefined, "video-stream")
       .then((result) => {
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then((stream) => {
-            videoStream = stream;
-          });
-        console.log("Barcode detected:", result.getText());
-        showLoadingAnimation(mealType);
+        // This part runs ONLY on a successful scan
+        if (result) {
+          navigator.mediaDevices
+            .getUserMedia({ video: true })
+            .then((stream) => {
+              videoStream = stream;
+            });
+          console.log("Barcode detected:", result.getText());
+          showLoadingAnimation(mealType);
+        }
       })
       .catch((err) => {
         console.error("Camera or Scan Error:", err);
-        if (err && !(err instanceof ZXingBrowser.NotFoundException)) {
+        // FIX 2: Replaced the 'instanceof' check with a more reliable error name check.
+        // This handles cases where user denies camera permission or no QR is found.
+        if (err && err.name !== 'NotFoundException') {
             alert("Could not start camera. Please check permissions and try again.");
             hideAllPages();
         }
+        // If it's just a 'NotFoundException' (no QR code found), we do nothing and let the user try again.
       });
   }
 
