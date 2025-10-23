@@ -1,261 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Panel</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        body { 
-            font-family: 'Poppins', sans-serif; 
-            background-color: #f4f7f6; 
-            display: flex; 
-            justify-content: center; 
-            align-items: flex-start; /* Aligned to top */
-            height: 100vh; 
-            margin: 0; 
-            padding-top: 40px; /* Added padding */
-        }
-        .container { 
-            background-color: white; 
-            padding: 30px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
-            width: 90%; 
-            max-width: 450px; 
-        }
-        h1, h2 { 
-            text-align: center;
-            color: #333;
-            margin-top: 0;
-        }
-        h2 {
-            margin-top: 30px;
-            font-size: 1.2rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .form-group { 
-            margin-bottom: 20px; 
-            text-align: left; 
-        }
-        label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 500; 
-            color: #555; 
-        }
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            border-radius: 8px; 
-            border: 1px solid #ddd; 
-            box-sizing: border-box; 
-            font-size: 1rem; 
-        }
-        .button-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 1rem; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: transform 0.2s; 
-        }
-        button:hover { 
-            transform: translateY(-2px); 
-        }
-        #add-button {
-            background: linear-gradient(to right, #e37644, #f2c55b); 
-            color: black; 
-        }
-        #remove-button {
-            background-color: #e74c3c;
-            color: white;
-        }
-        #refresh-button {
-            background: none;
-            border: none;
-            color: #3498db;
-            font-size: 0.9rem;
-            cursor: pointer;
-        }
-        #user-list {
-            max-height: 200px;
-            overflow-y: auto;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 10px;
-            margin-top: 15px;
-        }
-        .user-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-        }
-        .user-item:last-child {
-            border-bottom: none;
-        }
-        .user-item:hover {
-            background-color: #f9f9f9;
-        }
-        .user-id {
-            font-weight: 500;
-        }
-        .user-tokens {
-            color: #777;
-        }
-    </style>
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f4f7f6;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        margin: 0;
+        padding: 40px 15px;
+        box-sizing: border-box;
+      }
+      .container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 450px;
+      }
+      h1,
+      h2 {
+        text-align: center;
+        color: #333;
+        margin-top: 0;
+      }
+      h2 {
+        margin-top: 30px;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #555;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        font-size: 1rem;
+      }
+      .button-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      button:hover {
+        transform: translateY(-2px);
+      }
+      #add-button {
+        background: linear-gradient(to right, #e37644, #f2c55b);
+        color: black;
+      }
+      #remove-button {
+        background-color: #e74c3c;
+        color: white;
+      }
+      #refresh-button {
+        background: none;
+        border: none;
+        color: #3498db;
+        font-size: 0.9rem;
+        cursor: pointer;
+      }
+      #user-list {
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 15px;
+      }
+      .user-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #f0f0f0;
+        cursor: pointer;
+      }
+      .user-item:last-child {
+        border-bottom: none;
+      }
+      .user-item:hover {
+        background-color: #f9f9f9;
+      }
+      .user-id {
+        font-weight: 500;
+      }
+      .user-tokens {
+        color: #777;
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <h1>Admin Panel</h1>
-        
-        <div id="token-form">
-            <div class="form-group">
-                <label for="reg-id">Student Registration ID:</label>
-                <input type="text" id="reg-id" required placeholder="e.g., 12319278">
-            </div>
-            <div class="form-group">
-                <label for="tokens">Number of Tokens:</label>
-                <input type="number" id="tokens" required min="1" placeholder="e.g., 10">
-            </div>
-            <div class="button-group">
-                <button id="add-button">Add Tokens</button>
-                <button id="remove-button">Remove Tokens</button>
-            </div>
+      <h1>Admin Panel</h1>
+
+      <div id="token-form">
+        <div class="form-group">
+          <label for="reg-id">Student Registration ID:</label>
+          <input
+            type="text"
+            id="reg-id"
+            required
+            placeholder="e.g., 12319278"
+          />
         </div>
-        
-        <div class="user-list-section">
-            <h2>Registered Users <button id="refresh-button">Refresh List</button></h2>
-            <div id="user-list">
-                <p>Loading users...</p>
-            </div>
+        <div class="form-group">
+          <label for="tokens">Number of Tokens:</label>
+          <input
+            type="number"
+            id="tokens"
+            required
+            min="1"
+            placeholder="e.g., 10"
+          />
         </div>
+        <div class="button-group">
+          <button id="add-button">Add Tokens</button>
+          <button id="remove-button">Remove Tokens</button>
+        </div>
+      </div>
+
+      <div class="user-list-section">
+        <h2>
+          Registered Users <button id="refresh-button">Refresh List</button>
+        </h2>
+        <div id="user-list">
+          <p>Loading users...</p>
+        </div>
+      </div>
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-        import { getFirestore, doc, updateDoc, setDoc, increment, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+      import {
+        getFirestore,
+        doc,
+        updateDoc,
+        setDoc,
+        increment,
+        getDoc,
+        collection,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-          apiKey: "AIzaSyCi_IwTYTpTGZW4IOLdP_7_M8Il0bwScUU",
-          authDomain: "touch-8fd12.firebaseapp.com",
-          projectId: "touch-8fd12",
-          storageBucket: "touch-8fd12.appspot.com",
-          messagingSenderId: "912867048557",
-          appId: "1:912867048557:web:51499df054754298dd5364",
-          measurementId: "G-2T4DF6PLQX"
-        };
+      const firebaseConfig = {
+        apiKey: "AIzaSyCi_IwTYTpTGZW4IOLdP_7_M8Il0bwScUU",
+        authDomain: "touch-8fd12.firebaseapp.com",
+        projectId: "touch-8fd12",
+        storageBucket: "touch-8fd12.appspot.com",
+        messagingSenderId: "912867048557",
+        appId: "1:912867048557:web:51499df054754298dd5364",
+        measurementId: "G-2T4DF6PLQX",
+      };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-        const regIdInput = document.getElementById('reg-id');
-        const tokensInput = document.getElementById('tokens');
-        const addButton = document.getElementById('add-button');
-        const removeButton = document.getElementById('remove-button');
-        const userListDiv = document.getElementById('user-list');
-        const refreshButton = document.getElementById('refresh-button');
+      const regIdInput = document.getElementById("reg-id");
+      const tokensInput = document.getElementById("tokens");
+      const addButton = document.getElementById("add-button");
+      const removeButton = document.getElementById("remove-button");
+      const userListDiv = document.getElementById("user-list");
+      const refreshButton = document.getElementById("refresh-button");
 
-        async function modifyTokens(regId, amount) {
-            if (!regId || isNaN(amount) || amount === 0) {
-                alert('Please enter a valid Registration ID and a non-zero number of tokens.');
-                return;
-            }
-
-            const userDocRef = doc(db, "users", regId);
-
-            try {
-                const docSnap = await getDoc(userDocRef);
-
-                if (docSnap.exists()) {
-                    // Check if removing more tokens than available
-                    if (amount < 0 && (docSnap.data().tokens || 0) < Math.abs(amount)) {
-                        alert(`Cannot remove ${Math.abs(amount)} tokens. User only has ${docSnap.data().tokens || 0}.`);
-                        return;
-                    }
-                    await updateDoc(userDocRef, { tokens: increment(amount) });
-                } else {
-                    if (amount < 0) {
-                        alert("Cannot remove tokens from a user that does not exist.");
-                        return;
-                    }
-                    await setDoc(userDocRef, { tokens: amount });
-                }
-
-                const action = amount > 0 ? 'added' : 'removed';
-                alert(`${Math.abs(amount)} tokens ${action} successfully for user ${regId}!`);
-                regIdInput.value = '';
-                tokensInput.value = '';
-                fetchAllUsers(); // Refresh the list automatically
-            } catch (error) {
-                console.error("Error modifying tokens:", error);
-                alert("An error occurred. Please check the console.");
-            }
+      async function modifyTokens(regId, amount) {
+        if (!regId || isNaN(amount) || amount === 0) {
+          alert(
+            "Please enter a valid Registration ID and a non-zero number of tokens."
+          );
+          return;
         }
 
-        addButton.addEventListener('click', () => {
-            const regId = regIdInput.value.trim();
-            const tokensValue = parseInt(tokensInput.value, 10);
-            modifyTokens(regId, tokensValue);
-        });
+        const userDocRef = doc(db, "users", regId);
 
-        removeButton.addEventListener('click', () => {
-            const regId = regIdInput.value.trim();
-            const tokensValue = parseInt(tokensInput.value, 10);
-            modifyTokens(regId, -tokensValue); // Pass as negative
-        });
+        try {
+          const docSnap = await getDoc(userDocRef);
 
-        async function fetchAllUsers() {
-            userListDiv.innerHTML = '<p>Loading users...</p>';
-            const usersCollectionRef = collection(db, "users");
-            try {
-                const querySnapshot = await getDocs(usersCollectionRef);
-                userListDiv.innerHTML = '';
-                if (querySnapshot.empty) {
-                    userListDiv.innerHTML = '<p>No users found in the database.</p>';
-                    return;
-                }
-                querySnapshot.forEach((doc) => {
-                    const user = doc.data();
-                    const userId = doc.id;
-                    const userElement = document.createElement('div');
-                    userElement.className = 'user-item';
-                    userElement.innerHTML = `
+          if (docSnap.exists()) {
+            if (amount < 0 && (docSnap.data().tokens || 0) < Math.abs(amount)) {
+              alert(
+                `Cannot remove ${Math.abs(amount)} tokens. User only has ${
+                  docSnap.data().tokens || 0
+                }.`
+              );
+              return;
+            }
+            await updateDoc(userDocRef, { tokens: increment(amount) });
+          } else {
+            if (amount < 0) {
+              alert("Cannot remove tokens from a user that does not exist.");
+              return;
+            }
+            await setDoc(userDocRef, { tokens: amount });
+          }
+
+          const action = amount > 0 ? "added" : "removed";
+          alert(
+            `${Math.abs(
+              amount
+            )} tokens ${action} successfully for user ${regId}!`
+          );
+          regIdInput.value = "";
+          tokensInput.value = "";
+          fetchAllUsers();
+        } catch (error) {
+          console.error("Error modifying tokens:", error);
+          alert("An error occurred. Please check the console.");
+        }
+      }
+
+      addButton.addEventListener("click", () => {
+        const regId = regIdInput.value.trim();
+        const tokensValue = parseInt(tokensInput.value, 10);
+        if (isNaN(tokensValue) || tokensValue <= 0) {
+          alert("Please enter a positive number of tokens.");
+          return;
+        }
+        modifyTokens(regId, tokensValue);
+      });
+
+      removeButton.addEventListener("click", () => {
+        const regId = regIdInput.value.trim();
+        const tokensValue = parseInt(tokensInput.value, 10);
+        if (isNaN(tokensValue) || tokensValue <= 0) {
+          alert("Please enter a positive number of tokens.");
+          return;
+        }
+        modifyTokens(regId, -tokensValue);
+      });
+
+      async function fetchAllUsers() {
+        userListDiv.innerHTML = "<p>Loading users...</p>";
+        const usersCollectionRef = collection(db, "users");
+        try {
+          const querySnapshot = await getDocs(usersCollectionRef);
+          userListDiv.innerHTML = "";
+          if (querySnapshot.empty) {
+            userListDiv.innerHTML = "<p>No users found in the database.</p>";
+            return;
+          }
+          querySnapshot.forEach((doc) => {
+            const user = doc.data();
+            const userId = doc.id;
+            const userElement = document.createElement("div");
+            userElement.className = "user-item";
+            userElement.innerHTML = `
                         <span class="user-id">${userId}</span>
-                        <span class="user-tokens">${user.tokens !== undefined ? user.tokens : 0} Tokens</span>
+                        <span class="user-tokens">${
+                          user.tokens !== undefined ? user.tokens : 0
+                        } Tokens</span>
                     `;
-                    userElement.addEventListener('click', () => {
-                        regIdInput.value = userId;
-                    });
-                    userListDiv.appendChild(userElement);
-                });
-            } catch (error) {
-                console.error("Error fetching users:", error);
-                userListDiv.innerHTML = '<p>Error loading users. Check console.</p>';
-            }
+            userElement.addEventListener("click", () => {
+              regIdInput.value = userId;
+            });
+            userListDiv.appendChild(userElement);
+          });
+        } catch (error) {
+          console.error("Error fetching users:", error);
+          userListDiv.innerHTML = "<p>Error loading users. Check console.</p>";
         }
+      }
 
-        refreshButton.addEventListener('click', fetchAllUsers);
+      refreshButton.addEventListener("click", fetchAllUsers);
 
-        // Fetch users on initial page load
-        fetchAllUsers();
+      fetchAllUsers();
     </script>
-</body>
+  </body>
 </html>

@@ -1,50 +1,33 @@
-// script.js (UPDATED AND FIXED)
-
 document.addEventListener("DOMContentLoaded", function () {
   // --- CORE UI ELEMENTS ---
   const hamburgerMenu = document.getElementById("hamburger-menu");
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("overlay");
   const body = document.body;
-  const mainHeader = document.querySelector(".main-header");
-  const mainContent = document.querySelector(".main-content");
-  const bottomNav = document.querySelector(".bottom-nav");
-  const dashboardElements = [mainHeader, mainContent, bottomNav];
 
   // --- PAGE ELEMENTS ---
-  const messagesPage = document.getElementById("messages-page");
-  const profilePage = document.getElementById("profile-page");
+  const allPages = document.querySelectorAll(".full-page");
   const messCouponPage = document.getElementById("mess-coupon-page");
-  const cameraScannerPage = document.getElementById("camera-scanner-page");
-  const loadingPage = document.getElementById("loading-page");
-  const messPassPage = document.getElementById("mess-pass-page");
-  const allPages = [
-    messagesPage,
-    profilePage,
-    messCouponPage,
-    cameraScannerPage,
-    loadingPage,
-    messPassPage,
-  ];
 
   // --- INTERACTION ELEMENTS ---
+  const notificationIcon = document.querySelector(".notification-icon");
+  const sidebarProfileLink = document.getElementById("sidebar-profile-link");
+  const messScannerLink = document.getElementById("mess-scanner-link");
+  const messScannerTile = document.getElementById("mess-scanner-tile");
+  document
+    .querySelectorAll(".page-header .bx-arrow-back, .page-header .bx-x")
+    .forEach((btn) => {
+      btn.addEventListener("click", hideAllPages);
+    });
+
+  // --- SEARCH BAR ELEMENTS (YEH CODE MISSING THA) ---
   const sidebarSearchInput = document.getElementById("sidebar-search");
   const sidebarMenuItems = document.querySelectorAll(".sidebar-menu a");
-  const notificationIcon = document.querySelector(".notification-icon");
-  const backToDashboardBtn = document.getElementById("back-to-dashboard");
-  const sidebarProfileLink = document.getElementById("sidebar-profile-link");
-  const backToDashboardFromProfile = document.getElementById(
-    "back-to-dashboard-from-profile"
-  );
-  const messScannerLink = document.getElementById("mess-scanner-link");
-  const backToDashboardFromMess = document.getElementById(
-    "back-to-dashboard-from-mess"
-  );
-  const backToDashboardFromPass = document.getElementById(
-    "back-to-dashboard-from-pass"
-  );
-  const mealButtons = document.querySelectorAll(".meal-button");
-  const messScannerTile = document.getElementById("mess-scanner-tile");
+
+  // --- ALERT MODAL ELEMENTS ---
+  const alertModal = document.getElementById("alert-modal");
+  const alertModalMessage = document.getElementById("alert-modal-message");
+  const alertModalOkBtn = document.getElementById("alert-modal-ok-btn");
 
   // --- STATE VARIABLES ---
   let countdownInterval;
@@ -64,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
     body.classList.remove("sidebar-open");
   });
 
-  // --- SIDEBAR SEARCH LOGIC ---
+  // --- SIDEBAR SEARCH LOGIC (YEH CODE MISSING THA) ---
   sidebarSearchInput.addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase();
     sidebarMenuItems.forEach((item) => {
@@ -77,6 +60,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
+  // --- CUSTOM ALERT FUNCTIONS ---
+  function showCustomAlert(message) {
+    alertModalMessage.textContent = message;
+    alertModal.classList.remove("hidden");
+  }
+
+  function hideCustomAlert() {
+    alertModal.classList.add("hidden");
+  }
+
+  alertModalOkBtn.addEventListener("click", hideCustomAlert);
+  alertModal.addEventListener("click", (e) => {
+    if (e.target === alertModal) {
+      hideCustomAlert();
+    }
+  });
+
   // --- PAGE NAVIGATION LOGIC ---
   function showPage(pageToShow) {
     if (sidebar.classList.contains("open")) {
@@ -84,8 +84,11 @@ document.addEventListener("DOMContentLoaded", function () {
       overlay.classList.remove("active");
       body.classList.remove("sidebar-open");
     }
-    dashboardElements.forEach((el) => el.classList.add("hidden"));
     allPages.forEach((p) => p.classList.add("hidden"));
+    document.querySelector(".main-header").classList.add("hidden");
+    document.querySelector(".main-content").classList.add("hidden");
+    document.querySelector(".bottom-nav").classList.add("hidden");
+
     pageToShow.classList.remove("hidden");
   }
 
@@ -93,29 +96,29 @@ document.addEventListener("DOMContentLoaded", function () {
     stopCamera();
     clearInterval(countdownInterval);
     allPages.forEach((p) => p.classList.add("hidden"));
-    messCouponPage.classList.remove("content-blurred");
-    dashboardElements.forEach((el) => el.classList.remove("hidden"));
+    document.querySelector(".main-header").classList.remove("hidden");
+    document.querySelector(".main-content").classList.remove("hidden");
+    document.querySelector(".bottom-nav").classList.remove("hidden");
   }
 
-  notificationIcon.addEventListener("click", () => showPage(messagesPage));
-  sidebarProfileLink.addEventListener("click", () => showPage(profilePage));
+  notificationIcon.addEventListener("click", () =>
+    showPage(document.getElementById("messages-page"))
+  );
+  sidebarProfileLink.addEventListener("click", () =>
+    showPage(document.getElementById("profile-page"))
+  );
 
   function handleMessScannerClick(e) {
     e.preventDefault();
     if (window.currentUserTokens > 0) {
       showPage(messCouponPage);
     } else {
-      alert("You don't have sufficient tokens");
+      showCustomAlert("You don't have sufficient tokens");
     }
   }
 
   messScannerLink.addEventListener("click", handleMessScannerClick);
   messScannerTile.addEventListener("click", handleMessScannerClick);
-
-  backToDashboardBtn.addEventListener("click", hideAllPages);
-  backToDashboardFromProfile.addEventListener("click", hideAllPages);
-  backToDashboardFromMess.addEventListener("click", hideAllPages);
-  backToDashboardFromPass.addEventListener("click", hideAllPages);
 
   // --- MESS SCANNER FLOW LOGIC ---
   function stopCamera() {
@@ -123,12 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
       videoStream.getTracks().forEach((track) => track.stop());
       videoStream = null;
     }
-    // FIX 1: codeReader.reset() is removed as it was causing an error.
-    // The instance will be nulled out and recreated on the next scan anyway.
     codeReader = null;
   }
 
-  mealButtons.forEach((button) => {
+  document.querySelectorAll(".meal-button").forEach((button) => {
     button.addEventListener("click", () => {
       const mealType = button.querySelector("span").textContent;
       startScanFlow(mealType);
@@ -136,13 +137,12 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function startScanFlow(mealType) {
-    showPage(cameraScannerPage);
+    showPage(document.getElementById("camera-scanner-page"));
     codeReader = new ZXingBrowser.BrowserMultiFormatReader();
 
     codeReader
       .decodeOnceFromVideoDevice(undefined, "video-stream")
       .then((result) => {
-        // This part runs ONLY on a successful scan
         if (result) {
           navigator.mediaDevices
             .getUserMedia({ video: true })
@@ -155,25 +155,24 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((err) => {
         console.error("Camera or Scan Error:", err);
-        // FIX 2: Replaced the 'instanceof' check with a more reliable error name check.
-        // This handles cases where user denies camera permission or no QR is found.
-        if (err && err.name !== 'NotFoundException') {
-            alert("Could not start camera. Please check permissions and try again.");
-            hideAllPages();
+        if (err && err.name !== "NotFoundException") {
+          showCustomAlert(
+            "Could not start camera. Please check permissions and try again."
+          );
+          hideAllPages();
         }
-        // If it's just a 'NotFoundException' (no QR code found), we do nothing and let the user try again.
       });
   }
 
   function showLoadingAnimation(mealType) {
     stopCamera();
-    cameraScannerPage.classList.add("hidden");
+    document.getElementById("camera-scanner-page").classList.add("hidden");
     messCouponPage.classList.remove("hidden");
     messCouponPage.classList.add("content-blurred");
-    loadingPage.classList.remove("hidden");
+    document.getElementById("loading-page").classList.remove("hidden");
 
     setTimeout(() => {
-      loadingPage.classList.add("hidden");
+      document.getElementById("loading-page").classList.add("hidden");
       messCouponPage.classList.remove("content-blurred");
       messCouponPage.classList.add("hidden");
       populateAndShowMessPass(mealType);
@@ -181,31 +180,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function populateAndShowMessPass(mealType) {
-    if (window.deductToken && typeof window.deductToken === 'function') {
-        window.deductToken(window.UNIQUE_USER_ID);
+    if (window.deductToken && typeof window.deductToken === "function") {
+      window.deductToken(window.UNIQUE_USER_ID);
     }
 
     document.getElementById("pass-meal-type").textContent = mealType;
     const now = new Date();
-    const dateOptions = {
-      month: "short",
-      day: "2-digit",
-      year: "numeric",
-    };
+    const dateOptions = { month: "short", day: "2-digit", year: "numeric" };
     document.getElementById("pass-date").textContent = now
       .toLocaleString("en-US", dateOptions)
       .replace(/,/g, "");
-    const timeOptions = {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    };
+    const timeOptions = { hour: "2-digit", minute: "2-digit", hour12: true };
     document.getElementById("pass-time").textContent = now.toLocaleTimeString(
       "en-US",
       timeOptions
     );
 
-    showPage(messPassPage);
+    showPage(document.getElementById("mess-pass-page"));
     startCountdown();
   }
 
