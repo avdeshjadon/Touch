@@ -1122,3 +1122,13 @@ body.sidebar-open .bottom-nav {
     font-size: 1rem;
     width: 100%;
 }
+
+a.sidebar-header, a.sidebar-header:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
+a.icon-link, a.icon-link:visited {
+  text-decoration: none;
+  color: inherit;
+}

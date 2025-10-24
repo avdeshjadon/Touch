@@ -1,15 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // --- CORE UI ELEMENTS ---
   const hamburgerMenu = document.getElementById("hamburger-menu");
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("overlay");
   const body = document.body;
 
-  // --- PAGE ELEMENTS ---
   const allPages = document.querySelectorAll(".full-page");
   const messCouponPage = document.getElementById("mess-coupon-page");
 
-  // --- INTERACTION ELEMENTS ---
   const notificationIcon = document.querySelector(".notification-icon");
   const sidebarProfileLink = document.getElementById("sidebar-profile-link");
   const messScannerLink = document.getElementById("mess-scanner-link");
@@ -20,21 +17,17 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.addEventListener("click", hideAllPages);
     });
 
-  // --- SEARCH BAR ELEMENTS (YEH CODE MISSING THA) ---
   const sidebarSearchInput = document.getElementById("sidebar-search");
   const sidebarMenuItems = document.querySelectorAll(".sidebar-menu a");
 
-  // --- ALERT MODAL ELEMENTS ---
   const alertModal = document.getElementById("alert-modal");
   const alertModalMessage = document.getElementById("alert-modal-message");
   const alertModalOkBtn = document.getElementById("alert-modal-ok-btn");
 
-  // --- STATE VARIABLES ---
   let countdownInterval;
   let codeReader = null;
   let videoStream = null;
 
-  // --- HAMBURGER MENU LOGIC ---
   hamburgerMenu.addEventListener("click", () => {
     sidebar.classList.toggle("open");
     overlay.classList.toggle("active");
@@ -47,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
     body.classList.remove("sidebar-open");
   });
 
-  // --- SIDEBAR SEARCH LOGIC (YEH CODE MISSING THA) ---
   sidebarSearchInput.addEventListener("input", (e) => {
     const searchTerm = e.target.value.toLowerCase();
     sidebarMenuItems.forEach((item) => {
@@ -60,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // --- CUSTOM ALERT FUNCTIONS ---
   function showCustomAlert(message) {
     alertModalMessage.textContent = message;
     alertModal.classList.remove("hidden");
@@ -77,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // --- PAGE NAVIGATION LOGIC ---
   function showPage(pageToShow) {
     if (sidebar.classList.contains("open")) {
       sidebar.classList.remove("open");
@@ -120,7 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
   messScannerLink.addEventListener("click", handleMessScannerClick);
   messScannerTile.addEventListener("click", handleMessScannerClick);
 
-  // --- MESS SCANNER FLOW LOGIC ---
   function stopCamera() {
     if (videoStream) {
       videoStream.getTracks().forEach((track) => track.stop());
