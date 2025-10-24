@@ -15,7 +15,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="transparent.css">
+    <!-- <link rel="stylesheet" href="transparent.css"> -->
 
     <style>
       :root {
@@ -34,122 +34,130 @@
         --sem4-color: #4caf50;
       }
       * {
+        -webkit-tap-highlight-color: transparent; /* From transparent.css */
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+      html, body {
+          overflow-x: hidden; /* Prevent horizontal scroll */
+      }
       body {
         font-family: "Roboto", sans-serif;
         background-color: var(--page-bg);
-        font-weight: 200;
-        letter-spacing: 0.5px;
+        font-weight: 300; /* Adjusted default weight */
+        letter-spacing: 0.3px; /* Slightly reduced spacing */
         color: var(--font-primary);
+        font-size: 14px; /* Base font size */
       }
       .page-container {
         width: 100%;
         min-height: 100vh;
+        overflow-x: hidden;
       }
       .page-header {
         display: flex;
         align-items: center;
-        padding: 12px 16px;
+        padding: 10px 14px; /* Reduced padding */
         background-color: var(--header-dark-bg);
         position: sticky;
         top: 0;
         z-index: 10;
       }
       .page-header .back-arrow {
-        font-size: 1.8rem;
+        font-size: 1.6rem; /* Slightly smaller */
         cursor: pointer;
         color: var(--header-dark-text);
+        text-decoration: none; /* Ensure link looks like button */
       }
       .page-header .title {
-        font-size: 1.25rem;
-        font-weight: 200;
+        font-size: 1.1rem; /* Slightly smaller */
+        font-weight: 300; /* Adjusted weight */
         color: var(--header-dark-text);
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        white-space: nowrap;
       }
       .main-content {
-        padding: 0 0 24px;
+        padding: 0 0 20px; /* Reduced bottom padding */
       }
       .overall-card {
         background: var(--overall-grad);
-        border-radius: 0 0 20px 20px;
-        padding: 24px;
+        border-radius: 0 0 16px 16px; /* Slightly smaller radius */
+        padding: 20px; /* Reduced padding */
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: var(--card-bg);
-        box-shadow: 0 4px 15px -5px rgba(255, 154, 139, 0.6);
-        margin-bottom: 24px;
+        color: var(--card-bg); /* Text color set to white */
+        box-shadow: 0 3px 12px -4px rgba(255, 154, 139, 0.5); /* Adjusted shadow */
+        margin-bottom: 20px; /* Reduced margin */
       }
       .progress-circle-large {
-        width: 140px;
-        height: 140px;
+        width: 120px; /* Reduced size */
+        height: 120px; /* Reduced size */
         border-radius: 50%;
         display: grid;
         place-items: center;
         background: conic-gradient(
           var(--color) calc(var(--percent) * 3.6deg),
-          rgba(255, 255, 255, 0.3) 0deg
+          rgba(255, 255, 255, 0.25) 0deg /* Adjusted alpha */
         );
         position: relative;
-        margin-bottom: 12px;
+        margin-bottom: 10px; /* Reduced margin */
       }
       .progress-circle-large::before {
         content: "";
         position: absolute;
-        width: 124px;
-        height: 124px;
+        width: 106px; /* Adjusted size */
+        height: 106px; /* Adjusted size */
         background: var(--overall-grad);
         border-radius: 50%;
       }
       .cpa-value {
         position: relative;
-        font-size: 2.2rem;
+        font-size: 2rem; /* Slightly smaller */
         font-weight: 400;
-        color: var(--font-primary);
+        color: var(--font-primary); /* Text color back to dark */
       }
       .performance-label {
-        font-size: 1rem;
-        font-weight: 200;
+        font-size: 0.9rem; /* Slightly smaller */
+        font-weight: 300; /* Adjusted weight */
         position: relative;
-        color: var(--font-primary);
+        color: var(--font-primary); /* Text color back to dark */
       }
       .semester-grid-container {
-        padding: 0 16px;
+        padding: 0 14px; /* Reduced padding */
       }
       .semester-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 12px; /* Reduced gap */
       }
       .semester-card {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
-        border-radius: 8px;
+        border-radius: 6px; /* Smaller radius */
         overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06); /* Adjusted shadow */
       }
       .semester-header {
         background: var(--header-dark-bg);
         color: var(--header-dark-text);
-        padding: 8px;
+        padding: 6px; /* Reduced padding */
         text-align: center;
-        font-size: 0.9rem;
-        font-weight: 200;
+        font-size: 0.8rem; /* Slightly smaller */
+        font-weight: 300; /* Adjusted weight */
       }
       .semester-body {
-        padding: 20px;
+        padding: 16px; /* Reduced padding */
         display: flex;
         justify-content: center;
         align-items: center;
       }
       .progress-circle-small {
-        width: 80px;
-        height: 80px;
+        width: 70px; /* Reduced size */
+        height: 70px; /* Reduced size */
         border-radius: 50%;
         display: grid;
         place-items: center;
@@ -162,18 +170,18 @@
       .progress-circle-small::before {
         content: "";
         position: absolute;
-        width: 68px;
-        height: 68px;
+        width: 58px; /* Adjusted size */
+        height: 58px; /* Adjusted size */
         background: var(--card-bg);
         border-radius: 50%;
       }
       .gpa-value {
         position: relative;
-        font-size: 1.2rem;
+        font-size: 1.1rem; /* Slightly smaller */
         color: var(--font-secondary);
         font-weight: 400;
       }
-      .full-page {
+      .full-page { /* Loading overlay styles */
         position: fixed;
         top: 0;
         left: 0;

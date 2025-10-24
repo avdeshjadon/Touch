@@ -15,7 +15,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="transparent.css">
+    <!-- <link rel="stylesheet" href="transparent.css"> -->
 
     <style>
       :root {
@@ -31,85 +31,100 @@
         --theme-grad: linear-gradient(to right, #ff8373, #fed278);
       }
       * {
+        -webkit-tap-highlight-color: transparent; /* From transparent.css */
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
+      html, body {
+          overflow-x: hidden;
+      }
       body {
         font-family: "Roboto", sans-serif;
         background-color: var(--page-bg);
-        font-weight: 200;
-        letter-spacing: 0.5px;
+        font-weight: 300; /* Adjusted base font weight */
+        letter-spacing: 0.3px; /* Reduced spacing */
         color: var(--font-primary);
+        font-size: 14px; /* Base font size reduced */
       }
       .page-container {
         width: 100%;
         min-height: 100vh;
+        overflow-x: hidden;
       }
       .page-header {
         display: flex;
         align-items: center;
-        padding: 12px 16px;
+        justify-content: flex-start;
+        padding: 10px 14px; /* Reduced padding */
         background-color: var(--header-dark-bg);
         position: sticky;
         top: 0;
         z-index: 10;
       }
+      .page-header a { /* Style the back arrow link */
+         color: var(--header-dark-text);
+         text-decoration: none;
+         display: inline-flex;
+         align-items: center;
+      }
       .page-header .back-arrow {
-        font-size: 1.8rem;
+        font-size: 1.6rem; /* Reduced size */
         cursor: pointer;
-        color: var(--header-dark-text);
       }
       .page-header .title {
-        font-size: 1.25rem;
-        font-weight: 200;
+        font-size: 1.1rem; /* Reduced size */
+        font-weight: 300; /* Set font weight */
         color: var(--header-dark-text);
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
+        white-space: nowrap;
       }
       .content-container {
-        padding: 16px;
+        padding: 12px; /* Reduced padding */
       }
       .courses-filter {
-        margin-bottom: 16px;
+        margin-bottom: 12px; /* Reduced margin */
       }
       .courses-filter label {
         display: block;
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* Reduced size */
         color: var(--font-secondary);
-        margin-bottom: 8px;
-        font-weight: 200;
+        margin-bottom: 6px; /* Reduced margin */
+        font-weight: 300;
       }
       .dropdown {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 4px;
-        padding: 12px;
+        padding: 10px 12px; /* Reduced padding */
         display: flex;
         justify-content: space-between;
         align-items: center;
         cursor: pointer;
-        font-size: 1rem;
-        font-weight: 200;
+        font-size: 0.95rem; /* Reduced size */
+        font-weight: 300;
       }
       .marks-tabs {
         display: flex;
         background: var(--card-bg);
         border: 1px solid var(--border-color);
-        border-radius: 8px;
+        border-radius: 6px; /* Reduced radius */
         overflow: hidden;
-        margin-bottom: 24px;
+        margin-bottom: 16px; /* Reduced margin */
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
       }
       .tab {
         flex: 1;
         text-align: center;
-        padding: 12px 8px;
+        padding: 10px 6px; /* Reduced padding */
         position: relative;
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* Reduced size */
         color: var(--font-secondary);
         border-right: 1px solid var(--border-color);
+        font-weight: 400;
+        cursor: pointer;
       }
       .tab:last-child {
         border-right: none;
@@ -118,65 +133,70 @@
         background: #f8f9fa;
         color: var(--font-primary);
         border: 1px solid var(--border-color);
-        border-radius: 8px;
+        border-radius: 6px;
         margin: -1px;
       }
       .tab .count {
         display: block;
-        font-size: 0.75rem;
+        font-size: 0.7rem; /* Reduced size */
         background: var(--theme-grad);
         color: #000;
-        font-weight: 400;
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
+        font-weight: 500; /* Increased weight for visibility */
+        width: 18px; /* Reduced size */
+        height: 18px; /* Reduced size */
+        line-height: 18px;
         border-radius: 50%;
-        margin: 4px auto 0;
+        margin: 2px auto 0; /* Reduced margin */
       }
       .marks-card {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
-        border-radius: 8px;
-        padding: 16px;
+        border-radius: 6px; /* Reduced radius */
+        padding: 12px; /* Reduced padding */
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Reduced shadow */
       }
       .marks-card .course-name {
-        font-size: 1.1rem;
-        font-weight: 200;
-        margin-bottom: 16px;
+        font-size: 1rem; /* Reduced size */
+        font-weight: 400; /* Adjusted weight */
+        margin-bottom: 10px; /* Reduced margin */
       }
       .marks-card .test-name {
-        font-size: 1rem;
-        margin-bottom: 4px;
+        font-size: 0.9rem; /* Reduced size */
+        margin-bottom: 2px; /* Reduced margin */
+        font-weight: 400;
       }
       .marks-card .reason {
-        font-size: 0.9rem;
+        font-size: 0.85rem; /* Reduced size */
         color: var(--accent-orange);
-        margin-bottom: 16px;
+        margin-bottom: 10px; /* Reduced margin */
       }
       .marks-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding-top: 8px; /* Added padding */
+        border-top: 1px solid #f0f0f0;
       }
       .marks-footer .marks-value {
-        font-size: 1rem;
+        font-size: 0.95rem; /* Reduced size */
+        font-weight: 500;
       }
       .download-btn {
         background: none;
         border: 1px solid var(--border-color);
-        border-radius: 6px;
-        padding: 8px 16px;
-        font-size: 0.9rem;
-        font-weight: 200;
+        border-radius: 4px; /* Reduced radius */
+        padding: 6px 10px; /* Reduced padding */
+        font-size: 0.85rem; /* Reduced size */
+        font-weight: 400;
         color: var(--font-secondary);
         display: flex;
         align-items: center;
         cursor: pointer;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.3px;
       }
       .download-btn i {
-        font-size: 1rem;
-        margin-right: 8px;
+        font-size: 0.9rem; /* Reduced size */
+        margin-right: 6px; /* Reduced margin */
       }
       .modal-overlay {
         position: fixed;
@@ -195,32 +215,33 @@
       }
       .modal-content {
         background: var(--card-bg);
-        border-radius: 8px;
-        width: 80%;
-        max-width: 300px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        border-radius: 6px; /* Reduced radius */
+        width: 85%; /* Increased width slightly */
+        max-width: 320px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow */
         animation: fadeIn 0.2s ease-out;
       }
       .modal-body {
-        padding: 24px;
+        padding: 16px; /* Reduced padding */
       }
       .radio-option {
         display: flex;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 14px; /* Reduced margin */
       }
       .radio-option:last-child {
         margin-bottom: 0;
       }
       .radio-option input[type="radio"] {
         appearance: none;
-        width: 20px;
-        height: 20px;
+        width: 18px; /* Reduced size */
+        height: 18px; /* Reduced size */
         border: 2px solid var(--font-secondary);
         border-radius: 50%;
-        margin-right: 16px;
+        margin-right: 12px; /* Reduced margin */
         position: relative;
         outline: none;
+        flex-shrink: 0;
       }
       .radio-option input[type="radio"]:checked {
         border-color: var(--accent-orange);
@@ -228,8 +249,8 @@
       .radio-option input[type="radio"]:checked::before {
         content: "";
         display: block;
-        width: 10px;
-        height: 10px;
+        width: 8px; /* Reduced size */
+        height: 8px; /* Reduced size */
         background: var(--accent-orange);
         border-radius: 50%;
         position: absolute;
@@ -238,23 +259,24 @@
         transform: translate(-50%, -50%);
       }
       .radio-option label {
-        font-size: 1rem;
-        font-weight: 200;
+        font-size: 0.9rem; /* Reduced size */
+        font-weight: 300;
       }
       .modal-footer {
         display: flex;
         justify-content: flex-end;
-        padding: 8px 16px;
+        padding: 4px 10px; /* Reduced padding */
       }
       .modal-footer button {
         background: none;
         border: none;
-        padding: 10px;
-        font-size: 0.9rem;
-        font-weight: 200;
+        padding: 8px; /* Reduced padding */
+        font-size: 0.85rem; /* Reduced size */
+        font-weight: 400;
         color: var(--accent-orange);
         cursor: pointer;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
       }
       @keyframes fadeIn {
         from { opacity: 0; transform: scale(0.95); }
