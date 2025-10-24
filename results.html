@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Result</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --page-bg: #f7f7f7;
+        --card-bg: #ffffff;
+        --header-dark-bg: #303134;
+        --header-dark-text: #e8eaed;
+        --font-primary: #202124;
+        --font-secondary: #5f6368;
+        --border-color: #ebebeb;
+        --overall-grad: linear-gradient(90deg, #ff9a8b 0%, #ffde7a 100%);
+        --overall-progress-color: #4285f4;
+        --sem1-color: #ff9800;
+        --sem2-color: #2196f3;
+        --sem3-color: #42a5f5;
+        --sem4-color: #4caf50;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--page-bg);
+        font-weight: 200;
+        letter-spacing: 0.5px;
+        color: var(--font-primary);
+      }
+      .page-container {
+        width: 100%;
+        min-height: 100vh;
+      }
+      .page-header {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        background-color: var(--header-dark-bg);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .page-header .back-arrow {
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--header-dark-text);
+      }
+      .page-header .title {
+        font-size: 1.25rem;
+        font-weight: 200;
+        color: var(--header-dark-text);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .main-content {
+        padding: 0 0 24px;
+      }
+      .overall-card {
+        background: var(--overall-grad);
+        border-radius: 0 0 20px 20px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: var(--card-bg);
+        box-shadow: 0 4px 15px -5px rgba(255, 154, 139, 0.6);
+        margin-bottom: 24px;
+      }
+      .progress-circle-large {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(
+          var(--color) calc(var(--percent) * 3.6deg),
+          rgba(255, 255, 255, 0.3) 0deg
+        );
+        position: relative;
+        margin-bottom: 12px;
+      }
+      .progress-circle-large::before {
+        content: "";
+        position: absolute;
+        width: 124px;
+        height: 124px;
+        background: var(--overall-grad);
+        border-radius: 50%;
+      }
+      .cpa-value {
+        position: relative;
+        font-size: 2.2rem;
+        font-weight: 400;
+        color: var(--font-primary);
+      }
+      .performance-label {
+        font-size: 1rem;
+        font-weight: 200;
+        position: relative;
+        color: var(--font-primary);
+      }
+      .semester-grid-container {
+        padding: 0 16px;
+      }
+      .semester-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .semester-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .semester-header {
+        background: var(--header-dark-bg);
+        color: var(--header-dark-text);
+        padding: 8px;
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 200;
+      }
+      .semester-body {
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .progress-circle-small {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(
+          var(--color) calc(var(--percent) * 3.6deg),
+          #eeeeee 0deg
+        );
+        position: relative;
+      }
+      .progress-circle-small::before {
+        content: "";
+        position: absolute;
+        width: 68px;
+        height: 68px;
+        background: var(--card-bg);
+        border-radius: 50%;
+      }
+      .gpa-value {
+        position: relative;
+        font-size: 1.2rem;
+        color: var(--font-secondary);
+        font-weight: 400;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <header class="page-header">
+        <a href="index.html" class="back-arrow">
+          <i class="bx bx-arrow-back"></i>
+        </a>
+        <h1 class="title">Result</h1>
+      </header>
+
+      <main class="main-content">
+        <div class="overall-card">
+          <div
+            class="progress-circle-large"
+            style="--percent: 66.2; --color: var(--overall-progress-color)"
+          >
+            <span class="cpa-value">6.62</span>
+          </div>
+          <p class="performance-label">Overall Performance</p>
+        </div>
+
+        <div class="semester-grid-container">
+          <div class="semester-grid">
+            <div class="semester-card">
+              <div class="semester-header">Semester: I</div>
+              <div class="semester-body">
+                <div
+                  class="progress-circle-small"
+                  style="--percent: 58.2; --color: var(--sem1-color)"
+                >
+                  <span class="gpa-value">5.82</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="semester-card">
+              <div class="semester-header">Semester: II</div>
+              <div class="semester-body">
+                <div
+                  class="progress-circle-small"
+                  style="--percent: 67.3; --color: var(--sem2-color)"
+                >
+                  <span class="gpa-value">6.73</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="semester-card">
+              <div class="semester-header">Semester: III</div>
+              <div class="semester-body">
+                <div
+                  class="progress-circle-small"
+                  style="--percent: 62.4; --color: var(--sem3-color)"
+                >
+                  <span class="gpa-value">6.24</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="semester-card">
+              <div class="semester-header">Semester: IV</div>
+              <div class="semester-body">
+                <div
+                  class="progress-circle-small"
+                  style="--percent: 76.3; --color: var(--sem4-color)"
+                >
+                  <span class="gpa-value">7.63</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
