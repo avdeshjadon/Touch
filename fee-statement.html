@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fee Statement</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --page-bg: #f5f5f5;
+        --card-bg: #ffffff;
+        --header-dark-bg: #303134;
+        --header-dark-text: #e8eaed;
+        --font-primary: #212121;
+        --font-secondary: #757575;
+        --border-color: #e0e0e0;
+        --debit-color: #d32f2f;
+        --credit-color: #388e3c;
+        --theme-orange: #f38f31;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--page-bg);
+        color: var(--font-primary);
+      }
+      .fee-container {
+        width: 100%;
+        min-height: 100vh;
+        background-color: var(--page-bg);
+      }
+      .fee-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        background-color: var(--header-dark-bg);
+        position: relative;
+      }
+      .fee-header .back-arrow {
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--header-dark-text);
+      }
+      .fee-header .title {
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: var(--header-dark-text);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .selector-section {
+        background-color: #fff;
+        padding: 16px;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .selector-section .label {
+        font-size: 0.9rem;
+        color: var(--font-secondary);
+        margin-bottom: 8px;
+      }
+      .dropdown-select {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      .dropdown-select .bx-chevron-down {
+        font-size: 1.5rem;
+        color: var(--font-secondary);
+      }
+      .transaction-list {
+        padding: 16px;
+      }
+      .transaction-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .card-left {
+        max-width: 70%;
+      }
+      .balance-info {
+        font-weight: 500;
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+      }
+      .transaction-desc {
+        font-size: 0.9rem;
+        color: var(--font-secondary);
+        line-height: 1.4;
+      }
+      .card-right {
+        text-align: right;
+      }
+      .amount {
+        font-size: 1rem;
+        font-weight: 400;
+        margin-bottom: 4px;
+      }
+      .transaction-type {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      .transaction-type.debit {
+        color: var(--debit-color);
+      }
+      .transaction-type.credit {
+        color: var(--credit-color);
+      }
+      /* Modal Styles */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none; /* Initially hidden */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background-color: #fff;
+        border-radius: 4px;
+        width: 85%;
+        max-width: 320px;
+        padding: 24px;
+        color: #000;
+      }
+      .modal-option {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        cursor: pointer;
+      }
+      .modal-option:last-of-type {
+        margin-bottom: 16px;
+      }
+      .modal-option .label-text {
+        font-size: 1rem;
+        margin-left: 16px;
+        flex-grow: 1;
+      }
+      .modal-option input[type="radio"] {
+        -webkit-appearance: none;
+        appearance: none;
+        margin: 0;
+        width: 22px;
+        height: 22px;
+        border: 2px solid #888;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+      .modal-option input[type="radio"]:checked {
+        border: 7px solid var(--theme-orange);
+      }
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 24px;
+        margin-top: 8px;
+      }
+      .modal-actions button {
+        background: none;
+        border: none;
+        color: var(--theme-orange);
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="fee-container">
+      <header class="fee-header">
+        <i
+          class="bx bx-arrow-back back-arrow"
+          onclick="window.history.back()"
+        ></i>
+        <h1 class="title">Fee Statement</h1>
+      </header>
+
+      <section class="selector-section">
+        <p class="label">Financial Year</p>
+        <div class="dropdown-select" id="year-selector">
+          <span>Select</span>
+          <i class="bx bx-chevron-down"></i>
+        </div>
+      </section>
+
+      <main class="transaction-list">
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:120000 ON 03-04-2025</p>
+            <p class="transaction-desc">
+              Fee and Other Charges Year: 3 Term: 5
+            </p>
+          </div>
+          <div class="card-right">
+            <p class="amount">120000</p>
+            <p class="transaction-type debit">DR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:124000 ON 03-04-2025</p>
+            <p class="transaction-desc">Fee & Other Charges Year: 3 Term: 5</p>
+          </div>
+          <div class="card-right">
+            <p class="amount">4000</p>
+            <p class="transaction-type debit">DR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:96400 ON 03-04-2025</p>
+            <p class="transaction-desc">
+              Scholarship Type:LPU NEST,2.00 To 2.01, Bracket-N, ...
+            </p>
+          </div>
+          <div class="card-right">
+            <p class="amount">27600</p>
+            <p class="transaction-type credit">CR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:206400 ON 27-04-2025</p>
+            <p class="transaction-desc">
+              Residential Charges (RD) Year: 3 Term: 5
+            </p>
+          </div>
+          <div class="card-right">
+            <p class="amount">110000</p>
+            <p class="transaction-type debit">DR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:196400 ON 27-04-2025</p>
+            <p class="transaction-desc">
+              Residential Charges (RD), Year:3, R.No:LPU/14.1/R ...
+            </p>
+          </div>
+          <div class="card-right">
+            <p class="amount">10000</p>
+            <p class="transaction-type credit">CR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:186400 ON 22-05-2025</p>
+            <p class="transaction-desc">
+              Residential Charges (RD), EDB Credited for Term:5
+            </p>
+          </div>
+          <div class="card-right">
+            <p class="amount">10000</p>
+            <p class="transaction-type credit">CR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:141400 ON 30-05-2025</p>
+            <p class="transaction-desc">
+              Residential Charges (RD), Year:3, R.No:LPU/14.1/R ...
+            </p>
+          </div>
+          <div class="card-right">
+            <p class="amount">45000</p>
+            <p class="transaction-type credit">CR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:95200 ON 30-05-2025</p>
+            <p class="transaction-desc">Online Payment Received</p>
+          </div>
+          <div class="card-right">
+            <p class="amount">46200</p>
+            <p class="transaction-type credit">CR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:100200 ON 15-06-2025</p>
+            <p class="transaction-desc">Examination Fee Term: 5</p>
+          </div>
+          <div class="card-right">
+            <p class="amount">5000</p>
+            <p class="transaction-type debit">DR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:100700 ON 20-06-2025</p>
+            <p class="transaction-desc">Library Fine</p>
+          </div>
+          <div class="card-right">
+            <p class="amount">500</p>
+            <p class="transaction-type debit">DR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:80700 ON 25-06-2025</p>
+            <p class="transaction-desc">Online Payment Received</p>
+          </div>
+          <div class="card-right">
+            <p class="amount">20000</p>
+            <p class="transaction-type credit">CR</p>
+          </div>
+        </div>
+
+        <div class="transaction-card">
+          <div class="card-left">
+            <p class="balance-info">Bal:81000 ON 01-07-2025</p>
+            <p class="transaction-desc">Late Fee Fine</p>
+          </div>
+          <div class="card-right">
+            <p class="amount">300</p>
+            <p class="transaction-type debit">DR</p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-overlay" id="year-modal">
+      <div class="modal-content">
+        <label class="modal-option">
+          <input type="radio" name="financial_year" value="2025-2026" />
+          <span class="label-text">2025-2026</span>
+        </label>
+        <label class="modal-option">
+          <input type="radio" name="financial_year" value="2024-2025" checked />
+          <span class="label-text">2024-2025</span>
+        </label>
+        <label class="modal-option">
+          <input type="radio" name="financial_year" value="2023-2024" />
+          <span class="label-text">2023-2024</span>
+        </label>
+        <div class="modal-actions">
+          <button id="modal-cancel-btn">CANCEL</button>
+          <button id="modal-ok-btn">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const yearSelector = document.getElementById("year-selector");
+        const yearModal = document.getElementById("year-modal");
+        const modalCancelBtn = document.getElementById("modal-cancel-btn");
+        const modalOkBtn = document.getElementById("modal-ok-btn");
+
+        const openModal = () => {
+          yearModal.style.display = "flex";
+        };
+
+        const closeModal = () => {
+          yearModal.style.display = "none";
+        };
+
+        yearSelector.addEventListener("click", openModal);
+        modalCancelBtn.addEventListener("click", closeModal);
+        modalOkBtn.addEventListener("click", closeModal);
+
+        yearModal.addEventListener("click", (event) => {
+          if (event.target === yearModal) {
+            closeModal();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
