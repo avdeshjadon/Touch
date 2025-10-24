@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Announcement</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Poppins:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --page-bg: #f7f7f7;
+        --component-bg: #ffffff;
+        --border-color: #e0e0e0;
+        --font-color-primary: #212121;
+        --font-color-secondary: #757575;
+        --filter-bg: #eeeeee;
+        --filter-text-color: #616161;
+        --modal-bg: #ffffff;
+        --header-dark-bg: #303134;
+        --header-dark-text: #e8eaed;
+        --header-dark-border: #5f6368;
+        --theme-grad: linear-gradient(to right, #ff8373, #fed278);
+        --theme-orange: #f38f31;
+        --link-color: #1a0dab;
+        --tag-cocu-bg: #a12331;
+        --tag-placement-bg: #1976d2;
+        --tag-academic-bg: #e64a19;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Roboto", "Poppins", sans-serif;
+        background-color: var(--page-bg);
+        color: var(--font-color-primary);
+      }
+      .page-view.hidden {
+        display: none !important;
+      }
+      .announcement-container,
+      .detail-container {
+        width: 100%;
+        min-height: 100vh;
+        background-color: var(--component-bg);
+      }
+      .announcement-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        background-color: var(--header-dark-bg);
+        position: relative;
+      }
+      .announcement-header .back-arrow {
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--header-dark-text);
+      }
+      .announcement-header .title {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: var(--header-dark-text);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .filters-container {
+        padding: 16px;
+        background-color: var(--component-bg);
+        position: sticky;
+        top: 61.5px;
+        z-index: 9;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .category-dropdown {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 1rem;
+        color: var(--font-color-secondary);
+        margin-bottom: 16px;
+        cursor: pointer;
+      }
+      .category-dropdown .bx-chevron-down {
+        font-size: 1.5rem;
+      }
+      .filter-buttons {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .filter-buttons::-webkit-scrollbar {
+        display: none;
+      }
+      .filter-buttons button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 16px;
+        background-color: var(--filter-bg);
+        color: var(--filter-text-color);
+        font-size: 0.9rem;
+        font-weight: 500;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .filter-buttons button.active {
+        background: var(--theme-grad);
+        color: black;
+      }
+      .announcement-list {
+        padding: 16px;
+        background-color: var(--page-bg);
+      }
+      .announcement-card {
+        background-color: var(--component-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+      }
+      .announcement-card .content {
+        flex-grow: 1;
+        min-width: 0;
+      }
+      .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 4px;
+      }
+      .category-tag {
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 55%;
+      }
+      .tag-cocu {
+        background-color: var(--tag-cocu-bg);
+      }
+      .tag-placement {
+        background-color: var(--tag-placement-bg);
+      }
+      .tag-academic {
+        background-color: var(--tag-academic-bg);
+      }
+      .timestamp {
+        font-size: 0.8rem;
+        color: var(--font-color-secondary);
+        flex-shrink: 0;
+      }
+      .announcement-text {
+        font-weight: 200;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: var(--font-color-primary);
+        word-break: break-word;
+      }
+      .announcement-card .chevron-arrow {
+        font-size: 1.8rem;
+        color: var(--font-color-secondary);
+        margin-left: 12px;
+      }
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+      .modal-content {
+        background-color: var(--modal-bg);
+        border-radius: 8px;
+        width: 85%;
+        max-width: 320px;
+        padding: 24px;
+        color: #000;
+      }
+      .modal-option {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        cursor: pointer;
+      }
+      .modal-option:last-of-type {
+        margin-bottom: 16px;
+      }
+      .modal-option .label-text {
+        font-size: 1rem;
+        margin-left: 16px;
+        flex-grow: 1;
+      }
+      .modal-option input[type="radio"] {
+        display: none;
+      }
+      .custom-radio {
+        width: 24px;
+        height: 24px;
+        border: 2px solid #888;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .custom-radio .dot {
+        width: 14px;
+        height: 14px;
+        background-color: var(--theme-orange);
+        border-radius: 50%;
+        display: none;
+      }
+      .modal-option input[type="radio"]:checked + .custom-radio .dot {
+        display: block;
+      }
+      .modal-option input[type="radio"]:checked + .custom-radio {
+        border-color: var(--theme-orange);
+      }
+      .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 24px;
+      }
+      .modal-actions button {
+        background: none;
+        border: none;
+        color: var(--theme-orange);
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 8px;
+      }
+      .detail-container {
+        background-color: #fff;
+      }
+      .detail-content {
+        padding: 16px;
+      }
+      .subject-line {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .subject-line .icon {
+        font-size: 1.5rem;
+        color: var(--font-color-secondary);
+        margin-top: 2px;
+      }
+      .subject-line h3 {
+        font-size: 1.1rem;
+        font-weight: 500;
+        line-height: 1.4;
+      }
+      .body-content p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+        color: #333;
+      }
+      .body-content strong {
+        font-weight: 700;
+        color: #000;
+      }
+      .body-content a {
+        color: var(--link-color);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .body-content a:hover {
+        text-decoration: underline;
+      }
+      .uploader-info {
+        margin-top: 24px;
+        padding-top: 16px;
+        border-top: 1px solid #e0e0e0;
+      }
+      .uploader-info p {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: var(--font-color-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="list-view" class="page-view announcement-container">
+      <header class="announcement-header">
+        <i
+          class="bx bx-arrow-back back-arrow"
+          onclick="window.history.back()"
+        ></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <div class="filters-container">
+        <div class="category-dropdown" id="category-dropdown-btn">
+          <span>Category</span><i class="bx bx-chevron-down"></i>
+        </div>
+        <div class="filter-buttons">
+          <button class="active">ALL</button
+          ><button>Co-curricular/Sports/Cultural</button
+          ><button>Placement</button><button>Academic</button>
+        </div>
+      </div>
+      <main class="announcement-list">
+        <div class="announcement-card" data-target="detail-shehnaaz-gill">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-cocu"
+                >Co-curricular/Sports/Cultural</span
+              ><span class="timestamp">10/24/2025 12:01 PM</span>
+            </div>
+            <p class="announcement-text">
+              Catch the Start Cast of IKK KUDI FEATURING SHEHNAAZ GILL UNDER
+              MAGNITUDE 2025...
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+        <div class="announcement-card" data-target="detail-infosys-drive">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-placement">Placement</span
+              ><span class="timestamp">10/24/2025 11:30 AM</span>
+            </div>
+            <p class="announcement-text">
+              Placement Drive for Final Year Students by Infosys. All eligible
+              students must register...
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+        <div class="announcement-card" data-target="detail-ai-lecture">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-academic">Academic</span
+              ><span class="timestamp">10/24/2025 10:15 AM</span>
+            </div>
+            <p class="announcement-text">
+              Guest Lecture on "The Future of Artificial Intelligence" by
+              industry expert Dr. Anil Kumar.
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+        <div class="announcement-card" data-target="detail-cricket-trials">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-cocu"
+                >Co-curricular/Sports/Cultural</span
+              ><span class="timestamp">10/23/2025 4:53 PM</span>
+            </div>
+            <p class="announcement-text">
+              selection trials for the LPU Inter-School Cricket Tournament...
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+        <div class="announcement-card" data-target="detail-ai-summit">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-placement">Placement</span
+              ><span class="timestamp">10/23/2025 4:53 PM</span>
+            </div>
+            <p class="announcement-text">
+              Registration open for AI Innovation Summit 2025...
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+        <div class="announcement-card" data-target="detail-ncsam">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-academic">Academic</span
+              ><span class="timestamp">10/23/2025 4:47 PM</span>
+            </div>
+            <p class="announcement-text">
+              Observance of National Cyber Security Awareness Month (NCSAM) –
+              October 2025...
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+        <div class="announcement-card" data-target="detail-course-registration">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-academic">Academic</span
+              ><span class="timestamp">10/23/2025 2:10 PM</span>
+            </div>
+            <p class="announcement-text">
+              Reminder: Last day for course registration for the upcoming
+              semester is tomorrow.
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+        <div class="announcement-card" data-target="detail-spardha-fest">
+          <div class="content">
+            <div class="card-header">
+              <span class="category-tag tag-cocu"
+                >Co-curricular/Sports/Cultural</span
+              ><span class="timestamp">10/22/2025 5:00 PM</span>
+            </div>
+            <p class="announcement-text">
+              Registrations for our annual sports fest "Spardha" are now open.
+              Participate and showcase your talent!
+            </p>
+          </div>
+          <i class="bx bx-chevron-right chevron-arrow"></i>
+        </div>
+      </main>
+    </div>
+
+    <div id="detail-shehnaaz-gill" class="page-view detail-container hidden">
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-envelope icon"></i>
+          <h3>
+            Catch the Start Cast of IKK KUDI FEATURING SHEHNAAZ GILL UNDER
+            MAGNITUDE 2025 (10/24/2025 12:01:36 PM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>Dear Veros,</p>
+          <p>
+            Lovely Professional University warmly invites you to grace the most
+            awaited event of the year, being graced by the charming, graceful,
+            and truly captivating SHEHNAAZ GILL, who will be visiting the campus
+            for the promotion of her upcoming movie "Ikk Kudi." Join us as she
+            lights up the stage with her authenticity, wit, and warmth during
+            Magnitude 2025 — LPU's Open Intra-University Cultural Fest.
+          </p>
+          <p>
+            This event is organized by the Department of Youth Capital under the
+            aegis of the Division of Youth Affairs, Student Welfare Wing, LPU.
+          </p>
+          <p>
+            <strong>Date:</strong> 25th October 2025<br /><strong>Time:</strong>
+            12:30 PM onwards<br /><strong>Venue:</strong> Shanti Devi Mittal
+            Auditorium
+          </p>
+          <p>
+            Seats are limited — don't miss your chance to witness Shehnaaz
+            Gill's magic up close. Kindly note that entry will be provided to
+            only the registered participants.
+          </p>
+          <p>
+            <strong>Register here:</strong>
+            <a href="#" target="_blank">https://forms.gle/CAokAx4xodc6xCZB8</a>
+          </p>
+          <p>Be there. Feel the vibe. Live the Magnitude magic.</p>
+        </div>
+        <div class="uploader-info">
+          <p><strong>Uploaded By:</strong><br />Division of Youth Affairs</p>
+        </div>
+      </main>
+    </div>
+    <div id="detail-infosys-drive" class="page-view detail-container hidden">
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-briefcase-alt-2 icon"></i>
+          <h3>
+            Placement Drive for Final Year Students by Infosys (10/24/2025
+            11:30:11 AM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>Dear Final Year Students,</p>
+          <p>
+            We are pleased to announce that <strong>Infosys</strong> will be
+            conducting a virtual placement drive for the 2026 batch. This is an
+            excellent opportunity to start your career with a global leader in
+            next-generation digital services and consulting.
+          </p>
+          <p>
+            <strong>Role:</strong> Systems Engineer<br /><strong
+              >Eligibility:</strong
+            >
+            B.Tech (All Branches) with a minimum of 7.0 CGPA and no active
+            backlogs.<br /><strong>Hiring Process:</strong><br />1. Online
+            Aptitude & Coding Test<br />2. Technical Interview<br />3. HR
+            Interview
+          </p>
+          <p>
+            The initial test will be conducted online, and shortlisted
+            candidates will be notified for subsequent rounds. Please ensure
+            your UMS profile is updated with the latest information.
+          </p>
+          <p><strong>Registration Deadline:</strong> 28th October 2025</p>
+          <p>
+            <strong>Register via UMS Portal:</strong>
+            <a href="#" target="_blank">Click Here to Register</a>
+          </p>
+        </div>
+        <div class="uploader-info">
+          <p><strong>Uploaded By:</strong><br />Placement Cell</p>
+        </div>
+      </main>
+    </div>
+    <div id="detail-ai-lecture" class="page-view detail-container hidden">
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-bulb icon"></i>
+          <h3>
+            Guest Lecture on "The Future of Artificial Intelligence" (10/24/2025
+            10:15:55 AM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>Hello Students,</p>
+          <p>
+            The Department of Computer Science is organizing a guest lecture on
+            the fascinating topic of Artificial Intelligence and its future
+            impact. The session will be conducted by
+            <strong>Dr. Anil Kumar</strong>, a renowned AI researcher from
+            Google.
+          </p>
+          <p>
+            He will be covering topics such as Large Language Models (LLMs),
+            Ethical AI, and the future scope of AI in various industries. This
+            is a must-attend session for anyone interested in the future of
+            technology.
+          </p>
+          <p>
+            <strong>Date:</strong> 28th October 2025<br /><strong>Time:</strong>
+            11:00 AM to 1:00 PM<br /><strong>Venue:</strong> Auditorium, Block
+            32
+          </p>
+          <p>
+            Attendance is mandatory for all 3rd and 4th year CSE students.
+            Students from other departments are also welcome to join.
+          </p>
+        </div>
+        <div class="uploader-info">
+          <p>
+            <strong>Uploaded By:</strong><br />Department of Computer Science
+          </p>
+        </div>
+      </main>
+    </div>
+    <div id="detail-cricket-trials" class="page-view detail-container hidden">
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-baseball icon"></i>
+          <h3>
+            Selection trials for the LPU Inter-School Cricket Tournament
+            (10/23/2025 4:53:29 PM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>Attention Cricketers!</p>
+          <p>
+            The University Sports Department is conducting open trials to select
+            the team for the upcoming Inter-School Cricket Tournament. All
+            interested students are invited to showcase their talent in batting,
+            bowling, and fielding.
+          </p>
+          <p>
+            <strong>Date:</strong> 27th October 2025<br /><strong>Time:</strong>
+            9:00 AM sharp<br /><strong>Venue:</strong> University Sports Ground
+          </p>
+          <p>
+            Participants must report at 8:30 AM in proper cricket attire. Please
+            bring your own cricket kit and university ID card for verification.
+            No on-the-spot registrations will be entertained.
+          </p>
+        </div>
+        <div class="uploader-info">
+          <p>
+            <strong>Uploaded By:</strong><br />Division of Student Welfare
+            (Sports Wing)
+          </p>
+        </div>
+      </main>
+    </div>
+    <div id="detail-ai-summit" class="page-view detail-container hidden">
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-bot icon"></i>
+          <h3>
+            Registration open for AI Innovation Summit 2025 (10/23/2025 4:53:19
+            PM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>Greetings Innovators!</p>
+          <p>
+            The Centre for Excellence in Cognition invites all students to
+            participate in the <strong>AI Innovation Summit 2025</strong>. The
+            summit will feature a 24-hour hackathon, expert talks from industry
+            leaders, and hands-on workshops on Machine Learning and Deep
+            Learning.
+          </p>
+          <p>
+            <strong>Date:</strong> 1st - 2nd November 2025<br /><strong
+              >Venue:</strong
+            >
+            Block 34 & 35
+          </p>
+          <p>
+            This is a great platform to network, learn, and showcase your
+            innovative ideas to win exciting prizes and internship
+            opportunities.
+          </p>
+          <p>
+            <strong>Register here:</strong>
+            <a href="#" target="_blank">Link to Registration Form</a>
+          </p>
+        </div>
+        <div class="uploader-info">
+          <p>
+            <strong>Uploaded By:</strong><br />Centre for Excellence in
+            Cognition
+          </p>
+        </div>
+      </main>
+    </div>
+    <div id="detail-ncsam" class="page-view detail-container hidden">
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-shield-quarter icon"></i>
+          <h3>
+            Observance of National Cyber Security Awareness Month (NCSAM)
+            (10/23/2025 4:47:16 PM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>Dear Students,</p>
+          <p>
+            As part of National Cyber Security Awareness Month (NCSAM), the
+            university will be conducting a series of events throughout October
+            to promote awareness about cybersecurity best practices. Events will
+            include:
+          </p>
+          <p>
+            - Workshop on Ethical Hacking<br />- "Catch the Phish" Quiz
+            Competition<br />- Poster-making competition on Digital Safety
+          </p>
+          <p>
+            We encourage everyone to participate and learn how to protect your
+            digital identity and stay safe online. Check the UMS for the full
+            schedule of events and registration links.
+          </p>
+        </div>
+        <div class="uploader-info">
+          <p><strong>Uploaded By:</strong><br />Division of Academic Affairs</p>
+        </div>
+      </main>
+    </div>
+    <div
+      id="detail-course-registration"
+      class="page-view detail-container hidden"
+    >
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-error-circle icon"></i>
+          <h3>
+            Reminder: Last day for course registration (10/23/2025 2:10:05 PM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>All Students,</p>
+          <p>
+            This is a final reminder that the deadline for course registration
+            for the upcoming semester is
+            <strong>24th October 2025, 11:59 PM</strong>.
+          </p>
+          <p>
+            Please ensure you have registered for all your required courses
+            through the UMS portal. Failure to register by the deadline will
+            result in a late fee of Rs. 500 and may affect your attendance
+            records.
+          </p>
+          <p>
+            For any queries, please contact the registrar's office at Block 30.
+          </p>
+        </div>
+        <div class="uploader-info">
+          <p><strong>Uploaded By:</strong><br />Office of the Registrar</p>
+        </div>
+      </main>
+    </div>
+    <div id="detail-spardha-fest" class="page-view detail-container hidden">
+      <header class="announcement-header">
+        <i class="bx bx-arrow-back back-arrow"></i>
+        <h1 class="title">Announcement</h1>
+      </header>
+      <main class="detail-content">
+        <div class="subject-line">
+          <i class="bx bx-trophy icon"></i>
+          <h3>
+            Registrations for our annual sports fest "Spardha" are now open
+            (10/22/2025 5:00:00 PM)
+          </h3>
+        </div>
+        <div class="body-content">
+          <p>Get Ready to Compete!</p>
+          <p>
+            The registrations for <strong>Spardha 2025</strong>, the biggest
+            sports festival of the year, are now live! Participate in a wide
+            range of sports including Cricket, Football, Basketball, Volleyball,
+            Badminton, and Athletics.
+          </p>
+          <p><strong>Event Dates:</strong> 15th - 18th November 2025</p>
+          <p>
+            Show your skills, teamwork, and sportsmanship. Let the games begin
+            and may the best team win!
+          </p>
+          <p>
+            <strong>Register your team here:</strong>
+            <a href="#" target="_blank">Spardha Registration Portal</a>
+          </p>
+        </div>
+        <div class="uploader-info">
+          <p><strong>Uploaded By:</strong><br />Student Council</p>
+        </div>
+      </main>
+    </div>
+
+    <div class="modal-overlay" id="category-modal">
+      <div class="modal-content">
+        <label class="modal-option"
+          ><input
+            type="radio"
+            name="category_option"
+            value="category"
+            checked
+          /><span class="custom-radio"><span class="dot"></span></span
+          ><span class="label-text">Category</span></label
+        ><label class="modal-option"
+          ><input type="radio" name="category_option" value="date" /><span
+            class="custom-radio"
+            ><span class="dot"></span></span
+          ><span class="label-text">Search By Date</span></label
+        ><label class="modal-option"
+          ><input type="radio" name="category_option" value="subject" /><span
+            class="custom-radio"
+            ><span class="dot"></span></span
+          ><span class="label-text">Subject-wise</span></label
+        ><label class="modal-option"
+          ><input type="radio" name="category_option" value="uploader" /><span
+            class="custom-radio"
+            ><span class="dot"></span></span
+          ><span class="label-text">Uploaded By</span></label
+        >
+        <div class="modal-actions">
+          <button id="modal-cancel-btn">CANCEL</button
+          ><button id="modal-ok-btn">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const allViews = document.querySelectorAll(".page-view");
+        const announcementCards =
+          document.querySelectorAll(".announcement-card");
+        const backArrows = document.querySelectorAll(
+          ".detail-container .back-arrow"
+        );
+
+        function showPage(pageId) {
+          allViews.forEach((view) => view.classList.add("hidden"));
+          const targetPage = document.getElementById(pageId);
+          if (targetPage) targetPage.classList.remove("hidden");
+        }
+
+        announcementCards.forEach((card) => {
+          card.addEventListener("click", () => {
+            const targetId = card.getAttribute("data-target");
+            showPage(targetId);
+          });
+        });
+
+        backArrows.forEach((arrow) => {
+          arrow.addEventListener("click", () => showPage("list-view"));
+        });
+
+        const categoryDropdownBtn = document.getElementById(
+          "category-dropdown-btn"
+        );
+        const categoryModal = document.getElementById("category-modal");
+        const modalCancelBtn = document.getElementById("modal-cancel-btn");
+        const modalOkBtn = document.getElementById("modal-ok-btn");
+        const openModal = () => (categoryModal.style.display = "flex");
+        const closeModal = () => (categoryModal.style.display = "none");
+        categoryDropdownBtn.addEventListener("click", openModal);
+        modalCancelBtn.addEventListener("click", closeModal);
+        modalOkBtn.addEventListener("click", closeModal);
+        categoryModal.addEventListener("click", (event) => {
+          if (event.target === categoryModal) closeModal();
+        });
+      });
+    </script>
+  </body>
+</html>
