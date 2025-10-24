@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --page-bg: #f0f2f5;
+        --card-bg: #ffffff;
+        --header-dark-bg: #303134;
+        --header-dark-text: #e8eaed;
+        --font-primary: #333;
+        --font-secondary: #5f6368;
+        --border-color: #e8e8e8;
+        --section-highlight: #e5625e;
+        /* Lighter Progress Colors */
+        --progress-green: #81c784;
+        --progress-orange: #ffb74d;
+        --progress-red: #e57373;
+        /* Theme Gradients & Colors */
+        --theme-grad: linear-gradient(to right, #ff8373, #fed278);
+        --accent-orange: #e67e22;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: var(--page-bg);
+      }
+      .attendance-container {
+        width: 100%;
+        min-height: 100vh;
+      }
+      .attendance-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        background-color: var(--header-dark-bg);
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+      .attendance-header .back-arrow {
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--header-dark-text);
+      }
+      .attendance-header .title {
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: var(--header-dark-text);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .aggregate-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--border-color);
+        position: sticky;
+        top: 61.5px;
+        z-index: 1;
+      }
+      .aggregate-bar .label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--font-secondary);
+      }
+      .aggregate-bar .percent-box {
+        background: var(--theme-grad);
+        color: #000;
+        font-weight: 500;
+        padding: 6px 12px;
+        border-radius: 4px;
+      }
+      .course-list {
+        padding: 16px;
+      }
+      .course-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-bottom: 16px;
+        overflow: hidden;
+        padding: 12px 16px;
+      }
+
+      .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 12px;
+      }
+      .course-title {
+        font-size: 1.05rem;
+        font-weight: 400;
+        color: var(--font-primary);
+        line-height: 1.4;
+        padding-right: 10px;
+      }
+      .group-tag {
+        background: var(--theme-grad); /* Changed to theme gradient */
+        color: #000; /* Changed to black for contrast */
+        font-weight: 500;
+        height: 24px;
+        line-height: 24px;
+        padding: 0 10px 0 18px;
+        font-size: 0.8rem;
+        flex-shrink: 0;
+        white-space: nowrap;
+        clip-path: polygon(0% 50%, 20% 0%, 100% 0%, 100% 100%, 20% 100%);
+      }
+
+      .card-body {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+      .course-details {
+        color: var(--font-secondary);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+      .course-details strong {
+        color: var(--font-primary);
+        font-weight: 500;
+      }
+      .progress-circle {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(
+          var(--color) calc(var(--percent) * 3.6deg),
+          #ededed 0deg
+        );
+        position: relative;
+        flex-shrink: 0;
+        margin-left: 10px;
+      }
+      .progress-circle::before {
+        content: "";
+        position: absolute;
+        width: 62px;
+        height: 62px;
+        background: var(--card-bg);
+        border-radius: 50%;
+      }
+      .progress-circle .percentage {
+        position: relative;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--font-secondary);
+      }
+      .card-footer {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.9rem;
+        color: var(--accent-orange);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="attendance-container">
+      <header class="attendance-header">
+        <i
+          class="bx bx-arrow-back back-arrow"
+          onclick="window.history.back()"
+        ></i>
+        <h1 class="title">Attendance</h1>
+      </header>
+
+      <div class="aggregate-bar">
+        <span class="label">AGGREGATE ATTENDANCE</span>
+        <span class="percent-box">80%</span>
+      </div>
+
+      <main class="course-list">
+        <div class="course-card">
+          <div class="card-top">
+            <h2 class="course-title">
+              FIN314 - CAPITAL MARKET OPERATIONS (OM)
+            </h2>
+            <div class="group-tag">Group: 2</div>
+          </div>
+          <div class="card-body">
+            <div class="course-details">
+              <strong>Faculty:</strong> Dr. Rupesh Roshan Singh<br />
+              <strong>Faculty Seating:</strong> 14-305-C5<br />
+              <strong>Last Attended:</strong> 10/23/2025<br />
+              <strong>Attended/Delivered:</strong> 3/6<br />
+              <strong>Duty Leaves:</strong> 0
+            </div>
+            <div
+              class="progress-circle"
+              style="--percent: 50; --color: var(--progress-orange)"
+            >
+              <span class="percentage">50%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span>Section:KO010</span><span>Roll No: RKO010B47</span>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="card-top">
+            <h2 class="course-title">PEA306 - ANALYTICAL SKILLS-II (PW)</h2>
+            <div class="group-tag">Group: 1</div>
+          </div>
+          <div class="card-body">
+            <div class="course-details">
+              <strong>Faculty:</strong> NA<br />
+              <strong>Faculty Seating:</strong> NA<br />
+              <strong>Last Attended:</strong> 9/27/2025<br />
+              <strong>Attended/Delivered:</strong> 28/36<br />
+              <strong>Duty Leaves:</strong> 6
+            </div>
+            <div
+              class="progress-circle"
+              style="--percent: 94; --color: var(--progress-green)"
+            >
+              <span class="percentage">94%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span>Section:KF591</span><span>Roll No:</span>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="card-top">
+            <h2 class="course-title">PETS13 - DATA STRUCTURE - II (AD)</h2>
+            <div class="group-tag">Group: 1</div>
+          </div>
+          <div class="card-body">
+            <div class="course-details">
+              <strong>Faculty:</strong> NA<br />
+              <strong>Faculty Seating:</strong> NA<br />
+              <strong>Last Attended:</strong> 9/26/2025<br />
+              <strong>Attended/Delivered:</strong> 5/14<br />
+              <strong>Duty Leaves:</strong> 0
+            </div>
+            <div
+              class="progress-circle"
+              style="--percent: 36; --color: var(--progress-red)"
+            >
+              <span class="percentage">36%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span>Section:KF829</span><span>Roll No:</span>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="card-top">
+            <h2 class="course-title">
+              CSE322 - FORMAL LANGUAGES AND AUTOMATION THEORY (CR)
+            </h2>
+            <div class="group-tag">Group: 1</div>
+          </div>
+          <div class="card-body">
+            <div class="course-details">
+              <strong>Faculty:</strong> NA<br />
+              <strong>Faculty Seating:</strong> NA<br />
+              <strong>Last Attended:</strong> 9/27/2025<br />
+              <strong>Attended/Delivered:</strong> 36/38<br />
+              <strong>Duty Leaves:</strong> 2
+            </div>
+            <div
+              class="progress-circle"
+              style="--percent: 100; --color: var(--progress-green)"
+            >
+              <span class="percentage">100%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span>Section:KF592</span>
+            <span>Roll No:</span>
+          </div>
+        </div>
+
+        <div class="course-card">
+          <div class="card-top">
+            <h2 class="course-title">CSE376 - AUTOMATED TESTING (EM)</h2>
+            <div class="group-tag">Group: 1</div>
+          </div>
+          <div class="card-body">
+            <div class="course-details">
+              <strong>Faculty:</strong> Apoorv Dubey, Dr. Komal Singh Gill<br />
+              <strong>Faculty Seating:</strong> 27-203-CH11, NA<br />
+              <strong>Last Attended:</strong> 10/15/2025<br />
+              <strong>Attended/Delivered:</strong> 4/6<br />
+              <strong>Duty Leaves:</strong> 0
+            </div>
+            <div
+              class="progress-circle"
+              style="--percent: 67; --color: var(--progress-orange)"
+            >
+              <span class="percentage">67%</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span>Section:K23SE</span><span>Roll No: RK23SEA22</span>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
