@@ -15,6 +15,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="transparent.css" />
 
     <style>
       a.icon-link,
@@ -22,40 +23,90 @@
         text-decoration: none;
         color: inherit;
       }
-      
       .profile-page-content {
         padding-top: 10px;
       }
-
+      .profile-details-container .profile-section:first-child {
+        padding-top: 0;
+      }
       .profile-section {
-        margin-bottom: 16px;
-        padding: 16px;
+        margin-bottom: 8px;
+        padding: 8px 16px;
         border-radius: 12px;
       }
-
       .profile-section h3 {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         font-size: 1rem;
         color: #ffffff;
       }
-      
       .profile-field {
-        padding: 6px 0;
+        padding: 3px 0;
       }
-
       .field-label {
         font-size: 0.75rem;
         margin-bottom: 2px;
         color: #777;
       }
-
       .field-value {
         font-size: 0.9rem;
         line-height: 1.3;
       }
+      .full-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 500;
+      }
+      .loading-page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      .loading-page.hidden {
+        display: none;
+      }
+      .loading-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loading-seal {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+      }
+      .loading-spinner {
+        width: 70px;
+        height: 70px;
+        border: 4px solid rgba(228, 94, 32, 0.2);
+        border-top: 3px solid #e37644;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
     </style>
   </head>
   <body>
+    <div id="loading-page" class="full-page loading-page">
+      <div class="loading-container">
+        <img src="images/seal.svg" alt="University Seal" class="loading-seal" />
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+
     <div id="profile-page" class="full-page">
       <header class="page-header">
         <a href="index.html" class="icon-link"
@@ -151,5 +202,16 @@
         </div>
       </main>
     </div>
+    <script>
+      window.addEventListener("load", function () {
+        const loader = document.getElementById("loading-page");
+        if (loader) {
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.classList.add("hidden");
+          }, 500);
+        }
+      });
+    </script>
   </body>
 </html>
