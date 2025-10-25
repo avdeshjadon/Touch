@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Core Courses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --page-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --header-dark-bg: #31353a;
+        --header-dark-text: #ffffff;
+        --text-primary: #333;
+        --text-secondary: #777;
+        /* Reusing main gradient from styles.css */
+        --main-grad: linear-gradient(to right, #ff8373, #fed278);
+        --border-color: #eef0f3;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: var(--page-bg);
+        color: var(--text-primary);
+        font-size: 14px;
+      }
+
+      .full-page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      /* --- START Loading Page CSS (Copied from backtobasics.html) --- */
+      .full-page.loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 500;
+        background-color: #f8f9fa;
+        overflow-x: hidden;
+      }
+      .loading-page {
+        position: fixed; /* Ensures it covers the entire viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      .loading-page.hidden {
+        display: none;
+      }
+      .loading-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loading-seal {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+      }
+      .loading-spinner {
+        width: 70px;
+        height: 70px;
+        border: 4px solid rgba(228, 94, 32, 0.2);
+        border-top: 3px solid #e37644;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      /* --- END Loading Page CSS --- */
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: var(--header-dark-bg);
+        color: var(--header-dark-text);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .page-header a.icon-link {
+        color: var(--header-dark-text);
+        text-decoration: none;
+      }
+
+      .page-header .icon {
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+
+      .page-header h1 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 400; /* Decreased boldness */
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      /* Updated Details Button to use Gradient */
+      .page-header .details-btn {
+        background: var(--main-grad); /* Applied Gradient */
+        color: #000; /* Text color remains black for contrast */
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+      }
+
+      .course-list-container {
+        padding: 15px;
+        flex-grow: 1;
+      }
+
+      .course-card {
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .course-card .course-code {
+        font-size: 1.2rem;
+        font-weight: 400; /* Decreased boldness */
+        margin-bottom: 2px;
+      }
+
+      .course-card .course-name {
+        font-size: 0.9rem;
+        font-weight: 300; /* Decreased boldness */
+        color: var(--text-primary);
+        line-height: 1.3;
+      }
+
+      .course-card .course-type {
+        font-size: 0.8rem;
+        font-weight: 300; /* Decreased boldness */
+        color: var(--text-secondary);
+        margin-bottom: 10px;
+      }
+
+      /* Updated Apply Now Button to use Gradient */
+      .apply-btn {
+        background: var(--main-grad); /* Applied Gradient */
+        color: #000;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 400; /* Decreased boldness */
+        cursor: pointer;
+        align-self: flex-start;
+        text-decoration: none;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(255, 131, 115, 0.3); /* Added subtle shadow for depth */
+      }
+      
+      /* Updated Floating Action Button to use Gradient */
+      .add-button-float {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--main-grad); /* Applied Gradient */
+        color: #000;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        box-shadow: 0 4px 10px rgba(255, 131, 115, 0.5); /* Updated shadow */
+        cursor: pointer;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-page" class="full-page loading-page">
+      <div class="loading-container">
+        <img src="images/seal.svg" alt="University Seal" class="loading-seal" />
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+    
+    <div id="core-courses-page" class="full-page">
+      <header class="page-header">
+        <a href="edurevolution.html" class="icon-link">
+          <i class="bx bx-arrow-back icon"></i>
+        </a>
+        <h1>Edu Revolution</h1>
+        <a href="edurevolution_details.html" class="details-btn">DETAILS</a>
+      </header>
+
+      <main class="course-list-container">
+        <div class="course-card">
+          <span class="course-code">CSE322</span>
+          <span class="course-name"
+            >FORMAL LANGUAGES AND AUTOMATION THEORY</span
+          >
+          <span class="course-type">Core - Discipline Core</span>
+          <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+
+        <div class="course-card">
+          <span class="course-code">CSE376</span>
+          <span class="course-name">AUTOMATED TESTING</span>
+          <span class="course-type">Elective - Discipline Core</span>
+          <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+
+        <div class="course-card">
+          <span class="course-code">CSE377</span>
+          <span class="course-name">ADVANCE TESTING TECHNOLOGIES</span>
+          <span class="course-type">Elective - Discipline Core</span>
+          <a href="#" class="apply-btn">Apply Now</a>
+        </div>
+      </main>
+      
+      <button class="add-button-float">
+          <i class="bx bx-plus"></i>
+      </button>
+
+    </div>
+    
+    <script>
+      window.addEventListener("load", function () {
+        const loader = document.getElementById("loading-page");
+        if (loader) {
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.classList.add("hidden");
+          }, 500);
+        }
+      });
+    </script>
+  </body>
+</html>

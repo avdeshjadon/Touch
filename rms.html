@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RMS Requests</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --page-bg: #f8f9fa;
+        --header-bg: #31353a;
+        --header-text: #ffffff;
+        --tab-active-bg: #ffffff;
+        --tab-inactive-text: #777;
+        --card-bg: #ffffff;
+        --text-primary: #333;
+        --text-secondary: #777;
+        /* Updated to orangish color, matching Edu Revolution theme's gradient start color */
+        --id-color: #ff8373; 
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        /* Using system font stack for exact mobile look */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      body {
+        background-color: var(--page-bg);
+        color: var(--text-primary);
+        font-size: 14px;
+      }
+
+      .full-page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- START Loading Page CSS (Copied from edurevolution.html) --- */
+      .full-page.loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 500;
+        background-color: #f8f9fa;
+        overflow-x: hidden;
+      }
+      .loading-page {
+        position: fixed; /* Ensures it covers the entire viewport */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa;
+        z-index: 9999;
+        transition: opacity 0.5s ease;
+      }
+      .loading-page.hidden {
+        display: none;
+      }
+      .loading-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .loading-seal {
+        width: 70px;
+        height: 70px;
+        position: absolute;
+      }
+      .loading-spinner {
+        width: 70px;
+        height: 70px;
+        border: 4px solid rgba(228, 94, 32, 0.2);
+        border-top: 3px solid #e37644;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      /* --- END Loading Page CSS --- */
+
+      /* Header Styling */
+      .page-header {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: var(--header-bg);
+        color: var(--header-text);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .page-header .icon {
+        font-size: 1.6rem;
+        cursor: pointer;
+        margin-right: 25px;
+        color: inherit; 
+        text-decoration: none; 
+      }
+
+      .page-header h1 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 500;
+        flex-grow: 1;
+        text-align: center;
+        transform: translateX(-15px); 
+      }
+      
+      /* Tab Bar Styling (UPDATED for space from header) */
+      .tab-bar {
+        display: flex;
+        background-color: var(--page-bg); 
+        padding: 8px 15px 10px 15px; /* Added padding-top: 8px */
+      }
+      
+      .tab-item {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 0;
+        text-decoration: none;
+        color: var(--tab-inactive-text);
+        font-size: 0.9rem;
+        font-weight: 500;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 4px;
+        transition: all 0.2s;
+      }
+
+      .tab-item.active {
+        background-color: var(--tab-active-bg);
+        color: var(--text-primary);
+        font-weight: 600;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      
+      /* Request List and Card Styling - Compacted Further */
+      .request-list {
+        padding: 5px 15px 15px;
+        flex-grow: 1;
+      }
+
+      .request-card {
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        padding: 10px; 
+        margin-bottom: 8px; 
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); 
+        line-height: 1.3; 
+      }
+
+      .request-card .topic {
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 4px; 
+        display: block;
+        font-size: 0.95rem; 
+      }
+
+      .request-card .label {
+        font-weight: 400;
+        color: var(--text-primary);
+        margin-right: 5px;
+      }
+
+      .request-card .description,
+      .request-card .remarks {
+        font-size: 0.8rem; 
+        font-weight: 200;
+        color: var(--text-primary);
+        display: block;
+        margin-bottom: 2px; 
+        word-wrap: break-word; 
+      }
+      
+      .request-card .remarks {
+          color: #555;
+          margin-top: 2px; 
+      }
+
+      .request-card .request-id {
+        font-weight: 500;
+        color: var(--id-color); 
+        margin-top: 4px; 
+        display: inline-block;
+        font-size: 0.8rem;
+      }
+
+      .request-card .date {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        font-weight: 400;
+        display: block;
+        margin-top: 1px; 
+      }
+      
+      .request-card.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading-page" class="full-page loading-page">
+      <div class="loading-container">
+        <img src="images/seal.svg" alt="University Seal" class="loading-seal" /> 
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
+    <div id="rms-requests-page" class="full-page">
+      <header class="page-header">
+        <a href="index.html" class="icon"><i class="bx bx-arrow-back"></i></a>
+        <h1>RMS Requests</h1>
+      </header>
+
+      <nav class="tab-bar">
+        <div class="tab-item active" data-filter="all" id="tab-all">All</div>
+        <div class="tab-item" data-filter="closed" id="tab-closed">Close</div>
+        <div class="tab-item" data-filter="open" id="tab-open">Open</div>
+      </nav>
+
+      <main class="request-list" id="request-list">
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">coursera joining problem with cse306</span>
+          <span class="label">Description:</span>
+          <span class="description">respected sir/ma'am i am not able to join the course on Coursera of subject cse306 which is provided.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">Dear Student, Kindly discuss with your respective HOD.</span>
+          <span class="request-id">Request ID: 3962003</span>
+          <span class="date">Date: 8/15/2024 8:00:31 PM</span>
+        </div>
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">student college mail id</span>
+          <span class="label">Description:</span>
+          <span class="description">sir i want to know my student college mail i'd and password so that I can join coursera course cse30.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">User----------avdeshjadon23@lpu.in Password----------Puh75766 Link------office.com Thanks</span>
+          <span class="request-id">Request ID: 3952760</span>
+          <span class="date">Date: 8/12/2024 2:32:59 PM</span>
+        </div>
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">Request for Information on Semester 3 Subjects</span>
+          <span class="label">Description:</span>
+          <span class="description">Dear Management, i hope this message finds you well. I am writing to kindly request information r.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">Dear Student Your concern is noted and you can visit the page "https://www.lpu.in/programmes/enginee.....</span>
+          <span class="request-id">Request ID: 3772721</span>
+          <span class="date">Date: 5/18/2024 3:26:57 AM</span>
+        </div>
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">no subject</span>
+          <span class="label">Description:</span>
+          <span class="description">can there is any way by which i can able to change my profile picture ,because that profile pic is L.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">Dear Student, Kindly report to 30-104 for the same.</span>
+          <span class="request-id">Request ID: 3635116</span>
+          <span class="date">Date: 2/24/2024 7:46:35 PM</span>
+        </div>
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">int 306</span>
+          <span class="label">Description:</span>
+          <span class="description">i have a issue with the method of teaching ,most of the time she used to explain us with the help o.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">Dear Studet Your concern has been well taken and accordingly faculty has been guided for the improv.....</span>
+          <span class="request-id">Request ID: 3630985</span>
+          <span class="date">Date: 2/21/2024 3:27:11 PM</span>
+        </div>
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">Regarding Results - TheoryETP Exams</span>
+          <span class="label">Description:</span>
+          <span class="description">sir actually i have given improvement for my dsa cse 205 exam and i score 87/100 marks but it is not.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">Dear Student, Please be assured that all assessments, including viva examinations, are conducted fai.....</span>
+          <span class="request-id">Request ID: 4665402</span>
+          <span class="date">Date: 8/7/2025 3:24:00 PM</span>
+        </div>
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">hostle fee adjustment for 1 month</span>
+          <span class="label">Description:</span>
+          <span class="description">sir i am unaware about the fees adjusment of the hostle for the student who are doing summer boot ca.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">Dear Student, You concern has been noticed and will get the adjustment as per the guideline</span>
+          <span class="request-id">Request ID: 4640640</span>
+          <span class="date">Date: 7/29/2025 7:30:35 PM</span>
+        </div>
+        
+        <div class="request-card" data-status="closed">
+          <span class="topic">pel132</span>
+          <span class="label">Description:</span>
+          <span class="description">I am writing to express my concern regarding my attendance record for 21-oct-2024, where I was marke.....</span>
+          <span class="label">Remarks:</span>
+          <span class="remarks">Dear Student as per verification from concerned HOD Dr. Renu(11121), attendance cannot be granted as.....</span>
+          <span class="request-id">Request ID: 4081656</span>
+          <span class="date">Date: 10/21/2024 4:40:43 PM</span>
+        </div>
+        
+        <div class="request-card" data-status="open">
+          <span class="topic">Hitsbull eye credentials</span>
+          <span class="label">Description:</span>
+          <span class="description">i haven't recieved my hitsbull eye credentials and i want to do it so kindly provide me the credenti.....</span>
+          <span class="request-id">Request ID: 4768136</span>
+          <span class="date">Date: 9/14/2025 5:34:02 AM</span>
+        </div>
+        
+        <div class="request-card" data-status="open">
+          <span class="topic">int</span>
+          <span class="label">Description:</span>
+          <span class="description">lpu wireles password, my registration number is 12319278</span>
+          <span class="request-id">Request ID: 3630985</span>
+          <span class="date">Date: --/--/---- --:--:-- --</span> 
+        </div>
+
+      </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.tab-item');
+            const requestCards = document.querySelectorAll('.request-card');
+
+            // --- Tab Filtering Logic ---
+            // Set 'All' tab as active initially
+            document.getElementById('tab-all').classList.add('active');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+
+                    // Remove 'active' class from all tabs
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Add 'active' class to the clicked tab
+                    this.classList.add('active');
+
+                    // Filter the cards
+                    requestCards.forEach(card => {
+                        const status = card.getAttribute('data-status');
+                        
+                        // Show all cards for the 'all' filter, or show cards matching the specific status filter
+                        if (filter === 'all' || filter === status) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // --- LOADER SCRIPT (Copied from edurevolution.html) ---
+            const loader = document.getElementById("loading-page");
+            if (loader) {
+              // Wait a very short moment to ensure the content is ready, then fade out
+              setTimeout(() => {
+                loader.style.opacity = "0";
+                setTimeout(() => {
+                  loader.classList.add("hidden");
+                }, 500); // Duration of the CSS transition
+              }, 100); 
+            }
+        });
+    </script>
+    </body>
+</html>

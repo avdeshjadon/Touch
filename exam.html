@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exams Available</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --page-bg: #f8f9fa;
+        --header-bg: #31353a;
+        --header-text: #ffffff;
+        --card-bg: #ffffff;
+        --text-primary: #333;
+        --text-secondary: #777;
+        /* Gradient matching the banner in the screenshot */
+        --card-header-grad: linear-gradient(to right, #f8a19b, #fed278); 
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        /* Using system font stack for clean mobile look */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      body {
+        background-color: var(--page-bg);
+        color: var(--text-primary);
+        font-size: 14px;
+      }
+
+      .full-page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header Styling */
+      .page-header {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: var(--header-bg);
+        color: var(--header-text);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .page-header .icon {
+        font-size: 1.6rem;
+        cursor: pointer;
+        margin-right: 25px;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page-header h1 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 500;
+        flex-grow: 1;
+        text-align: center;
+        /* To perfectly center the title */
+        transform: translateX(-15px); 
+      }
+      
+      /* Main Content Area */
+      .exam-list-container {
+        padding: 10px;
+        flex-grow: 1;
+      }
+
+      /* Exam Card Styling */
+      .exam-card {
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        overflow: hidden; /* To contain the header gradient border-radius */
+        margin-bottom: 20px;
+      }
+      
+      /* Gradient Header Section */
+      .exam-card-header {
+        background: var(--card-header-grad);
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        color: var(--text-primary); /* Text color remains black for content below */
+      }
+
+      .course-code {
+        font-size: 1.1rem;
+        font-weight: 500;
+        margin-right: 10px;
+        color: var(--text-primary); /* Ensure contrast */
+      }
+
+      .exam-details {
+        font-size: 0.85rem;
+        font-weight: 400;
+        text-align: right;
+        line-height: 1.3;
+        color: #333;
+      }
+      
+      .exam-details strong {
+          font-weight: 400;
+      }
+      
+      /* Card Body */
+      .exam-card-body {
+        padding: 15px;
+      }
+
+      .course-name {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
+      
+      /* Time and Date Sections */
+      .detail-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+      }
+      
+      .date-label {
+        font-weight: 400;
+        color: var(--text-primary);
+        display: inline-flex; /* Use flex to align icon and text */
+        align-items: center;
+        margin-right: 5px;
+      }
+
+      .date-value {
+        font-weight: 600;
+        color: var(--id-color); /* Using the theme color for key data */
+        font-size: 1rem;
+      }
+      
+      .time-row {
+          font-size: 0.85rem;
+          color: var(--text-secondary);
+          display: flex;
+          align-items: flex-start;
+      }
+      
+      .time-icon {
+        font-size: 1.1rem;
+        margin-right: 8px;
+        transform: translateY(1px);
+      }
+      
+      .time-info {
+          font-weight: 300;
+          line-height: 1.4;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="exams-available-page" class="full-page">
+      <header class="page-header">
+        <a href="#" class="icon"><i class="bx bx-arrow-back"></i></a>
+        <h1>Exams Available</h1>
+      </header>
+
+      <main class="exam-list-container">
+        
+        <div class="exam-card">
+          <div class="exam-card-header">
+            <span class="course-code">FIN314</span>
+            <div class="exam-details">
+                Theory End Term<br> (Regular)<br> Mix MCQ + Subjective
+            </div>
+          </div>
+          
+          <div class="exam-card-body">
+            <h2 class="course-name">CAPITAL MARKET OPERATIONS</h2>
+            
+            <div class="detail-row">
+                <span class="date-label">Exam Date:</span>
+                <span class="date-value">15 Jan 2026</span>
+            </div>
+            
+            <div class="time-row">
+                <i class="bx bx-time time-icon"></i>
+                <div class="time-info">
+                    Exam Time **10:00-13:00** (Reporting Time 30 mins before the start of exam)
+                </div>
+            </div>
+          </div>
+        </div>
+        </main>
+    </div>
+  </body>
+</html>

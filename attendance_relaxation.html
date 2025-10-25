@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10% Attendance Relaxation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --page-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --header-dark-bg: #31353a;
+        --header-dark-text: #ffffff;
+        --text-primary: #333;
+        --text-secondary: #777;
+        --main-grad: linear-gradient(to right, #ff8373, #fed278);
+        --border-color: #eef0f3;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background-color: var(--page-bg);
+        color: var(--text-primary);
+        font-size: 14px;
+      }
+
+      .full-page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: var(--header-dark-bg);
+        color: var(--header-dark-text);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .page-header a.icon-link {
+        color: var(--header-dark-text);
+        text-decoration: none;
+      }
+
+      .page-header .icon {
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+
+      .page-header h1 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+        flex-grow: 1;
+        text-align: center;
+      }
+
+      .header-placeholder {
+        /* To keep H1 centered when there is no right button */
+        width: 1.6rem; 
+      }
+      
+      .details-btn-placeholder {
+        /* To keep H1 centered when there is a right button placeholder */
+        width: 48px; 
+      }
+      
+      .details-btn {
+        background: var(--main-grad);
+        color: #000;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+      }
+
+      .form-container {
+        padding: 15px;
+        flex-grow: 1;
+      }
+
+      .description-text {
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: var(--text-primary);
+        line-height: 1.5;
+        margin-bottom: 15px;
+      }
+
+      .alert-box {
+        background-color: #fcebeb; /* Light red background */
+        border: 1px solid #d9534f; /* Red border */
+        color: #d9534f; /* Red text color */
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: 400;
+        margin-bottom: 25px;
+        line-height: 1.4;
+      }
+
+      .details-label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+        display: block;
+      }
+
+      .details-textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1rem;
+        resize: vertical;
+        font-family: inherit;
+        outline: none;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      
+      .image-upload-section {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 30px;
+          margin-bottom: 40px;
+      }
+
+      .image-placeholder {
+          width: 200px;
+          height: 150px;
+          background-color: var(--card-bg);
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 0;
+          flex-direction: column;
+          box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+      }
+      
+      .image-placeholder i {
+          font-size: 3.5rem;
+          color: #ccc;
+      }
+      
+      .choose-image-btn {
+          background-color: #333;
+          color: white;
+          padding: 10px 20px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          border: none;
+          cursor: pointer;
+          width: 200px;
+          border-radius: 0 0 4px 4px;
+          transform: translateY(-4px); 
+      }
+      
+      .submit-btn {
+          background: var(--main-grad);
+          color: #000;
+          border: none;
+          padding: 12px 0;
+          border-radius: 5px;
+          font-size: 1rem;
+          font-weight: 500;
+          cursor: pointer;
+          width: 80%; 
+          margin: 0 auto;
+          display: block;
+          box-shadow: 0 4px 10px rgba(255, 131, 115, 0.5);
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="attendance-relaxation-page" class="full-page">
+      <header class="page-header">
+        <a href="edurevolution.html" class="icon-link">
+          <i class="bx bx-arrow-back icon"></i>
+        </a>
+        <h1>10% Attendance Relaxation</h1>
+        <span class="details-btn-placeholder"></span>
+      </header>
+
+      <main class="form-container">
+        <p class="description-text">
+          Get 10 % attendance benefit for the Recruitment/Competitive examination, technical competitions, Industry and Field Projects, Free lancing and Entrepreneurial projects, Skill Development Workshop/Short Term Course
+        </p>
+
+        <div class="alert-box">
+          1. Applicable only for students of **Pre-Final and Final year**<br>
+          2. **Any other:** If you are involved in any additional academic or professional development activities not listed above, enter details in any other tab.
+        </div>
+
+        <label for="details-textarea" class="details-label">Details</label>
+        <textarea id="details-textarea" class="details-textarea" placeholder="Enter you details here"></textarea>
+        
+        <div class="image-upload-section">
+            <div class="image-placeholder">
+                <i class='bx bx-cloud-upload'></i>
+            </div>
+            <button class="choose-image-btn">CHOOSE IMAGE</button>
+        </div>
+        
+        <button class="submit-btn">Submit</button>
+
+      </main>
+    </div>
+  </body>
+</html>

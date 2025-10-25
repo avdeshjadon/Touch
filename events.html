@@ -14,7 +14,6 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="transparent.css" /> -->
     <style>
       /* --- Base CSS --- */
       * {
@@ -129,7 +128,21 @@
         color: #000;
         line-height: 1.3; /* Tighter line height */
         border-bottom: 1px solid #f0f0f0;
+        /* UPDATED: Flex container for centering */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center horizontally */
+        text-align: center; /* Center text within lines */
       }
+      
+      /* NEW: Container for the legend items to allow them to wrap naturally while the group is centered */
+      .legend-items-container {
+        display: flex;
+        justify-content: center; /* Center the group of items */
+        flex-wrap: wrap;
+        width: 100%; /* Take full width to manage wrapping */
+      }
+      
       .legend-item {
         display: inline-flex;
         align-items: center;
@@ -137,8 +150,14 @@
         font-size: 0.8rem; /* Smaller font */
         font-weight: 500;
         color: #000;
-        margin-bottom: 4px; /* Added spacing between items if they wrap */
+        margin-bottom: 4px; 
       }
+      
+      /* Last item shouldn't have margin right for perfect centering */
+      .legend-items-container .legend-item:last-child {
+          margin-right: 0; 
+      }
+      
       .color-box {
         display: inline-block;
         width: 14px; /* Smaller box */
@@ -160,6 +179,7 @@
         margin: 6px 0 0; /* Reduced margin */
         font-size: 0.75rem; /* Smaller font */
         color: #000;
+        text-align: center; /* Ensure description text is centered */
       }
 
       .no-events-message {
@@ -188,14 +208,16 @@
       </header>
       <main class="events-content">
         <div class="event-legend">
-          <div class="legend-item">
-            <span class="color-box green"></span> A (High)
-          </div>
-          <div class="legend-item">
-            <span class="color-box yellow"></span> B (Moderate)
-          </div>
-          <div class="legend-item">
-            <span class="color-box blue"></span> C (Average)
+          <div class="legend-items-container">
+            <div class="legend-item">
+              <span class="color-box green"></span> A (High)
+            </div>
+            <div class="legend-item">
+              <span class="color-box yellow"></span> B (Moderate)
+            </div>
+            <div class="legend-item">
+              <span class="color-box blue"></span> C (Average)
+            </div>
           </div>
           <p class="legend-description">
             (Impact legends are in terms of Celebrity/ Guest/ Participants and
@@ -221,4 +243,3 @@
     </script>
   </body>
 </html>
-
