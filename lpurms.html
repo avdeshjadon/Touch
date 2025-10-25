@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RMS Declaration</title>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --page-bg: #f8f9fa;
+        --header-bg: #ffffff;
+        --header-text: #333;
+        --card-bg: #ffffff;
+        --text-primary: #333;
+        --text-secondary: #777;
+        --nav-active-color: #f39c12; /* Theme active color */
+        --nav-inactive-color: #999;
+        --border-color: #e0e0e0;
+        /* Gradient for the main button */
+        --main-grad: linear-gradient(to right, #ff8373, #fed278); 
+        --checkbox-color: #ff8373; /* Orange/Red for checkboxes */
+        --checkbox-offset: -2px; /* tweak this value (px) to raise/lower the icon (negative raises) */
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        /* Using system font stack for clean mobile look */
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      body {
+        background-color: var(--page-bg);
+        color: var(--header-text);
+        font-size: 14px;
+      }
+
+      .full-page {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Header Styling */
+      .page-header {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: var(--header-bg);
+        color: var(--header-text);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .page-header .icon {
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: var(--nav-active-color);
+      }
+
+      .page-header h1 {
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: 500;
+        flex-grow: 1;
+        text-align: center;
+        transform: translateX(-15px);
+      }
+
+      /* Declaration Container */
+      .declaration-container {
+        flex-grow: 1;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start; 
+        padding-bottom: 75px; /* Space for bottom nav */
+      }
+      
+      .declaration-card {
+        background-color: var(--card-bg);
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        max-width: 400px;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+      }
+
+      .declaration-item {
+        display: flex;
+        /* keep items aligned to the top so multiline text lines up */
+        align-items: flex-start;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+
+      .checkbox-icon {
+        font-size: 1.3rem;
+        color: var(--checkbox-color);
+        margin-right: 12px;
+        flex-shrink: 0;
+        align-self: flex-start;
+        line-height: 1; /* keep icon height predictable */
+        transform: translateY(var(--checkbox-offset)); /* precise, tweakable adjustment */
+      }
+
+      .declaration-text {
+        display: block; /* ensures the text block's first line baseline is consistent */
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: var(--text-primary);
+        line-height: 1.4;
+      }
+      
+      /* Agree & Proceed Button */
+      .agree-button {
+        background: var(--main-grad);
+        color: #000;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        width: 80%;
+        max-width: 300px;
+        margin-top: 25px;
+        box-shadow: 0 4px 10px rgba(255, 131, 115, 0.4);
+        transition: background 0.3s;
+      }
+      
+      /* Bottom Navigation Bar */
+      .bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: var(--header-bg);
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 20;
+      }
+
+      .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: var(--nav-inactive-color);
+        font-size: 0.7rem;
+        font-weight: 500;
+        transition: color 0.2s;
+        padding: 5px;
+      }
+
+      .nav-item.active {
+        color: var(--nav-active-color);
+      }
+
+      .nav-item i {
+        font-size: 1.5rem;
+        margin-bottom: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="rms-declaration-page" class="full-page">
+      <header class="page-header">
+        <i class="bx bx-menu icon"></i>
+        <h1>RMS</h1>
+      </header>
+
+      <main class="declaration-container">
+        <div class="declaration-card">
+          <div class="declaration-item">
+            <i class="bx bxs-checkbox-checked checkbox-icon"></i>
+            <span class="declaration-text">
+              I have not shared my UMS password with anyone.
+            </span>
+          </div>
+
+          <div class="declaration-item">
+            <i class="bx bxs-checkbox-checked checkbox-icon"></i>
+            <span class="declaration-text">
+              I am responsible for the content typed in query.
+            </span>
+          </div>
+
+          <div class="declaration-item">
+            <i class="bx bxs-checkbox-checked checkbox-icon"></i>
+            <span class="declaration-text">
+              I understand that necessary disciplinary action can be initiated against me in case of use of derogatory words or false statements against any Student/Faculty/Staff/Higher Authority.
+            </span>
+          </div>
+
+          <div class="declaration-item">
+            <i class="bx bxs-checkbox-checked checkbox-icon"></i>
+            <span class="declaration-text">
+              The information given by me regarding the complaint/request is true to the best of my knowledge and if found false/ wrong, necessary disciplinary action can be initiated against me.
+            </span>
+          </div>
+
+          <div class="declaration-item">
+            <i class="bx bxs-checkbox-checked checkbox-icon"></i>
+            <span class="declaration-text">
+              I have read the policy / UMS Notification related to the concerned matter already before submitting the RMS and I am unable to find the answer related to my query.
+            </span>
+          </div>
+          
+          <button class="agree-button">Agree & Proceed</button>
+        </div>
+      </main>
+
+      <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+          <i class="bx bxs-dashboard"></i>
+          <span>Dashboard</span>
+        </a>
+        
+        <a href="happenings.html" class="nav-item">
+          <i class="bx bxs-news"></i>
+          <span>Happenings</span>
+        </a>
+        
+        <a href="lpurms.html" class="nav-item active">
+          <i class="bx bx-list-check"></i>
+          <span>RMS</span>
+        </a>
+        
+        <a href="#" class="nav-item">
+          <i class="bx bx-notepad"></i>
+          <span>Quick Quiz</span>
+        </a>
+      </nav>
+    </div>
+  </body>
+</html>
