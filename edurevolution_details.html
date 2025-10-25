@@ -14,6 +14,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="transparent.css" />
     <style>
       :root {
         --page-bg: #f8f9fa;
@@ -35,7 +36,8 @@
       body {
         background-color: var(--page-bg);
         color: var(--text-primary);
-        font-size: 14px;
+        font-size: 13px;
+        font-weight: 300;
       }
 
       .full-page {
@@ -44,20 +46,9 @@
         display: flex;
         flex-direction: column;
       }
-      
-      /* --- START Loading Page CSS (Copied from backtobasics.html) --- */
-      .full-page.loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 500;
-        background-color: #f8f9fa;
-        overflow-x: hidden;
-      }
+
       .loading-page {
-        position: fixed; /* Ensures it covers the entire viewport */
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
@@ -67,22 +58,26 @@
         align-items: center;
         background-color: #f8f9fa;
         z-index: 9999;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.5s;
       }
+
       .loading-page.hidden {
         display: none;
       }
+
       .loading-container {
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
       }
+
       .loading-seal {
         width: 70px;
         height: 70px;
         position: absolute;
       }
+
       .loading-spinner {
         width: 70px;
         height: 70px;
@@ -91,6 +86,7 @@
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
+
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -99,84 +95,77 @@
           transform: rotate(360deg);
         }
       }
-      /* --- END Loading Page CSS --- */
 
       .page-header {
         display: flex;
         align-items: center;
-        padding: 10px 15px;
+        padding: 8px 12px;
         background-color: var(--header-dark-bg);
         color: var(--header-dark-text);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
       }
-      
+
       .page-header a.icon-link {
-        color: var(--header-dark-text); 
+        color: var(--header-dark-text);
         text-decoration: none;
       }
-      
+
       .page-header .icon {
-        font-size: 1.6rem;
+        font-size: 1.6rem; /* unified */
         cursor: pointer;
       }
 
       .page-header h1 {
         margin: 0;
-        font-size: 1.2rem;
-        font-weight: 500;
+        font-size: 1rem;
+        font-weight: 300; /* unified */
         flex-grow: 1;
         text-align: center;
       }
 
       .content-container {
-        padding: 20px 15px;
+        padding: 14px;
         flex-grow: 1;
       }
 
       .details-card {
         background-color: var(--card-bg);
         border-radius: 8px;
-        padding: 15px;
-        margin-bottom: 15px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        padding: 12px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       }
 
-      /* UPDATED CSS for perfect column alignment */
       .detail-row {
         display: grid;
-        /* Define two columns: Label (45%) and Value (1fr/remaining space) */
-        grid-template-columns: 45% 1fr; 
+        grid-template-columns: 45% 1fr;
         padding: 8px 0;
         border-bottom: 1px solid #f0f0f0;
       }
-      
+
       .detail-row:last-child {
         border-bottom: none;
         padding-bottom: 0;
       }
-      .details-card:last-child .detail-row:last-child {
-         padding-bottom: 8px;
-      }
 
       .detail-label {
-        font-weight: 400;
+        font-weight: 300;
         color: var(--text-primary);
-        line-height: 1.5;
+        line-height: 1.4;
         font-size: 0.9rem;
-        font-family: 'Poppins', sans-serif;
-        /* Grid handles alignment, remove min-width/width properties */
+        font-family: "Poppins", sans-serif;
       }
 
       .detail-value {
         font-weight: 300;
         color: #555;
-        line-height: 1.5;
+        line-height: 1.4;
         font-size: 0.9rem;
       }
-      
+
       .detail-value a {
-          color: #1a73e8; 
-          text-decoration: none;
+        color: #1a73e8;
+        text-decoration: none;
       }
     </style>
   </head>
@@ -187,7 +176,7 @@
         <div class="loading-spinner"></div>
       </div>
     </div>
-    
+
     <div id="edurevolution-details-page" class="full-page">
       <header class="page-header">
         <a href="edurevolution.html" class="icon-link">
@@ -232,7 +221,7 @@
           <div class="detail-row">
             <span class="detail-label">Description:</span>
             <span class="detail-value">
-              Grade Upgradation will be considered as per the policy: 
+              Grade Upgradation will be considered as per the policy:
               <a href="https://pdf.ac/47c5gL" target="_blank">https://pdf.ac/47c5gL</a>
             </span>
           </div>
@@ -243,7 +232,7 @@
         </div>
       </main>
     </div>
-    
+
     <script>
       window.addEventListener("load", function () {
         const loader = document.getElementById("loading-page");

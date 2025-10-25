@@ -14,6 +14,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="transparent.css" />
     <style>
       :root {
         --page-bg: #f8f9fa;
@@ -31,12 +32,13 @@
         margin: 0;
         padding: 0;
         font-family: "Poppins", sans-serif;
+        font-weight: 300;
       }
 
       body {
         background-color: var(--page-bg);
         color: var(--text-primary);
-        font-size: 14px;
+        font-size: 13px;
       }
 
       .full-page {
@@ -45,20 +47,9 @@
         display: flex;
         flex-direction: column;
       }
-      
-      /* --- START Loading Page CSS (Copied from backtobasics.html) --- */
-      .full-page.loading-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 500;
-        background-color: #f8f9fa;
-        overflow-x: hidden;
-      }
+
       .loading-page {
-        position: fixed; /* Ensures it covers the entire viewport */
+        position: fixed;
         top: 0;
         left: 0;
         width: 100%;
@@ -68,22 +59,26 @@
         align-items: center;
         background-color: #f8f9fa;
         z-index: 9999;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.5s;
       }
+
       .loading-page.hidden {
         display: none;
       }
+
       .loading-container {
         position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
       }
+
       .loading-seal {
         width: 70px;
         height: 70px;
         position: absolute;
       }
+
       .loading-spinner {
         width: 70px;
         height: 70px;
@@ -92,6 +87,7 @@
         border-radius: 50%;
         animation: spin 1s linear infinite;
       }
+
       @keyframes spin {
         0% {
           transform: rotate(0deg);
@@ -100,12 +96,11 @@
           transform: rotate(360deg);
         }
       }
-      /* --- END Loading Page CSS --- */
 
       .page-header {
         display: flex;
         align-items: center;
-        padding: 10px 15px;
+        padding: 8px 12px;
         background-color: var(--header-dark-bg);
         color: var(--header-dark-text);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -120,136 +115,121 @@
       }
 
       .page-header .icon {
-        font-size: 1.6rem;
+        font-size: 1.6rem; /* unified */
         cursor: pointer;
       }
 
       .page-header h1 {
         margin: 0;
-        font-size: 1.2rem;
-        font-weight: 500;
+        font-size: 1rem;
+        font-weight: 300; /* unified */
         flex-grow: 1;
         text-align: center;
       }
 
       .header-placeholder {
-        /* To keep H1 centered when there is no right button */
-        width: 1.6rem; 
-      }
-      
-      .details-btn-placeholder {
-        /* To keep H1 centered when there is a right button placeholder */
-        width: 48px; 
+        width: 1.6rem;
       }
 
       .form-container {
-        padding: 15px;
+        padding: 12px;
         flex-grow: 1;
       }
 
       .description-text {
         font-size: 0.9rem;
+        font-weight: 300;
+        color: var(--text-primary);
+        line-height: 1.4;
+        margin-bottom: 12px;
+      }
+
+      .description-text-duty-leave {
+        font-size: 0.95rem;
         font-weight: 400;
         color: var(--text-primary);
-        line-height: 1.5;
-        margin-bottom: 15px;
-      }
-      
-      /* Specific style for Duty Leave description */
-      .description-text-duty-leave {
-        font-size: 1rem;
-        font-weight: 500;
-        color: var(--text-primary);
-        margin-bottom: 15px;
+        margin-bottom: 12px;
       }
 
       .alert-box {
-        background-color: #fcebeb; 
-        border: 1px solid #d9534f; 
-        color: #d9534f; 
-        padding: 10px;
+        background-color: #fcebeb;
+        border: 1px solid #d9534f;
+        color: #d9534f;
+        padding: 8px;
         border-radius: 4px;
         font-size: 0.9rem;
-        font-weight: 400;
-        margin-bottom: 25px;
+        margin-bottom: 18px;
+        line-height: 1.3;
       }
 
       .details-label {
         font-size: 0.9rem;
-        font-weight: 500;
+        font-weight: 400;
         color: var(--text-primary);
-        margin-bottom: 5px;
+        margin-bottom: 6px;
         display: block;
       }
 
       .details-textarea {
         width: 100%;
-        min-height: 120px;
-        padding: 10px;
+        min-height: 100px;
+        padding: 8px;
         border: 1px solid #ccc;
         border-radius: 4px;
-        font-size: 1rem;
+        font-size: 0.95rem;
         resize: vertical;
-        font-family: inherit;
         outline: none;
-        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
       }
-      
+
       .image-upload-section {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          margin-top: 30px;
-          margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 28px;
       }
 
       .image-placeholder {
-          width: 200px;
-          height: 150px;
-          background-color: var(--card-bg);
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 0;
-          flex-direction: column;
-          box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-      }
-      
-      .image-placeholder i {
-          font-size: 3.5rem;
-          color: #ccc;
-      }
-      
-      .choose-image-btn {
-          background-color: #333;
-          color: white;
-          padding: 10px 20px;
-          font-size: 0.9rem;
-          font-weight: 500;
-          border: none;
-          cursor: pointer;
-          width: 200px;
-          border-radius: 0 0 4px 4px;
-          transform: translateY(-4px); 
-      }
-      
-      .submit-btn {
-          background: var(--main-grad);
-          color: #000;
-          border: none;
-          padding: 12px 0;
-          border-radius: 5px;
-          font-size: 1rem;
-          font-weight: 500;
-          cursor: pointer;
-          width: 80%; 
-          margin: 0 auto;
-          display: block;
-          box-shadow: 0 4px 10px rgba(255, 131, 115, 0.5);
+        width: 180px;
+        height: 130px;
+        background-color: var(--card-bg);
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
       }
 
+      .image-placeholder i {
+        font-size: 3rem;
+        color: #ccc;
+      }
+
+      .choose-image-btn {
+        background-color: #333;
+        color: white;
+        padding: 8px 16px;
+        font-size: 0.9rem;
+        border: none;
+        cursor: pointer;
+        width: 180px;
+        border-radius: 0 0 4px 4px;
+        transform: translateY(-4px);
+      }
+
+      .submit-btn {
+        background: var(--main-grad);
+        color: #000;
+        border: none;
+        padding: 10px 0;
+        border-radius: 5px;
+        font-size: 0.95rem;
+        width: 80%;
+        margin: 0 auto;
+        display: block;
+        box-shadow: 0 3px 8px rgba(255, 131, 115, 0.4);
+      }
     </style>
   </head>
   <body>
@@ -259,7 +239,7 @@
         <div class="loading-spinner"></div>
       </div>
     </div>
-    
+
     <div id="duty-leave-page" class="full-page">
       <header class="page-header">
         <a href="edurevolution.html" class="icon-link">
@@ -270,29 +250,28 @@
       </header>
 
       <main class="form-container">
-        <p class="description-text-duty-leave">
-          Duty Leave for different tiers
-        </p>
+        <p class="description-text-duty-leave">Duty Leave for different tiers</p>
 
-        <div class="alert-box">
-          No notes available for this category.
-        </div>
+        <div class="alert-box">No notes available for this category.</div>
 
         <label for="details-textarea" class="details-label">Details</label>
-        <textarea id="details-textarea" class="details-textarea" placeholder="Enter you details here"></textarea>
-        
-        <div class="image-upload-section">
-            <div class="image-placeholder">
-                <i class='bx bx-cloud-upload'></i>
-            </div>
-            <button class="choose-image-btn">CHOOSE IMAGE</button>
-        </div>
-        
-        <button class="submit-btn">Submit</button>
+        <textarea
+          id="details-textarea"
+          class="details-textarea"
+          placeholder="Enter you details here"
+        ></textarea>
 
+        <div class="image-upload-section">
+          <div class="image-placeholder">
+            <i class="bx bx-cloud-upload"></i>
+          </div>
+          <button class="choose-image-btn">CHOOSE IMAGE</button>
+        </div>
+
+        <button class="submit-btn">Submit</button>
       </main>
     </div>
-    
+
     <script>
       window.addEventListener("load", function () {
         const loader = document.getElementById("loading-page");

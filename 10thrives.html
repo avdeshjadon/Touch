@@ -14,11 +14,10 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="transparent.css" /> -->
+    <link rel="stylesheet" href="transparent.css" />
     <style>
-      /* --- Base CSS --- */
       * {
-        -webkit-tap-highlight-color: transparent; /* Added from transparent.css */
+        -webkit-tap-highlight-color: transparent;
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -27,36 +26,32 @@
         font-family: "Poppins", sans-serif;
         color: #333;
         margin: 0;
-        background-color: #f8f9fa; /* Standard page background */
-        font-size: 14px; /* Base font size */
+        background-color: #f8f9fa;
+        font-size: 13px;
       }
       .page-header {
         display: flex;
-        justify-content: flex-start; /* Align back arrow to left */
+        justify-content: flex-start;
         align-items: center;
-        padding: 10px 14px; /* Reduced padding */
+        padding: 8px 12px;
         background-color: #31353a;
         color: white;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        flex-shrink: 0;
         position: sticky;
         top: 0;
         z-index: 10;
       }
       .page-header .icon {
-        font-size: 1.6rem; /* Slightly smaller */
+        font-size: 1.6rem; /* unified */
         cursor: pointer;
       }
       .page-header h1 {
-        margin: 0;
-        font-size: 1.1rem; /* Slightly smaller */
+        font-size: 1rem;
         font-weight: 300;
-        text-align: center;
-        /* Absolute centering */
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: calc(100% - 80px); /* Adjust width to prevent overlap */
+        width: calc(100% - 72px);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -64,9 +59,6 @@
       .hidden {
         display: none !important;
       }
-      /* --- End Base CSS --- */
-
-      /* --- Base styles for consistency --- */
       a.icon-link,
       a.icon-link:visited {
         text-decoration: none;
@@ -120,12 +112,10 @@
           transform: rotate(360deg);
         }
       }
-
-      /* --- Page-specific styles --- */
       .tab-bar {
         display: flex;
         background-color: #f1f1f1;
-        padding: 6px; /* Reduced padding */
+        padding: 6px;
         border-bottom: 1px solid #e0e0e0;
       }
       .tab-item {
@@ -133,12 +123,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 10px 6px; /* Reduced padding */
-        text-decoration: none;
+        padding: 8px 6px;
         color: #777;
-        font-size: 0.85rem; /* Slightly smaller */
+        font-size: 0.85rem;
         font-weight: 400;
-        border-radius: 4px; /* Smaller radius */
+        border-radius: 4px;
         cursor: pointer;
         border-right: 1px solid #dcdcdc;
       }
@@ -148,29 +137,27 @@
       .tab-item.active {
         background-color: #ffffff;
         color: #000;
-        font-weight: 500;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+        font-weight: 400;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
       }
       .tab-item i {
-        font-size: 1rem; /* Slightly smaller */
-        margin-right: 5px; /* Reduced margin */
+        font-size: 1rem;
+        margin-right: 5px;
       }
       .content-area {
-        padding: 16px 14px; /* Reduced padding */
+        padding: 14px;
       }
-
       .info-card {
         background-color: #ffffff;
-        padding: 16px; /* Reduced padding */
+        padding: 12px;
         text-align: center;
-        border-radius: 6px; /* Smaller radius */
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Reduced shadow */
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
         color: #555;
-        font-size: 0.9rem; /* Slightly smaller */
-        font-weight: 400;
-        line-height: 1.4; /* Adjusted line height */
+        font-size: 0.95rem;
+        font-weight: 300;
+        line-height: 1.4;
       }
-
       .content-pane {
         display: none;
       }

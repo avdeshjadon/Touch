@@ -15,7 +15,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="transparent.css"> -->
+    <link rel="stylesheet" href="transparent.css" />
 
     <style>
       :root {
@@ -43,9 +43,9 @@
         font-family: "Roboto", sans-serif;
         background-color: var(--page-bg);
         font-weight: 300; /* Adjusted base font weight */
-        letter-spacing: 0.3px; /* Reduced spacing */
+        letter-spacing: 0.2px; /* Reduced spacing */
         color: var(--font-primary);
-        font-size: 14px; /* Base font size reduced */
+        font-size: 13px; /* Base font size reduced */
       }
       .page-container {
         width: 100%;
@@ -56,7 +56,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        padding: 10px 14px; /* Reduced padding */
+        padding: 8px 12px; /* Reduced padding */
         background-color: var(--header-dark-bg);
         position: sticky;
         top: 0;
@@ -69,12 +69,12 @@
          align-items: center;
       }
       .page-header .back-arrow {
-        font-size: 1.6rem; /* Reduced size */
+        font-size: 1.6rem; /* unified */
         cursor: pointer;
       }
       .page-header .title {
-        font-size: 1.1rem; /* Reduced size */
-        font-weight: 300; /* Set font weight */
+        font-size: 1rem;
+        font-weight: 300; /* ensure uniform title weight */
         color: var(--header-dark-text);
         position: absolute;
         left: 50%;
@@ -82,10 +82,10 @@
         white-space: nowrap;
       }
       .content-container {
-        padding: 12px; /* Reduced padding */
+        padding: 10px; /* Reduced padding */
       }
       .courses-filter {
-        margin-bottom: 12px; /* Reduced margin */
+        margin-bottom: 10px; /* Reduced margin */
       }
       .courses-filter label {
         display: block;
@@ -98,7 +98,7 @@
         background: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 4px;
-        padding: 10px 12px; /* Reduced padding */
+        padding: 8px 10px; /* Reduced padding */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -112,18 +112,18 @@
         border: 1px solid var(--border-color);
         border-radius: 6px; /* Reduced radius */
         overflow: hidden;
-        margin-bottom: 16px; /* Reduced margin */
+        margin-bottom: 12px; /* Reduced margin */
         box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
       }
       .tab {
         flex: 1;
         text-align: center;
-        padding: 10px 6px; /* Reduced padding */
+        padding: 8px 6px; /* Reduced padding */
         position: relative;
         font-size: 0.85rem; /* Reduced size */
         color: var(--font-secondary);
         border-right: 1px solid var(--border-color);
-        font-weight: 400;
+        font-weight: 300;
         cursor: pointer;
       }
       .tab:last-child {
@@ -135,24 +135,25 @@
         border: 1px solid var(--border-color);
         border-radius: 6px;
         margin: -1px;
+        font-weight: 400;
       }
       .tab .count {
         display: block;
         font-size: 0.7rem; /* Reduced size */
         background: var(--theme-grad);
         color: #000;
-        font-weight: 500; /* Increased weight for visibility */
+        font-weight: 400; /* Increased weight for visibility */
         width: 18px; /* Reduced size */
         height: 18px; /* Reduced size */
         line-height: 18px;
         border-radius: 50%;
-        margin: 2px auto 0; /* Reduced margin */
+        margin: 4px auto 0; /* Reduced margin */
       }
       .marks-card {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
         border-radius: 6px; /* Reduced radius */
-        padding: 12px; /* Reduced padding */
+        padding: 10px; /* Reduced padding */
         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Reduced shadow */
       }
       .marks-card .course-name {
@@ -162,13 +163,14 @@
       }
       .marks-card .test-name {
         font-size: 0.9rem; /* Reduced size */
-        margin-bottom: 2px; 
+        margin-bottom: 4px; 
         font-weight: 300;
       }
       .marks-card .reason {
         font-size: 0.85rem; /* Reduced size */
         color: var(--accent-orange);
-        margin-bottom: 10px; /* Reduced margin */
+        margin-bottom: 8px; /* Reduced margin */
+        font-weight: 300;
       }
       .marks-footer {
         display: flex;
@@ -192,7 +194,6 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        letter-spacing: 0.3px;
       }
       .download-btn i {
         font-size: 0.9rem; /* Reduced size */
@@ -222,12 +223,12 @@
         animation: fadeIn 0.2s ease-out;
       }
       .modal-body {
-        padding: 16px; /* Reduced padding */
+        padding: 12px; /* Reduced padding */
       }
       .radio-option {
         display: flex;
         align-items: center;
-        margin-bottom: 14px; /* Reduced margin */
+        margin-bottom: 12px; /* Reduced margin */
       }
       .radio-option:last-child {
         margin-bottom: 0;
@@ -238,7 +239,7 @@
         height: 18px; /* Reduced size */
         border: 2px solid var(--font-secondary);
         border-radius: 50%;
-        margin-right: 12px; /* Reduced margin */
+        margin-right: 10px; /* Reduced margin */
         position: relative;
         outline: none;
         flex-shrink: 0;
@@ -265,18 +266,15 @@
       .modal-footer {
         display: flex;
         justify-content: flex-end;
-        padding: 4px 10px; /* Reduced padding */
+        padding: 4px 8px; /* Reduced padding */
       }
       .modal-footer button {
         background: none;
         border: none;
-        padding: 8px; /* Reduced padding */
+        padding: 8px;
         font-size: 0.85rem; /* Reduced size */
-        font-weight: 400;
         color: var(--accent-orange);
         cursor: pointer;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
       }
       @keyframes fadeIn {
         from { opacity: 0; transform: scale(0.95); }

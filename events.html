@@ -14,8 +14,8 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="transparent.css" />
     <style>
-      /* --- Base CSS --- */
       * {
         -webkit-tap-highlight-color: transparent;
         box-sizing: border-box;
@@ -23,39 +23,37 @@
         padding: 0;
       }
       body {
-        font-family: "Poppins", sans-serif; /* Switched font-family back to Poppins */
+        font-family: "Poppins", sans-serif;
         color: #333;
         margin: 0;
-        background-color: #fff; /* Match SS background */
-        font-size: 14px; /* Base font size */
+        background-color: #fff;
+        font-size: 13px;
       }
       .page-header {
         display: flex;
-        justify-content: flex-start; /* Align back arrow to left */
+        justify-content: flex-start;
         align-items: center;
-        padding: 10px 14px; /* Reduced padding */
+        padding: 8px 12px;
         background-color: #31353a;
         color: white;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        flex-shrink: 0;
         position: sticky;
         top: 0;
         z-index: 10;
       }
       .page-header .icon {
-        font-size: 1.6rem; /* Slightly smaller */
+        font-size: 1.6rem;
         cursor: pointer;
       }
       .page-header h1 {
         margin: 0;
-        font-size: 1.1rem; /* Slightly smaller */
+        font-size: 1rem;
         font-weight: 300;
         text-align: center;
-        /* Absolute centering */
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: calc(100% - 80px); /* Adjust width to prevent overlap */
+        width: calc(100% - 72px);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -63,9 +61,6 @@
       .hidden {
         display: none !important;
       }
-      /* --- End Base CSS --- */
-
-      /* --- Base styles for consistency --- */
       a.icon-link,
       a.icon-link:visited {
         text-decoration: none;
@@ -87,7 +82,7 @@
         align-items: center;
         background-color: #f8f9fa;
         z-index: 9999;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.5s;
       }
       .loading-page.hidden {
         display: none;
@@ -119,50 +114,41 @@
           transform: rotate(360deg);
         }
       }
-
-      /* --- Page-specific styles for events.html --- */
       .event-legend {
         background: linear-gradient(to right, #e37644, #f2c55b);
-        padding: 10px 14px; /* Reduced padding */
-        font-size: 0.75rem; /* Smaller font */
+        padding: 8px 12px;
+        font-size: 0.8rem;
         color: #000;
-        line-height: 1.3; /* Tighter line height */
-        border-bottom: 1px solid #f0f0f0;
-        /* UPDATED: Flex container for centering */
+        line-height: 1.25;
         display: flex;
         flex-direction: column;
-        align-items: center; /* Center horizontally */
-        text-align: center; /* Center text within lines */
+        align-items: center;
+        text-align: center;
+        border-bottom: 1px solid #f0f0f0;
       }
-      
-      /* NEW: Container for the legend items to allow them to wrap naturally while the group is centered */
       .legend-items-container {
         display: flex;
-        justify-content: center; /* Center the group of items */
+        justify-content: center;
         flex-wrap: wrap;
-        width: 100%; /* Take full width to manage wrapping */
+        width: 100%;
       }
-      
       .legend-item {
         display: inline-flex;
         align-items: center;
-        margin-right: 10px; /* Reduced margin */
-        font-size: 0.8rem; /* Smaller font */
-        font-weight: 500;
+        margin-right: 8px;
+        font-size: 0.8rem;
+        font-weight: 400;
         color: #000;
-        margin-bottom: 4px; 
+        margin-bottom: 4px;
       }
-      
-      /* Last item shouldn't have margin right for perfect centering */
       .legend-items-container .legend-item:last-child {
-          margin-right: 0; 
+        margin-right: 0;
       }
-      
       .color-box {
         display: inline-block;
-        width: 14px; /* Smaller box */
-        height: 14px; /* Smaller box */
-        margin-right: 4px; /* Reduced margin */
+        width: 14px;
+        height: 14px;
+        margin-right: 4px;
         border: 1px solid rgba(0, 0, 0, 0.2);
       }
       .color-box.green {
@@ -174,19 +160,17 @@
       .color-box.blue {
         background-color: #0053b3;
       }
-
       .legend-description {
-        margin: 6px 0 0; /* Reduced margin */
-        font-size: 0.75rem; /* Smaller font */
+        margin: 6px 0 0;
+        font-size: 0.75rem;
         color: #000;
-        text-align: center; /* Ensure description text is centered */
-      }
-
-      .no-events-message {
-        padding: 40px 20px; /* Reduced padding */
         text-align: center;
-        font-size: 1rem; /* Slightly smaller */
-        font-weight: 400;
+      }
+      .no-events-message {
+        padding: 32px 16px;
+        text-align: center;
+        font-size: 0.95rem;
+        font-weight: 300;
         color: #555;
       }
     </style>

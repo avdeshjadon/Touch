@@ -14,11 +14,10 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="transparent.css" /> -->
+    <link rel="stylesheet" href="transparent.css" />
     <style>
-      /* --- Base CSS --- */
       * {
-        -webkit-tap-highlight-color: transparent; /* Added from transparent.css */
+        -webkit-tap-highlight-color: transparent;
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -27,36 +26,34 @@
         font-family: "Poppins", sans-serif;
         color: #333;
         margin: 0;
-        background-color: #f8f9fa; /* Standard page background */
-        font-size: 14px; /* Base font size */
+        background-color: #f8f9fa;
+        font-size: 13px;
       }
       .page-header {
         display: flex;
-        justify-content: flex-start; /* Align back arrow to left */
+        justify-content: flex-start;
         align-items: center;
-        padding: 10px 14px; /* Reduced padding */
+        padding: 8px 12px;
         background-color: #31353a;
         color: white;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        flex-shrink: 0;
         position: sticky;
         top: 0;
         z-index: 10;
       }
       .page-header .icon {
-        font-size: 1.6rem; /* Slightly smaller */
+        font-size: 1.6rem;
         cursor: pointer;
       }
       .page-header h1 {
         margin: 0;
-        font-size: 1.1rem; /* Slightly smaller */
+        font-size: 1rem;
         font-weight: 300;
         text-align: center;
-        /* Absolute centering */
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: calc(100% - 80px); /* Adjust width to prevent overlap */
+        width: calc(100% - 72px);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -64,9 +61,6 @@
       .hidden {
         display: none !important;
       }
-      /* --- End Base CSS --- */
-
-      /* --- Base styles for consistency --- */
       a.icon-link,
       a.icon-link:visited {
         text-decoration: none;
@@ -88,7 +82,7 @@
         align-items: center;
         background-color: #f8f9fa;
         z-index: 9999;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.5s;
       }
       .loading-page.hidden {
         display: none;
@@ -120,31 +114,25 @@
           transform: rotate(360deg);
         }
       }
-
-      /* --- Page-specific styles --- */
       .leave-slip-content {
-        padding: 12px 14px; /* Reduced padding */
+        padding: 10px 12px;
       }
       .leave-slip-button {
         display: block;
         width: 100%;
-        padding: 12px; /* Reduced padding */
+        padding: 10px;
         background-color: #2d54a9;
         color: white;
-        text-decoration: none;
         text-align: center;
         border: none;
         border-radius: 4px;
-        font-size: 0.9rem; /* Slightly smaller */
-        font-weight: 500;
-        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 400;
         cursor: pointer;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Reduced shadow */
       }
     </style>
   </head>
   <body>
-    <!-- Loading Page (consistent with other pages) -->
     <div id="loading-page" class="full-page loading-page">
       <div class="loading-container">
         <img src="images/seal.svg" alt="University Seal" class="loading-seal" />
@@ -152,7 +140,6 @@
       </div>
     </div>
 
-    <!-- Main Hostel Leave Slip Page -->
     <div id="leave-slip-page" class="full-page">
       <header class="page-header">
         <a href="index.html" class="icon-link">
@@ -165,7 +152,6 @@
       </main>
     </div>
 
-    <!-- Loader Script (consistent with other pages) -->
     <script>
       window.addEventListener("load", function () {
         const loader = document.getElementById("loading-page");

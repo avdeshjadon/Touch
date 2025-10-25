@@ -15,7 +15,7 @@
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
       rel="stylesheet"
     />
-    <!-- <link rel="stylesheet" href="transparent.css"> -->
+    <link rel="stylesheet" href="transparent.css" />
 
     <style>
       :root {
@@ -26,7 +26,7 @@
         --font-primary: #202124;
         --font-secondary: #5f6368;
         --border-color: #ebebeb;
-        --overall-grad: linear-gradient(90deg, #f68174 0%, #ffde7a 100%);
+        --overall-grad: linear-gradient(90deg,#f68174 0%,#ffde7a 100%);
         --overall-progress-color: #4285f4;
         --sem1-color: #ff9800;
         --sem2-color: #2196f3;
@@ -46,9 +46,9 @@
         font-family: "Roboto", sans-serif;
         background-color: var(--page-bg);
         font-weight: 300; /* Adjusted default weight */
-        letter-spacing: 0.3px; /* Slightly reduced spacing */
+        letter-spacing: 0.2px; /* Slightly reduced spacing */
         color: var(--font-primary);
-        font-size: 14px; /* Base font size */
+        font-size: 13px; /* Base font size */
       }
       .page-container {
         width: 100%;
@@ -58,21 +58,21 @@
       .page-header {
         display: flex;
         align-items: center;
-        padding: 10px 14px; /* Reduced padding */
+        padding: 8px 12px; /* Reduced padding */
         background-color: var(--header-dark-bg);
         position: sticky;
         top: 0;
         z-index: 10;
       }
       .page-header .back-arrow {
-        font-size: 1.6rem; /* Slightly smaller */
+        font-size: 1.6rem; /* unified back icon size */
         cursor: pointer;
         color: var(--header-dark-text);
-        text-decoration: none; /* Ensure link looks like button */
+        text-decoration: none;
       }
       .page-header .title {
-        font-size: 1.1rem; /* Slightly smaller */
-        font-weight: 300; /* Adjusted weight */
+        font-size: 1rem;
+        font-weight: 300; /* unified title weight */
         color: var(--header-dark-text);
         position: absolute;
         left: 50%;
@@ -80,22 +80,22 @@
         white-space: nowrap;
       }
       .main-content {
-        padding: 0 0 20px; /* Reduced bottom padding */
+        padding: 0 0 12px; /* Reduced bottom padding */
       }
       .overall-card {
         background: var(--overall-grad);
-        border-radius: 0 0 16px 16px; /* Slightly smaller radius */
-        padding: 20px; /* Reduced padding */
+        border-radius: 0 0 12px 12px; /* Slightly smaller radius */
+        padding: 16px; /* Reduced padding */
         display: flex;
         flex-direction: column;
         align-items: center;
         color: var(--card-bg); /* Text color set to white */
-        box-shadow: 0 3px 12px -4px rgba(255, 154, 139, 0.5); /* Adjusted shadow */
-        margin-bottom: 20px; /* Reduced margin */
+        box-shadow: 0 3px 10px -4px rgba(255, 154, 139, 0.45); /* Adjusted shadow */
+        margin-bottom: 14px; /* Reduced margin */
       }
       .progress-circle-large {
-        width: 120px; /* Reduced size */
-        height: 120px; /* Reduced size */
+        width: 110px; /* Reduced size */
+        height: 110px; /* Reduced size */
         border-radius: 50%;
         display: grid;
         place-items: center;
@@ -104,35 +104,35 @@
           rgba(255, 255, 255, 0.25) 0deg /* Adjusted alpha */
         );
         position: relative;
-        margin-bottom: 10px; /* Reduced margin */
+        margin-bottom: 8px; /* Reduced margin */
       }
       .progress-circle-large::before {
         content: "";
         position: absolute;
-        width: 106px; /* Adjusted size */
-        height: 106px; /* Adjusted size */
+        width: 96px; /* Adjusted size */
+        height: 96px; /* Adjusted size */
         background: var(--overall-grad);
         border-radius: 50%;
       }
       .cpa-value {
         position: relative;
-        font-size: 2rem; /* Slightly smaller */
+        font-size: 1.8rem; /* Slightly smaller */
         font-weight: 400;
         color: var(--font-primary); /* Text color back to dark */
       }
       .performance-label {
-        font-size: 0.9rem; /* Slightly smaller */
+        font-size: 0.85rem; /* Slightly smaller */
         font-weight: 300; /* Adjusted weight */
         position: relative;
         color: var(--font-primary); /* Text color back to dark */
       }
       .semester-grid-container {
-        padding: 0 14px; /* Reduced padding */
+        padding: 0 12px; /* Reduced padding */
       }
       .semester-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 12px; /* Reduced gap */
+        gap: 10px; /* Reduced gap */
       }
       .semester-card {
         background: var(--card-bg);
@@ -150,19 +150,19 @@
         font-weight: 300; /* Adjusted weight */
       }
       .semester-body {
-        padding: 16px; /* Reduced padding */
+        padding: 12px; /* Reduced padding */
         display: flex;
         justify-content: center;
         align-items: center;
       }
       .progress-circle-small {
-        width: 70px; /* Reduced size */
-        height: 70px; /* Reduced size */
+        width: 66px; /* Reduced size */
+        height: 66px; /* Reduced size */
         border-radius: 50%;
         display: grid;
         place-items: center;
         background: conic-gradient(
-          var(--color) calc(var(--percent) * 3.6deg),
+          var(--color) calc(var(--percent)*3.6deg),
           #eeeeee 0deg
         );
         position: relative;
@@ -170,14 +170,14 @@
       .progress-circle-small::before {
         content: "";
         position: absolute;
-        width: 58px; /* Adjusted size */
-        height: 58px; /* Adjusted size */
+        width: 54px; /* Adjusted size */
+        height: 54px; /* Adjusted size */
         background: var(--card-bg);
         border-radius: 50%;
       }
       .gpa-value {
         position: relative;
-        font-size: 1.1rem; /* Slightly smaller */
+        font-size: 1rem; /* Slightly smaller */
         color: var(--font-secondary);
         font-weight: 400;
       }
