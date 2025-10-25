@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EDU Revolution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="transparent.css" />
+
+    <style>
+      :root {
+        --main-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --tile-label-bg: #fdc894;
+        --header-dark-bg: #31353a;
+        --header-dark-text: #ffffff;
+        --tile-text-color: #333;
+        --border-color: #eef0f3;
+      }
+
+      /* Styles specific to this page */
+      .full-page {
+        background-color: var(--main-bg);
+      }
+      .page-header {
+        position: relative;
+        padding: 10px 15px;
+        background-color: var(--header-dark-bg);
+        color: var(--header-dark-text);
+        box-shadow: none;
+      }
+      .page-header h1 {
+        flex-grow: 1;
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 400;
+      }
+      .page-header a.icon-link {
+        color: inherit;
+        position: absolute;
+        left: 15px;
+      }
+      .page-header .details-btn {
+        position: absolute;
+        right: 15px;
+        background-color: #f38f31; /* Accent color */
+        color: #000;
+        padding: 4px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.5px;
+      }
+
+      .banner-container {
+        padding: 0;
+        position: relative;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .banner-image {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .banner-text-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 15px;
+      }
+
+      .banner-text-overlay img {
+        height: 35px; /* Adjust size of LPUE DREV logo */
+      }
+
+      .page-title {
+        text-align: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--tile-text-color);
+        margin-bottom: 20px;
+      }
+
+      .tiles-grid-edurev {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0 15px;
+      }
+
+      /* Base tile styling (compressed) */
+      .tile-edurev {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px; 
+        padding: 10px; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+        min-height: 130px; 
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04); 
+        text-decoration: none;
+        color: var(--tile-text-color);
+      }
+      
+      /* ADDED NEW STYLES for image as requested */
+      .tile-edurev img {
+        margin-top: 20px;
+        height: 60px;
+        width: 60px;
+        /* Reverting previous specific styles to ensure new size is applied */
+        object-fit: contain;
+        margin-bottom: 0; /* Remove bottom margin to keep label close to bottom */
+      }
+      /* END OF NEW STYLES */
+
+      .tile-label-edurev {
+        background-color: var(--tile-label-bg);
+        color: var(--tile-text-color);
+        border-radius: 5px;
+        padding: 6px 10px; 
+        font-size: 0.8rem; 
+        font-weight: 500;
+        width: 100%;
+        /* Ensure label sits nicely at the bottom */
+        margin-top: auto; 
+      }
+    </style>
+  </head>
+  <body>
+    <div id="edurevolution-page" class="full-page">
+      <header class="page-header">
+        <a href="index.html" class="icon-link"
+          ><i class="bx bx-arrow-back icon"></i
+        ></a>
+        <h1>EDU Revolution</h1>
+        <a href="#" class="details-btn">DETAILS</a>
+      </header>
+      <main class="edurevolution-content">
+        <div class="banner-container">
+          <img
+            src="images/edurev.png"
+            alt="EDU Revolution Banner"
+            class="banner-image"
+          />
+          <div class="banner-text-overlay">
+            </div>
+        </div>
+
+        <h2 class="page-title">Apply for EDU Revolution</h2>
+
+        <div class="tiles-grid-edurev">
+          <a href="#" class="tile-edurev">
+            <img
+              src="images/cc.png"
+              alt="Core Courses Icon"
+            />
+            <span class="tile-label-edurev">Core Courses</span>
+          </a>
+          <a href="#" class="tile-edurev">
+            <img
+              src="images/va.png"
+              alt="Value Addition Icon"
+            />
+            <span class="tile-label-edurev">Value Addition</span>
+          </a>
+          <a href="#" class="tile-edurev">
+            <img
+              src="images/ncc.png"
+              alt="Non-Core Courses Icon"
+            />
+            <span class="tile-label-edurev">Non-Core Courses</span>
+          </a>
+          <a href="#" class="tile-edurev">
+            <img
+              src="images/srp.png"
+              alt="Student Referral Program Icon"
+            />
+            <span class="tile-label-edurev">Student Referral Program</span>
+          </a>
+          <a href="#" class="tile-edurev">
+            <img
+              src="images/ar.png"
+              alt="Attendance Relaxation Icon"
+            />
+            <span class="tile-label-edurev">10% Attendance Relaxation</span>
+          </a>
+          <a href="#" class="tile-edurev">
+            <img
+              src="images/dl.png"
+              alt="Duty Leave Icon"
+            />
+            <span class="tile-label-edurev">Duty Leave</span>
+          </a>
+        </div>
+      </main>
+    </div>
+    <script>
+      // Include loading page script for consistency
+      window.addEventListener("load", function () {
+        const loader = document.getElementById("loading-page");
+        if (loader) {
+          loader.style.opacity = "0";
+          setTimeout(() => {
+            loader.classList.add("hidden");
+          }, 500);
+        }
+      });
+    </script>
+  </body>
+</html>
