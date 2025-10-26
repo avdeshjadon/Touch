@@ -203,4 +203,56 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }, 1000);
   }
+
+  // --- New: prevent horizontal page panning except inside horizontal scroll areas ---
+  (function preventPageHorizontalPan() {
+    let startX = 0;
+    let startY = 0;
+    let isTracking = false;
+
+    document.addEventListener(
+      "touchstart",
+      function (e) {
+        if (!e.touches || e.touches.length > 1) return;
+        const t = e.touches[0];
+        startX = t.clientX;
+        startY = t.clientY;
+        isTracking = true;
+      },
+      { passive: true }
+    );
+
+    document.addEventListener(
+      "touchmove",
+      function (e) {
+        if (!isTracking || !e.touches || e.touches.length > 1) return;
+        const t = e.touches[0];
+        const dx = t.clientX - startX;
+        const dy = t.clientY - startY;
+
+        // If horizontal movement dominates (user swiping left/right)
+        if (Math.abs(dx) > Math.abs(dy)) {
+          // Allow horizontal swipe only if the event target is inside a horizontal scroller
+          const insideHorizontalScroller =
+            e.target && e.target.closest && e.target.closest(".horizontal-scroll-container");
+
+          if (!insideHorizontalScroller) {
+            // Prevent the page from panning horizontally / shifting / overlapping
+            // Use passive:false to allow preventDefault
+            e.preventDefault();
+          }
+          // else allow default so horizontal scroller works normally
+        }
+      },
+      { passive: false } // need false to call preventDefault()
+    );
+
+    document.addEventListener(
+      "touchend",
+      function () {
+        isTracking = false;
+      },
+      { passive: true }
+    );
+  })();
 });

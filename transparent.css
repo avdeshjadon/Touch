@@ -1,3 +1,88 @@
+/* --- Mobile interaction fixes --- */
+/* Prevent the whole page from panning horizontally and reduce rubber-band/overscroll */
+html, body {
+  overflow-x: hidden; /* no horizontal layout shift */
+  touch-action: pan-y; /* allow vertical scroll, block horizontal page pan */
+  -ms-touch-action: pan-y;
+  overscroll-behavior-x: none; /* avoid horizontal overscroll / bounce */
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent iOS zoom on input focus by using >=16px font on form controls */
+input, textarea, select, button {
+  font-size: 16px; /* prevents automatic zoom on many iOS devices */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Horizontal scroll containers should allow horizontal panning only */
+.horizontal-scroll-container,
+.horizontal-scroll-container * {
+  touch-action: pan-x; /* let user horizontally swipe inside the container */
+  -webkit-overflow-scrolling: touch; /* smooth native scrolling on iOS */
+  overscroll-behavior-x: contain; /* contain overscroll to the container */
+}
+
+/* If you have other custom horizontal scrollers, add same rules for them:
+   .tiles-grid, .tiles-grid * { touch-action: pan-x; }  */
+
+/* Small fix: make anchors/buttons that respond to taps use manipulation */
+a, button {
+  touch-action: manipulation; /* improves responsiveness and avoids double-tap zoom */
+}
+
+/* --- Mobile behavior & scrollbar hiding --- */
+
+/* Prevent horizontal page panning and reduce rubber-band/overscroll */
+html, body {
+  overflow-x: hidden;           /* no horizontal page scroll */
+  overflow-y: auto;             /* allow vertical scrolling */
+  touch-action: pan-y;          /* prioritize vertical pan for page */
+  -ms-touch-action: pan-y;
+  overscroll-behavior: contain; /* contain overscroll within the page */
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+  -ms-overflow-style: none;     /* hide scrollbar in IE/Edge */
+  scrollbar-width: none;        /* hide scrollbar in Firefox */
+}
+
+/* Hide all webkit scrollbars (keeps scrolling but removes visuals) */
+*::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+/* Prevent iOS auto-zoom on input focus */
+input, textarea, select, button {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Keep horizontal scrollers functional (use this class for carousels) */
+.horizontal-scroll-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;        /* allow horizontal pan inside the container */
+  overscroll-behavior-x: contain;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.horizontal-scroll-container *::-webkit-scrollbar {
+  display: none;
+}
+
+/* If you have other horizontal scrollers, add the same rules:
+   .tiles-grid, .messages-list, .sidebar-menu { ... } */
+
+/* Make clickable elements more responsive on touch */
+a, button {
+  touch-action: manipulation;
+}
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
