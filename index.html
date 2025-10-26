@@ -19,6 +19,21 @@
 
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="transparent.css" />
+
+    <!-- Add small rule to space icon and text in sidebar menu links -->
+    <style>
+      /* Ensure sidebar links align icon + text and have a consistent gap */
+      .sidebar-menu a {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px; /* space between icon and label */
+      }
+      /* Keep icons aligned even when text wraps */
+      .sidebar-menu a i {
+        min-width: 20px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <aside id="sidebar" class="sidebar">
@@ -519,5 +534,40 @@
     <script src="registration.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
     <script src="script.js"></script>
+
+    <!-- Add: ensure bottom-nav item gets active (orange) on click and on page load -->
+    <script>
+      (function () {
+        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+        if (!navItems.length) return;
+        const currentFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+        function setActiveByLocation() {
+          navItems.forEach(a => {
+            const href = a.getAttribute('href') || '';
+            const target = (href === '#' ? 'index.html' : href.split('/').pop()).toLowerCase();
+            a.classList.toggle('active', target === currentFile);
+          });
+        }
+
+        navItems.forEach(a => {
+          a.addEventListener('click', (e) => {
+            // Visual feedback immediately
+            navItems.forEach(n => n.classList.remove('active'));
+            a.classList.add('active');
+
+            // Prevent default navigation for '#' (dashboard placeholder)
+            if (a.getAttribute('href') === '#') {
+              e.preventDefault();
+              // optional: update URL without reload to reflect dashboard
+              history.pushState(null, '', 'index.html');
+            }
+            // For real links, allow navigation to proceed so target page can set active on load
+          });
+        });
+
+        setActiveByLocation();
+      })();
+    </script>
   </body>
 </html>

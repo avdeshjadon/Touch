@@ -1,6 +1,6 @@
 :root {
-  --sidebar-grad-start: #e37644;
-  --sidebar-grad-end: #f2c55b;
+--sidebar-grad-start: #dd532c;
+--sidebar-grad-end: #f2b15b;
   --profile-text-color: #000;
   --main-bg: #f8f9fa;
   --main-grad: linear-gradient(to right, #ff8373, #fed278);
@@ -172,7 +172,7 @@ body.sidebar-open .bottom-nav {
 .sidebar-header .profile-name {
   margin: 0;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .sidebar-header .profile-id,
@@ -180,6 +180,7 @@ body.sidebar-open .bottom-nav {
   margin: 4px 0 0;
   font-size: 0.85rem;
   line-height: 1.4;
+  margin-bottom: 15px;
 }
 
 .sidebar-body {

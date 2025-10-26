@@ -198,7 +198,7 @@
           <div class="declaration-item">
             <i class="bx bxs-checkbox-checked checkbox-icon"></i>
             <span class="declaration-text">
-              I am responsible for the content typed in query.
+              I am responsible for the content typed in query related things.
             </span>
           </div>
 
@@ -227,27 +227,51 @@
         </div>
       </main>
 
+      <!-- replace this existing bottom-nav with the index.html version -->
       <nav class="bottom-nav">
-        <a href="index.html" class="nav-item">
-          <i class="bx bxs-dashboard"></i>
-          <span>Dashboard</span>
-        </a>
-        
-        <a href="happenings.html" class="nav-item">
-          <i class="bx bxs-news"></i>
-          <span>Happenings</span>
-        </a>
-        
-        <a href="lpurms.html" class="nav-item active">
-          <i class="bx bx-list-check"></i>
-          <span>RMS</span>
-        </a>
-        
-        <a href="#" class="nav-item">
-          <i class="bx bx-notepad"></i>
-          <span>Quick Quiz</span>
-        </a>
+        <a href="index.html" class="nav-item active"
+          ><i class="bx bx-grid-alt"></i><span>Dashboard</span></a
+        >
+        <a href="happenings.html" class="nav-item"
+          ><i class="bx bx-news"></i><span>Happenings</span></a
+        >
+        <a href="lpurms.html" class="nav-item"
+          ><i class="bx bx-check-square"></i><span>RMS</span></a
+        >
+        <a href="quickquiz.html" class="nav-item"
+          ><i class="bx bx-list-ol"></i><span>Quick Quiz</span></a
+        >
       </nav>
     </div>
+
+    <!-- Add: same bottom-nav activation behaviour -->
+    <script>
+      (function () {
+        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+        if (!navItems.length) return;
+        const currentFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+
+        function setActiveByLocation() {
+          navItems.forEach(a => {
+            const href = a.getAttribute('href') || '';
+            const target = (href === '#' ? 'index.html' : href.split('/').pop()).toLowerCase();
+            a.classList.toggle('active', target === currentFile);
+          });
+        }
+
+        navItems.forEach(a => {
+          a.addEventListener('click', (e) => {
+            navItems.forEach(n => n.classList.remove('active'));
+            a.classList.add('active');
+            if (a.getAttribute('href') === '#') {
+              e.preventDefault();
+              history.pushState(null, '', 'index.html');
+            }
+          });
+        });
+
+        setActiveByLocation();
+      })();
+    </script>
   </body>
 </html>
