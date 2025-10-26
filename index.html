@@ -22,16 +22,22 @@
 
     <!-- Add small rule to space icon and text in sidebar menu links -->
     <style>
-      /* Ensure sidebar links align icon + text and have a consistent gap */
+      /* Ensure sidebar links align icon + text and don't wrap into multiple columns */
       .sidebar-menu a {
-        display: inline-flex;
+        display: flex;      /* stable flex layout */
         align-items: center;
-        gap: 10px; /* space between icon and label */
+        gap: 10px;          /* space between icon and label */
+        white-space: normal; /* allow normal wrapping but keep single-column flow */
       }
-      /* Keep icons aligned even when text wraps */
+      /* Keep icons aligned even when label wraps */
       .sidebar-menu a i {
-        min-width: 20px;
+        min-width: 22px;
         text-align: center;
+        flex-shrink: 0;
+      }
+      /* ensure sidebar menu has bottom space for sticky footer on small screens */
+      .sidebar-menu {
+        padding-bottom: 12px;
       }
     </style>
   </head>

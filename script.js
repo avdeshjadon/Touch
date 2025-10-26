@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const allPages = document.querySelectorAll(".full-page");
   const messCouponPage = document.getElementById("mess-coupon-page");
+  const backFromMess = document.getElementById("back-to-dashboard-from-mess");
+  const backFromPass = document.getElementById("back-to-dashboard-from-pass");
 
   const notificationIcon = document.querySelector(".notification-icon");
   const sidebarProfileLink = document.getElementById("sidebar-profile-link");
@@ -16,6 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
     .forEach((btn) => {
       btn.addEventListener("click", hideAllPages);
     });
+  // also handle mess-coupon header/back icons (mess-coupon-header uses different class)
+  document
+    .querySelectorAll(".mess-coupon-header .bx-arrow-back, .mess-coupon-header .bx-x")
+    .forEach((btn) => btn.addEventListener("click", hideAllPages));
+
+  // explicit id-based listeners (safer, for elements added/targeted by id)
+  if (backFromMess) backFromMess.addEventListener("click", hideAllPages);
+  if (backFromPass) backFromPass.addEventListener("click", hideAllPages);
 
   const sidebarSearchInput = document.getElementById("sidebar-search");
   const sidebarMenuItems = document.querySelectorAll(".sidebar-menu a");
