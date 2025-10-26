@@ -399,9 +399,11 @@ body.sidebar-open .bottom-nav {
 
 .tiles-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 15px;
   margin-top: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .tile {
@@ -409,7 +411,7 @@ body.sidebar-open .bottom-nav {
   background-color: var(--tile-bg);
   border: 1px solid #eef0f3;
   border-radius: 12px;
-  padding: 10px;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -423,13 +425,13 @@ body.sidebar-open .bottom-nav {
 
 .tile-badge {
   position: absolute;
-  top: -8px;
-  right: -8px;
+  top: -6px;
+  right: -6px;
   background: var(--main-grad);
   color: black;
   border-radius: 8px;
-  padding: 3px 8px;
-  font-size: 0.75rem;
+  padding: 3px 6px;
+  font-size: 0.7rem;
   font-weight: 600;
   border: 2px solid var(--tile-bg);
 }
@@ -438,6 +440,11 @@ body.sidebar-open .bottom-nav {
   width: 70px;
   height: 70px;
   margin-bottom: 10px;
+  object-fit: contain;
+  max-width: 56px;
+  max-height: 56px;
+  width: 100%;
+  height: auto;
   object-fit: contain;
 }
 
@@ -1139,4 +1146,68 @@ a.notification-icon:visited {
 .fee-header .back-arrow,
 .mess-coupon-header .back-arrow {
   font-size: 1.6rem;
+}
+
+/* Fix: make tiles-grid reliably show 3 columns on narrow/mobile screens,
+   prevent third tile from getting cut off by allowing columns to shrink
+   and ensuring tiles can flex/shrink appropriately. */
+.tiles-grid {
+  /* replace repeat(3, 1fr) with minmax to avoid overflow on small viewports */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* ensure the container never exceeds viewport */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* allow tiles to shrink without causing overflow */
+.tile {
+  min-width: 0; /* critical for grid items to shrink below intrinsic content */
+  box-sizing: border-box;
+  padding: 8px; /* slightly reduced to help fit three across */
+}
+
+/* reduce badge visual overflow on small screens */
+.tile-badge {
+  top: -6px;
+  right: -6px;
+  padding: 3px 6px;
+  font-size: 0.7rem;
+}
+
+/* ensure images do not force tiles larger than grid cell */
+.tile-image {
+  max-width: 56px;
+  max-height: 56px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* small-screen tweaks */
+@media (max-width: 420px) {
+  .main-content {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .tiles-grid {
+    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .tile {
+    padding: 6px;
+    min-height: 100px;
+  }
+
+  .tile-label {
+    font-size: 0.72rem;
+    padding: 6px 8px;
+  }
+
+  .tile-badge {
+    font-size: 0.65rem;
+    top: -6px;
+    right: -6px;
+  }
 }
