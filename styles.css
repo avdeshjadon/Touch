@@ -1,5 +1,6 @@
 :root {
---sidebar-grad-start: #dd532c;
+
+--sidebar-grad-start:#e4603c;
 --sidebar-grad-end: #f2b15b;
   --profile-text-color: #000;
   --main-bg: #f8f9fa;
@@ -8,7 +9,6 @@
   --tile-label-bg: #fdc894;
   --author-text-color: #f38f31;
 }
-
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
@@ -23,6 +23,8 @@ body {
 .main-content {
   padding: 0 6px;
   transition: filter 0.3s ease;
+  /* ensure page content can scroll up above fixed bottom nav */
+  padding-bottom: 80px;
 }
 
 .overlay {
@@ -71,17 +73,20 @@ body.sidebar-open .bottom-nav {
   cursor: pointer;
   position: relative;
   z-index: 201;
+  align-items: center; /* ensure lines are centered by default */
 }
 
 .hamburger-line {
   height: 3px;
   background: var(--main-grad);
   transition: width 0.3s ease;
-  width: 100%;
+  width: 100%; /* default: full width of the hamburger box */
 }
 
+/* third line shorter and anchored to the left (starts at left and extends towards center) */
 .hamburger-line:nth-child(3) {
   width: 60%;
+  align-self: flex-start;
 }
 
 .header-title {
@@ -413,6 +418,10 @@ body.sidebar-open .bottom-nav {
   margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
+  /* ensure last row has breathing room from bottom nav */
+  padding-bottom: 15px;
+  /* prepare for smooth translate animation on scroll */
+  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
 }
 
 .tile {
@@ -427,7 +436,8 @@ body.sidebar-open .bottom-nav {
   justify-content: center;
   text-decoration: none;
   color: #333;
-  min-height: 125px;
+  /* slightly taller tiles as requested (increase from 140 -> 160) */
+  min-height: 160px;
   box-sizing: border-box;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
@@ -450,10 +460,11 @@ body.sidebar-open .bottom-nav {
   height: 70px;
   margin-bottom: 10px;
   object-fit: contain;
-  max-width: 56px;
-  max-height: 56px;
-  width: 100%;
+  max-width: 64px;
+  max-height: 64px;
+  width: auto;
   height: auto;
+  margin-bottom: 12px;
   object-fit: contain;
 }
 
@@ -959,7 +970,6 @@ body.sidebar-open .bottom-nav {
   height: 140px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid black;
 }
 .pass-header .info h2 {
   margin: 0;
@@ -1185,10 +1195,11 @@ a.notification-icon:visited {
 
 /* ensure images do not force tiles larger than grid cell */
 .tile-image {
-  max-width: 56px;
-  max-height: 56px;
-  width: 100%;
+  max-width: 64px;
+  max-height: 64px;
+  width: auto;
   height: auto;
+  margin-bottom: 12px;
   object-fit: contain;
 }
 
@@ -1206,17 +1217,22 @@ a.notification-icon:visited {
 
   .tile {
     padding: 6px;
-    min-height: 100px;
+    /* increase proportionally on small screens (from 115 -> 130) */
+    min-height: 130px;
+  }
+
+  .tile-image {
+    max-width: 56px;
+    max-height: 56px;
   }
 
   .tile-label {
     font-size: 0.72rem;
     padding: 6px 8px;
   }
+}
 
-  .tile-badge {
-    font-size: 0.65rem;
-    top: -6px;
-    right: -6px;
-  }
+/* class applied by JS while scrolling to create subtle upward motion */
+.tiles-grid.tiles-elevated {
+  transform: translateY(-20px);
 }

@@ -265,4 +265,27 @@ document.addEventListener("DOMContentLoaded", function () {
       { passive: true }
     );
   })();
+
+  // subtle tiles-grid upward animation on user scroll (mobile-friendly)
+  (function tilesGridScrollElevate() {
+    const tilesGrid = document.querySelector(".tiles-grid");
+    if (!tilesGrid) return;
+    let ticking = false;
+
+    window.addEventListener("scroll", () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const rect = tilesGrid.getBoundingClientRect();
+        const threshold = 20; // pixels scrolled before elevation applies
+        // apply elevation only when grid is visible in viewport and user scrolled down a bit
+        if (rect.top < window.innerHeight && rect.bottom > 0 && window.scrollY > threshold) {
+          tilesGrid.classList.add("tiles-elevated");
+        } else {
+          tilesGrid.classList.remove("tiles-elevated");
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  })();
 });

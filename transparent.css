@@ -1,88 +1,152 @@
-/* --- Mobile interaction fixes --- */
-/* Prevent the whole page from panning horizontally and reduce rubber-band/overscroll */
-html, body {
-  overflow-x: hidden; /* no horizontal layout shift */
-  touch-action: pan-y; /* allow vertical scroll, block horizontal page pan */
-  -ms-touch-action: pan-y;
-  overscroll-behavior-x: none; /* avoid horizontal overscroll / bounce */
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
+/* Global / touch / scrolling defaults (mobile-friendly) */
+:root {
+  --unified-header-height: 56px;
+  --unified-header-padding: 8px 12px;
+  --unified-header-icon-size: 1.6rem;
+  --unified-header-title-size: 1rem;
+  --unified-header-title-weight: 400;
 }
 
-/* Prevent iOS zoom on input focus by using >=16px font on form controls */
-input, textarea, select, button {
-  font-size: 16px; /* prevents automatic zoom on many iOS devices */
-  -webkit-text-size-adjust: 100%;
-}
-
-/* Horizontal scroll containers should allow horizontal panning only */
-.horizontal-scroll-container,
-.horizontal-scroll-container * {
-  touch-action: pan-x; /* let user horizontally swipe inside the container */
-  -webkit-overflow-scrolling: touch; /* smooth native scrolling on iOS */
-  overscroll-behavior-x: contain; /* contain overscroll to the container */
-}
-
-/* If you have other custom horizontal scrollers, add same rules for them:
-   .tiles-grid, .tiles-grid * { touch-action: pan-x; }  */
-
-/* Small fix: make anchors/buttons that respond to taps use manipulation */
-a, button {
-  touch-action: manipulation; /* improves responsiveness and avoids double-tap zoom */
-}
-
-/* --- Mobile behavior & scrollbar hiding --- */
-
-/* Prevent horizontal page panning and reduce rubber-band/overscroll */
+/* Prevent horizontal page panning while allowing vertical scroll */
 html, body {
   overflow-x: hidden;           /* no horizontal page scroll */
-  overflow-y: auto;             /* allow vertical scrolling */
-  touch-action: pan-y;          /* prioritize vertical pan for page */
+  overflow-y: auto;             /* allow vertical scroll */
+  touch-action: pan-y;          /* prioritize vertical panning */
   -ms-touch-action: pan-y;
-  overscroll-behavior: contain; /* contain overscroll within the page */
+  overscroll-behavior: contain; /* contain overscroll to viewport */
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: transparent;
   -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-  -ms-overflow-style: none;     /* hide scrollbar in IE/Edge */
-  scrollbar-width: none;        /* hide scrollbar in Firefox */
+  -ms-overflow-style: none;    /* hide scrollbar in IE/Edge */
+  scrollbar-width: none;       /* hide scrollbar in Firefox */
 }
 
-/* Hide all webkit scrollbars (keeps scrolling but removes visuals) */
-*::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  display: none;
-}
+/* Hide webkit scrollbars (keeps scrolling but removes visible track) */
+*::-webkit-scrollbar { width: 0; height: 0; display: none; }
 
-/* Prevent iOS auto-zoom on input focus */
-input, textarea, select, button {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
+/* Prevent iOS auto-zoom on inputs */
+input, textarea, select, button { font-size: 16px; -webkit-text-size-adjust: 100%; }
 
-/* Keep horizontal scrollers functional (use this class for carousels) */
-.horizontal-scroll-container {
+/* Unified header shell used by many pages */
+.main-header,
+.page-header,
+.announcement-header,
+.attendance-header,
+.fee-header,
+.mess-coupon-header,
+.header {
+  min-height: var(--unified-header-height);
+  padding: var(--unified-header-padding);
   display: flex;
-  gap: 12px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;        /* allow horizontal pan inside the container */
-  overscroll-behavior-x: contain;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.horizontal-scroll-container *::-webkit-scrollbar {
-  display: none;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
 }
 
-/* If you have other horizontal scrollers, add the same rules:
-   .tiles-grid, .messages-list, .sidebar-menu { ... } */
-
-/* Make clickable elements more responsive on touch */
-a, button {
-  touch-action: manipulation;
+/* Unified icon / back-arrow sizing */
+.main-header .icon,
+.page-header .icon,
+.page-header .back-arrow,
+.announcement-header .back-arrow,
+.attendance-header .back-arrow,
+.fee-header .back-arrow,
+.mess-coupon-header .back-arrow,
+.icon,
+.bx-arrow-back,
+.bx-x {
+  font-size: var(--unified-header-icon-size) !important;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-* {
-  -webkit-tap-highlight-color: transparent;
+/* Unified centered header title */
+.main-header .header-title,
+.page-header .title,
+.announcement-header .title,
+.attendance-header .title,
+.fee-header .title,
+.mess-coupon-header .title,
+.page-header h1,
+.announcement-header h1 {
+  font-size: var(--unified-header-title-size) !important;
+  font-weight: var(--unified-header-title-weight) !important;
+  margin: 0;
+  line-height: 1;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  max-width: calc(100% - 84px); /* leave room for left/right icons */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
+/* Make sure left/right header controls do not stretch title */
+.main-header > *:first-child,
+.page-header > *:first-child,
+.announcement-header > *:first-child {
+  flex: 0 0 auto;
+}
+
+/* Normalize header anchor/icon visuals and remove underlines/lines */
+.page-header a,
+.announcement-header a,
+.attendance-header a,
+.fee-header a,
+.mess-coupon-header a,
+.header a,
+.page-header a.icon-link,
+.announcement-header a.icon-link,
+.icon-link,
+a.icon-link {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+}
+
+/* Remove underline on focus/active for header links */
+.page-header a:focus,
+.announcement-header a:focus,
+.page-header a:active,
+.announcement-header a:active,
+.icon-link:focus,
+.icon-link:active {
+  text-decoration: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Small-screen header adjustments */
+@media (max-width: 420px) {
+  :root {
+    --unified-header-icon-size: 1.45rem;
+    --unified-header-title-size: 0.95rem;
+    --unified-header-height: 52px;
+  }
+  .main-header,
+  .page-header {
+    padding: 8px 10px;
+  }
+}
+
+/* Safety: explicit rule to avoid accidental visible icon glyphs next to custom hamburger */
+.page-header > .icon,
+.page-header i.icon,
+.page-header .bx-menu,
+.page-header .bx {
+  /* do not remove icons globally — only hide unintended ones that conflict with custom markup */
+  /* Pages that intentionally add these icons will still show them via more specific selectors */
+}
+
+/* End of transparent.css */

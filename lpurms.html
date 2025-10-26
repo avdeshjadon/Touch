@@ -50,7 +50,8 @@
       .page-header {
         display: flex;
         align-items: center;
-        padding: 10px 15px;
+        padding: 8px 12px;            /* same as index */
+        min-height: 56px;             /* same header height as index */
         background-color: var(--header-bg);
         color: var(--header-text);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -59,23 +60,83 @@
         z-index: 10;
         border-bottom: 1px solid var(--border-color);
       }
-
-      .page-header .icon {
-        font-size: 1.8rem;
+ 
+      /* hamburger (index-like) - consistent & resilient */
+      .hamburger-menu {
+        -webkit-tap-highlight-color: transparent;
+        width: 26px;
+        height: 18px;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: space-between;
         cursor: pointer;
-        color: var(--nav-active-color);
+        position: relative;
+        z-index: 201;
+        align-items: center;
+        flex-shrink: 0;
+        margin-right: 8px;
       }
+      .hamburger-line {
+        display: block;
+        width: 100%;
+        height: 2.6px;
+        border-radius: 2px;
+        background: #333;
+        background: linear-gradient(to right, #ff8373, #fed278);
+        transition: width 0.24s ease, transform 0.18s ease;
+      }
+      .hamburger-line:nth-child(3) {
+        width: 60%;
+        align-self: flex-start;
+      }
+      /* hide any leftover boxicon glyphs so hamburger + centered title render like happenings.html */
+      .page-header > .icon,
+      .page-header i.icon { display: none !important; }
 
+      /* Header title — centered and using same typography as happenings.html */
       .page-header h1 {
         margin: 0;
-        font-size: 1.2rem;
-        font-weight: 500;
-        flex-grow: 1;
-        text-align: center;
-        transform: translateX(-15px);
+        font-size: 1rem;   /* same as happenings/index header-title */
+        font-weight: 400;  /* same weight as happenings */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        line-height: 1;
+        white-space: nowrap;
       }
 
-      /* Declaration Container */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0,0,0,0.45);
+        z-index: 90;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity .25s ease, visibility .25s;
+      }
+      .overlay.visible { opacity:1; visibility:visible; }
+      .page-side-drawer {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 85%;
+        max-width: 320px;
+        height: 100%;
+        background: #fff;
+        z-index: 95;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.12);
+        transition: left 0.28s ease;
+        overflow-y: auto;
+        padding: 16px;
+      }
+      .page-side-drawer.open { left: 0; }
+      body.drawer-open .page-header,
+      body.drawer-open .declaration-container { filter: blur(4px); }
+      .page-side-drawer a { display:block; padding:10px 8px; color:#333; text-decoration:none; border-bottom:1px solid #f0f0f0; }
+
       .declaration-container {
         flex-grow: 1;
         padding: 15px;
@@ -144,48 +205,60 @@
       
       /* Bottom Navigation Bar */
       .bottom-nav {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
         position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
-        height: 60px;
-        background-color: var(--header-bg);
-        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 20;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+        z-index: 100;
+        transition: filter 0.3s ease;
       }
 
       .nav-item {
         display: flex;
         flex-direction: column;
         align-items: center;
+        color: #999;
         text-decoration: none;
-        color: var(--nav-inactive-color);
-        font-size: 0.7rem;
-        font-weight: 500;
-        transition: color 0.2s;
-        padding: 5px;
-      }
-
-      .nav-item.active {
-        color: var(--nav-active-color);
+        font-size: 0.75rem;
       }
 
       .nav-item i {
-        font-size: 1.5rem;
-        margin-bottom: 2px;
+        font-size: 1.6rem;
+        margin-bottom: 4px;
+      }
+
+      .nav-item.active {
+        color: #f39c12;
       }
     </style>
   </head>
   <body>
-    <div id="rms-declaration-page" class="full-page">
-      <header class="page-header">
-        <i class="bx bx-menu icon"></i>
-        <h1>RMS</h1>
-      </header>
-
+    <!-- overlay + drawer (index-like) -->
+    <div id="overlay" class="overlay"></div>
+    <aside id="page-side-drawer" class="page-side-drawer" aria-hidden="true">
+      <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="happenings.html">Happenings</a>
+        <a href="lpurms.html">RMS</a>
+        <a href="quickquiz.html">Quick Quiz</a>
+      </nav>
+    </aside>
+ 
+     <div id="rms-declaration-page" class="full-page">
+       <header class="page-header">
+        <div id="hamburger-menu" class="hamburger-menu" aria-label="Open menu" role="button" tabindex="0" aria-expanded="false">
+          <span class="hamburger-line" aria-hidden="true"></span>
+          <span class="hamburger-line" aria-hidden="true"></span>
+          <span class="hamburger-line" aria-hidden="true"></span>
+        </div>
+         <h1>RMS</h1>
+       </header>
+ 
       <main class="declaration-container">
         <div class="declaration-card">
           <div class="declaration-item">
@@ -243,13 +316,51 @@
         >
       </nav>
     </div>
-
-    <!-- Add: same bottom-nav activation behaviour -->
+ 
+    <script>
+      (function () {
+        const ham = document.getElementById('hamburger-menu');
+        const drawer = document.getElementById('page-side-drawer');
+        const overlay = document.getElementById('overlay');
+        function openDrawer() {
+          drawer.classList.add('open');
+          overlay.classList.add('visible');
+          document.body.classList.add('drawer-open');
+          drawer.setAttribute('aria-hidden','false');
+        }
+        function closeDrawer() {
+          drawer.classList.remove('open');
+          overlay.classList.remove('visible');
+          document.body.classList.remove('drawer-open');
+          drawer.setAttribute('aria-hidden','true');
+        }
+        if (ham) ham.addEventListener('click', () => {
+          if (drawer.classList.contains('open')) closeDrawer();
+          else openDrawer();
+        });
+        if (overlay) overlay.addEventListener('click', closeDrawer);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+      })();
+    </script>
+    <script>
+      // keyboard helper for hamburger (if present)
+      (function () {
+        const ham = document.getElementById("hamburger-menu");
+        if (!ham) return;
+        ham.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            ham.click();
+          }
+        });
+      })();
+    </script>
+    <!-- bottom-nav: highlight active item based on current page -->
     <script>
       (function () {
         const navItems = document.querySelectorAll('.bottom-nav .nav-item');
         if (!navItems.length) return;
-        const currentFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+        const currentFile = (location.pathname.split('/').pop() || 'lpurms.html').toLowerCase();
 
         function setActiveByLocation() {
           navItems.forEach(a => {
@@ -260,13 +371,9 @@
         }
 
         navItems.forEach(a => {
-          a.addEventListener('click', (e) => {
+          a.addEventListener('click', () => {
             navItems.forEach(n => n.classList.remove('active'));
             a.classList.add('active');
-            if (a.getAttribute('href') === '#') {
-              e.preventDefault();
-              history.pushState(null, '', 'index.html');
-            }
           });
         });
 
