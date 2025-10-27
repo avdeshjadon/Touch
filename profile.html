@@ -23,16 +23,28 @@
         text-decoration: none;
         color: inherit;
       }
+      /* was: padding-top: 10px; */
       .profile-page-content {
-        padding-top: 10px;
+        /* Ensure horizontal padding so sections don’t touch screen edges */
+        padding: 10px 12px 12px;
       }
       .profile-details-container .profile-section:first-child {
         padding-top: 0;
       }
+      /* make section behave like a contained card to avoid left/right overflow */
       .profile-section {
-        margin-bottom: 8px;
-        padding: 8px 14px;
-        border-radius: 12px;
+        margin: 0 0 12px;
+        padding: 12px 14px;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+
+        /* changed: no border, no radius */
+        border: none;
+        border-radius: 0;
+
+        /* keep background if you still want card contrast; remove if not needed */
+        background: #fff;
       }
       .profile-section h3 {
         margin-bottom: 8px;
@@ -215,6 +227,26 @@
           }, 500);
         }
       });
+    </script>
+
+    <!-- GSAP smooth page transitions (moved inside body) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+    window.addEventListener('load', () => {
+      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
+    });
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.href;
+        gsap.to("body", {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => (window.location.href = target)
+        });
+      });
+    });
     </script>
   </body>
 </html>

@@ -149,4 +149,103 @@ a.icon-link {
   /* Pages that intentionally add these icons will still show them via more specific selectors */
 }
 
+/* --- Global smoothness & WebView optimization layer --- */
+
+/* Global smooth scrolling + touch inertia */
+html, body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+}
+
+/* Safe default transitions and touch polish */
+* {
+  transition: all 0.3s ease-in-out;
+  backface-visibility: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Promote common components to their own layers (GPU) */
+.page-header,
+.main-header,
+.bottom-nav,
+.sidebar,
+.overlay,
+.page-side-drawer,
+.loading-page,
+.full-page,
+.modal-overlay,
+.tiles-grid,
+.tile,
+.tile-edurev,
+.happening-item,
+.message-card,
+.request-card,
+.course-card,
+.semester-card,
+.progress-circle,
+.progress-circle-large,
+.progress-circle-small,
+.timetable-card,
+.add-button,
+.add-button-float,
+.apply-btn,
+.details-btn,
+.agree-button,
+.submit-btn,
+.leave-slip-button,
+.dropdown-select,
+.nav-item {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Lists and scroll areas — native-like scrolling */
+body,
+.full-page,
+.messages-list,
+.request-list,
+.happenings-list,
+.course-list-container,
+.transaction-list,
+.content-area,
+.main-content,
+.page-container,
+.attendance-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+/* Tap responsiveness */
+a, button {
+  touch-action: manipulation;
+}
+
+/* Subtle press feedback without layout shift */
+button:active,
+.apply-btn:active,
+.details-btn:active,
+.agree-button:active,
+.submit-btn:active,
+.add-button:active,
+.add-button-float:active,
+.leave-slip-button:active,
+.dropdown-select:active,
+.nav-item:active,
+.tile:active,
+.tile-edurev:active,
+.message-card:active,
+.happening-item:active,
+.request-card:active,
+.course-card:active {
+  transform: translateZ(0) scale(0.98);
+  opacity: 0.95;
+}
+
+/* Small helpers for dev (unused but harmless) */
+.gpu {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
 /* End of transparent.css */

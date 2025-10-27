@@ -222,5 +222,25 @@ body { background-color: var(--page-bg); color: var(--text-primary); font-size:1
             }
         });
     </script>
-    </body>
+
+    <!-- GSAP smooth page transitions (moved inside body) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+    window.addEventListener('load', () => {
+      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
+    });
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = link.href;
+        gsap.to("body", {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+          onComplete: () => (window.location.href = target)
+        });
+      });
+    });
+    </script>
+  </body>
 </html>
