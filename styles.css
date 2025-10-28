@@ -23,6 +23,7 @@ body {
 .main-content {
   padding: 0 6px;
   transition: filter 0.3s ease;
+  /* ensure page content can scroll up above fixed bottom nav */
   padding-bottom: 80px;
 }
 
@@ -72,16 +73,17 @@ body.sidebar-open .bottom-nav {
   cursor: pointer;
   position: relative;
   z-index: 201;
-  align-items: center;
+  align-items: center; /* ensure lines are centered by default */
 }
 
 .hamburger-line {
   height: 3px;
   background: var(--main-grad);
   transition: width 0.3s ease;
-  width: 100%;
+  width: 100%; /* default: full width of the hamburger box */
 }
 
+/* third line shorter and anchored to the left (starts at left and extends towards center) */
 .hamburger-line:nth-child(3) {
   width: 60%;
   align-self: flex-start;
@@ -196,6 +198,7 @@ body.sidebar-open .bottom-nav {
   padding-top: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  /* ensure menu can scroll without footer overlap */
   padding-bottom: 90px;
 }
 
@@ -234,7 +237,7 @@ body.sidebar-open .bottom-nav {
 .sidebar-menu {
   flex-grow: 1;
   overflow-y: auto;
-  white-space: nowrap;
+  white-space: nowrap; /* prevent wrapping that can create odd two-column look */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -415,7 +418,9 @@ body.sidebar-open .bottom-nav {
   margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
+  /* ensure last row has breathing room from bottom nav */
   padding-bottom: 15px;
+  /* prepare for smooth translate animation on scroll */
   transition: transform 220ms cubic-bezier(.2,.8,.2,1);
 }
 
@@ -431,6 +436,7 @@ body.sidebar-open .bottom-nav {
   justify-content: center;
   text-decoration: none;
   color: #333;
+  /* slightly taller tiles as requested (increase from 140 -> 160) */
   min-height: 160px;
   box-sizing: border-box;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
@@ -651,11 +657,128 @@ body.sidebar-open .bottom-nav {
   );
   border-radius: 5px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--profile-text-color);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.profile-header-card img {
+  width: 130px;
+  height: 130px;
+  border-radius: 5px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.profile-header-card h2 {
+  margin: 0 0 5px 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.profile-header-card p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.profile-details-container {
+  background-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.profile-section {
+  padding: 0 20px;
+}
+
+.profile-section:last-child {
+  padding-bottom: 15px;
+}
+
+.profile-section h3 {
+  margin: 0 -20px 5px -20px;
+  padding: 8px 20px;
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: #323232;
+  color: white;
+  border-bottom: 1px solid #1a1a1a;
+  border-radius: 0;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-field {
+  padding: 4px 0;
+}
+
+.field-label {
+  color: #212121;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.field-value {
+  color: #555;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.mess-coupon-page-content {
+  padding: 15px;
+}
+
+.mess-coupon-header {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #ffffff; /* light, flat header */
+  color: #000;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  border-bottom: 1px solid #eee; /* thin divider */
+  box-shadow: none;
+  z-index: 110;
+}
+.mess-coupon-header .title {
+  font-weight: 500;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #000;
+  pointer-events: none; /* keep taps for left/right items */
+}
+.mess-coupon-header .link {
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-left: auto;
+  color: #111;
+}
+.mess-coupon-header .icon {
+  color: #000;
+}
+
+.mess-profile-card {
+  background: linear-gradient(
+    to right,
+    var(--sidebar-grad-start),
+    var(--sidebar-grad-end)
+  );
+  border-radius: 5px;
+  padding: 20px;
   color: var(--profile-text-color);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
-.profile-header-card .profile-pic {
+.mess-profile-card .profile-pic {
   width: 100px;
   height: 100px;
   border-radius: 12px;
@@ -1032,6 +1155,7 @@ a.notification-icon:visited {
   color: inherit;
 }
 
+/* Add unified header title and back-icon defaults (reference: announcement.html) */
 .page-header h1,
 .page-header .title,
 .announcement-header .title,
@@ -1042,6 +1166,7 @@ a.notification-icon:visited {
   font-weight: 300;
 }
 
+/* Unified back / header icon size */
 .page-header .icon,
 .page-header .back-arrow,
 .announcement-header .back-arrow,
@@ -1051,18 +1176,25 @@ a.notification-icon:visited {
   font-size: 1.6rem;
 }
 
+/* Fix: make tiles-grid reliably show 3 columns on narrow/mobile screens,
+   prevent third tile from getting cut off by allowing columns to shrink
+   and ensuring tiles can flex/shrink appropriately. */
 .tiles-grid {
+  /* replace repeat(3, 1fr) with minmax to avoid overflow on small viewports */
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* ensure the container never exceeds viewport */
   width: 100%;
   box-sizing: border-box;
 }
 
+/* allow tiles to shrink without causing overflow */
 .tile {
-  min-width: 0;
+  min-width: 0; /* critical for grid items to shrink below intrinsic content */
   box-sizing: border-box;
-  padding: 8px;
+  padding: 8px; /* slightly reduced to help fit three across */
 }
 
+/* reduce badge visual overflow on small screens */
 .tile-badge {
   top: -6px;
   right: -6px;
@@ -1070,6 +1202,7 @@ a.notification-icon:visited {
   font-size: 0.7rem;
 }
 
+/* ensure images do not force tiles larger than grid cell */
 .tile-image {
   max-width: 64px;
   max-height: 64px;
@@ -1079,6 +1212,7 @@ a.notification-icon:visited {
   object-fit: contain;
 }
 
+/* small-screen tweaks */
 @media (max-width: 420px) {
   .main-content {
     padding-left: 8px;
@@ -1092,6 +1226,7 @@ a.notification-icon:visited {
 
   .tile {
     padding: 6px;
+    /* increase proportionally on small screens (from 115 -> 130) */
     min-height: 130px;
   }
 
@@ -1106,6 +1241,7 @@ a.notification-icon:visited {
   }
 }
 
+/* class applied by JS while scrolling to create subtle upward motion */
 .tiles-grid.tiles-elevated {
   transform: translateY(-20px);
 }
