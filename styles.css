@@ -246,11 +246,17 @@ body.sidebar-open .bottom-nav {
   display: flex;
   align-items: center;
   text-decoration: none;
-  font-size: 0.9rem;
+  font-size: 1rem; /* was 0.9rem */
   color: #777;
   font-weight: 400;
   transition: background-color 0.2s;
   border-bottom: 1px solid #f0f0f0;
+}
+
+/* Slightly larger icons in sidebar items */
+.sidebar-menu a i {
+  font-size: 1.25rem; /* subtle bump for bx icons */
+  line-height: 1;
 }
 
 .sidebar-menu a:hover {

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TimeTable</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="transparent.css" />
+    <style>
+      :root {
+        --header-dark-bg: #31353a;
+        --header-dark-text: white;
+        --tab-inactive-bg: #f8f9fa;
+        --tab-inactive-text: #333;
+        --tab-active-grad: linear-gradient(to right, #ff8373, #fed278);
+        --tab-active-text: #333;
+        --page-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --card-header-bg: #31353a;
+        --card-header-text: #ffffff;
+        --text-primary: #333;
+        --text-secondary: #666;
+        --border-color: #e0e0e0;
+      }
+      * {
+        -webkit-tap-highlight-color: transparent;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        color: var(--text-primary);
+        background-color: var(--page-bg);
+        font-size: 13px;
+        font-weight: 300;
+      }
+      .full-page {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--page-bg);
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .page-header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 8px 12px;
+        background-color: var(--header-dark-bg);
+        color: var(--header-dark-text);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+      .page-header .icon {
+        font-size: 1.6rem;
+        cursor: pointer;
+        flex-shrink: 0;
+        margin-right: 16px;
+      }
+      .page-header h1 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 300;
+        text-align: center;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: calc(100% - 72px);
+      }
+      .header-placeholder {
+        width: 1.6rem;
+      }
+
+      .day-tabs {
+        display: flex;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 10px 0;
+        background-color: var(--page-bg);
+        box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid var(--border-color);
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .day-tabs::-webkit-scrollbar {
+        display: none;
+      }
+      .tab-item {
+        flex-shrink: 0;
+        padding: 8px 15px;
+        margin: 0 5px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: var(--tab-inactive-text);
+        background-color: var(--tab-inactive-bg);
+        border: 1px solid var(--border-color);
+        cursor: pointer;
+        width: calc((100vw - 30px) / 2.5);
+        text-align: center;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+      }
+      .tab-item.active {
+        background: var(--tab-active-grad);
+        color: var(--tab-active-text);
+        border-color: #fed278;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+      .timetable-container {
+        padding: 15px 12px;
+        overflow-y: auto;
+        flex-grow: 1;
+      }
+      .day-title {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin-bottom: 25px;
+        color: #000;
+        text-align: center;
+      }
+      .timetable-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .time-slot-card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        min-height: 100px;
+      }
+      .card-header {
+        background-color: var(--card-header-bg);
+        color: var(--card-header-text);
+        padding: 5px 8px;
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-align: center;
+      }
+      .card-body {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        color: var(--text-secondary);
+        text-align: center;
+        min-height: 90px;
+      }
+      .content-pane {
+        display: none;
+      }
+      .content-pane.active {
+        display: block;
+      }
+      .tab-item:nth-child(2) {
+        opacity: 0.7;
+      }
+      .tab-item:nth-child(6),
+      .tab-item:nth-child(7) {
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="timetable-page" class="full-page">
+      <header class="page-header">
+        <a href="index.html" class="icon-link">
+          <i class="bx bx-arrow-back icon"></i>
+        </a>
+        <h1>TimeTable</h1>
+        <span class="header-placeholder"></span>
+      </header>
+
+      <nav class="day-tabs">
+        <div class="tab-item" data-day="monday" id="tab-monday">Monday</div>
+        <div class="tab-item" data-day="tuesday" id="tab-tuesday">Tuesday</div>
+        <div class="tab-item" data-day="wednesday" id="tab-wednesday">Wednesday</div>
+        <div class="tab-item" data-day="thursday" id="tab-thursday">Thursday</div>
+        <div class="tab-item" data-day="friday" id="tab-friday">Friday</div>
+        <div class="tab-item" data-day="saturday" id="tab-saturday">Saturday</div>
+        <div class="tab-item" data-day="sunday" id="tab-sunday">Sunday</div>
+      </nav>
+
+      <main class="timetable-container">
+        <div id="content-monday" class="content-pane">
+          <h2 class="day-title">Monday</h2>
+          <div class="timetable-grid">
+            <div class="time-slot-card">
+              <div class="card-header">11-12 AM</div>
+              <div class="card-body">Practical / G:1 C:CSE377 / R: 37-705 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">12-01 PM</div>
+              <div class="card-body">Practical / G:1 C:CSE377 / R: 37-705 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">02-03 PM</div>
+              <div class="card-body">Tutorial / G:1 C:PEV301 / R: 36-905 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">03-04 PM</div>
+              <div class="card-body">Tutorial / G:1 C:PEV301 / R: 36-905 / S:K23SE</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content-tuesday" class="content-pane">
+          <h2 class="day-title">Tuesday</h2>
+          <div class="timetable-grid">
+            <div class="time-slot-card">
+              <div class="card-header">01-02 PM</div>
+              <div class="card-body">Lecture / G:All C:FIN314 / R: 37-710 / S:KO010</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">02-03 PM</div>
+              <div class="card-body">Practical / G:1 C:CSE376 / R: 33-304 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">03-04 PM</div>
+              <div class="card-body">Practical / G:1 C:CSE376 / R: 33-304 / S:K23SE</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content-wednesday" class="content-pane">
+          <h2 class="day-title">Wednesday</h2>
+          <div class="timetable-grid">
+            <div class="time-slot-card">
+              <div class="card-header">11-12 AM</div>
+              <div class="card-body">Lecture / G:All C:PEV301 / R: 33-602 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">01-02 PM</div>
+              <div class="card-body">Lecture / G:All C:FIN314 / R: 37-710 / S:KO010</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">02-03 PM</div>
+              <div class="card-body">Lecture / G:All C:CSE376 / R: 33-502 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">03-04 PM</div>
+              <div class="card-body">Lecture / G:All C:CSE376 / R: 33-502 / S:K23SE</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content-thursday" class="content-pane">
+          <h2 class="day-title">Thursday</h2>
+          <div class="timetable-grid">
+            <div class="time-slot-card">
+              <div class="card-header">01-02 PM</div>
+              <div class="card-body">Lecture / G:All C:FIN314 / R: 37-710 / S:KO010</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content-friday" class="content-pane">
+          <h2 class="day-title">Friday</h2>
+          <div class="timetable-grid">
+            <div class="time-slot-card">
+              <div class="card-header">02-03 PM</div>
+              <div class="card-body">Lecture / G:All C:PEV301 / R: 33-604 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">03-04 PM</div>
+              <div class="card-body">Lecture / G:All C:CSE377 / R: 37-608 / S:K23SE</div>
+            </div>
+            <div class="time-slot-card">
+              <div class="card-header">04-05 PM</div>
+              <div class="card-body">Lecture / G:All C:CSE377 / R: 37-608 / S:K23SE</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="content-saturday" class="content-pane">
+          <h2 class="day-title">Saturday</h2>
+          <p style="text-align:center;color:#666;">No classes scheduled.</p>
+        </div>
+
+        <div id="content-sunday" class="content-pane">
+          <h2 class="day-title">Sunday</h2>
+          <p style="text-align:center;color:#666;">No classes scheduled.</p>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const tabs = document.querySelectorAll('.day-tabs .tab-item');
+        const contents = document.querySelectorAll('.timetable-container .content-pane');
+
+        function setActiveOpacity() {
+          tabs.forEach(tab => {
+            if (tab.classList.contains('active')) {
+              tab.style.opacity = '1';
+            } else {
+              tab.style.opacity = '';
+            }
+          });
+        }
+
+        function switchTab(targetDay) {
+          tabs.forEach(tab => tab.classList.remove('active'));
+          contents.forEach(content => content.classList.remove('active'));
+
+          const targetTab = document.getElementById(`tab-${targetDay}`);
+          const targetContent = document.getElementById(`content-${targetDay}`);
+
+          if (targetTab) targetTab.classList.add('active');
+          if (targetContent) targetContent.classList.add('active');
+
+          if (targetTab) {
+            targetTab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          }
+          setActiveOpacity();
+        }
+
+        tabs.forEach(tab => {
+          tab.addEventListener('click', function () {
+            const targetDay = this.getAttribute('data-day');
+            switchTab(targetDay);
+            history.replaceState(null, '', `?day=${encodeURIComponent(targetDay)}`);
+          });
+        });
+
+        const params = new URLSearchParams(location.search);
+        const qDay = (params.get('day') || '').toLowerCase();
+        const valid = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+        const todayIdx = new Date().getDay();
+        const todayKey = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'][todayIdx];
+        switchTab(valid.includes(qDay) ? qDay : todayKey);
+      });
+    </script>
+  </body>
+</html>

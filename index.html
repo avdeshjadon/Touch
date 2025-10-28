@@ -573,5 +573,99 @@
         setActiveByLocation();
       })();
     </script>
+
+    <!-- Populate Today's Timetable from timetable.html based on current day -->
+    <script>
+      (function () {
+        async function renderTodaysTimetable() {
+          const scroller = document.querySelector('.timetable-section .horizontal-scroll-container');
+          if (!scroller) return;
+
+          const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+          const dayKey = days[new Date().getDay()];
+          const dayLabel = dayKey.charAt(0).toUpperCase() + dayKey.slice(1);
+
+          try {
+            const resp = await fetch('timetable.html', { cache: 'no-store' });
+            if (!resp.ok) throw new Error('Failed to fetch timetable.html');
+            const html = await resp.text();
+
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const content = doc.querySelector(`#content-${dayKey}`);
+            const grid = content ? content.querySelector('.timetable-grid') : null;
+            const slotCards = grid ? Array.from(grid.querySelectorAll('.time-slot-card')) : [];
+
+            if (!slotCards.length) {
+              scroller.innerHTML = `
+                <div class="timetable-card" style="cursor:pointer">
+                  <div class="card-body">
+                    <div class="card-text">
+                      <span class="course-code">No classes</span>
+                      <span class="room-number">Enjoy your ${dayLabel}</span>
+                      <div class="divider-line"></div>
+                    </div>
+                    <div class="card-icon">
+                      <img src="images/book.png" alt="Course Book" class="card-icon-img" />
+                    </div>
+                  </div>
+                  <div class="card-header">${dayLabel}</div>
+                </div>`;
+              return;
+            }
+
+            const cardsHTML = slotCards.map(slot => {
+              const time = (slot.querySelector('.card-header')?.textContent || '').trim();
+              const detail = (slot.querySelector('.card-body')?.textContent || '').trim();
+
+              let course = (detail.match(/C:([A-Za-z0-9]+)/) || [])[1] || (detail.match(/[A-Z]{2,}\d{2,}/) || [])[0] || 'N/A';
+              let room = (detail.match(/R:\s*([^/]+)/) || [])[1];
+              room = room ? room.trim() : '—';
+
+              return `
+                <div class="timetable-card" style="cursor:pointer">
+                  <div class="card-body">
+                    <div class="card-text">
+                      <span class="course-code">${course}</span>
+                      <span class="room-number">${room}</span>
+                      <div class="divider-line"></div>
+                    </div>
+                    <div class="card-icon">
+                      <img src="images/book.png" alt="Course Book" class="card-icon-img" />
+                    </div>
+                  </div>
+                  <div class="card-header">${time}</div>
+                </div>`;
+            }).join('');
+
+            scroller.innerHTML = cardsHTML;
+          } catch (err) {
+            // Keep existing static cards on error
+            console.warn('Unable to load timetable:', err);
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', renderTodaysTimetable);
+        } else {
+          renderTodaysTimetable();
+        }
+      })();
+    </script>
+
+    <!-- Make dashboard timetable cards open timetable.html on click -->
+    <script>
+      (function () {
+        const scroller = document.querySelector('.horizontal-scroll-container');
+        if (!scroller) return;
+        scroller.addEventListener('click', function (e) {
+          const card = e.target.closest('.timetable-card');
+          if (card) {
+            window.location.href = 'timetable.html';
+          }
+        });
+        // cursor hint for initial static cards; dynamic cards already set inline
+        document.querySelectorAll('.timetable-card').forEach(c => c.style.cursor = 'pointer');
+      })();
+    </script>
   </body>
 </html>
