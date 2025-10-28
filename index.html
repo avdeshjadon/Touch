@@ -20,22 +20,18 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="transparent.css" />
 
-    <!-- Add small rule to space icon and text in sidebar menu links -->
     <style>
-      /* Ensure sidebar links align icon + text and don't wrap into multiple columns */
       .sidebar-menu a {
-        display: flex;      /* stable flex layout */
+        display: flex;
         align-items: center;
-        gap: 10px;          /* space between icon and label */
-        white-space: normal; /* allow normal wrapping but keep single-column flow */
+        gap: 10px;
+        white-space: normal;
       }
-      /* Keep icons aligned even when label wraps */
       .sidebar-menu a i {
         min-width: 22px;
         text-align: center;
         flex-shrink: 0;
       }
-      /* ensure sidebar menu has bottom space for sticky footer on small screens */
       .sidebar-menu {
         padding-bottom: 12px;
       }
@@ -541,7 +537,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@zxing/browser@0.1.4/umd/zxing-browser.min.js"></script>
     <script src="script.js"></script>
 
-    <!-- Add: ensure bottom-nav item gets active (orange) on click and on page load -->
     <script>
       (function () {
         const navItems = document.querySelectorAll('.bottom-nav .nav-item');
@@ -558,42 +553,18 @@
 
         navItems.forEach(a => {
           a.addEventListener('click', (e) => {
-            // Visual feedback immediately
             navItems.forEach(n => n.classList.remove('active'));
             a.classList.add('active');
 
-            // Prevent default navigation for '#' (dashboard placeholder)
             if (a.getAttribute('href') === '#') {
               e.preventDefault();
-              // optional: update URL without reload to reflect dashboard
               history.pushState(null, '', 'index.html');
             }
-            // For real links, allow navigation to proceed so target page can set active on load
           });
         });
 
         setActiveByLocation();
       })();
-    </script>
-
-    <!-- GSAP smooth page transitions -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load', () => {
-      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
-    });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.href;
-        gsap.to("body", {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => (window.location.href = target)
-        });
-      });
-    });
     </script>
   </body>
 </html>

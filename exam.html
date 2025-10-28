@@ -54,17 +54,17 @@
       }
 
       .page-header .icon {
-        font-size: 1.6rem; /* changed from 1.4rem to match announcement */
+        font-size: 1.6rem;
         cursor: pointer;
         margin-right: 18px;
         color: inherit;
-        text-decoration: none; /* Ensure the link doesn't have an underline */
+        text-decoration: none;
       }
 
       .page-header h1 {
         margin: 0;
         font-size: 1rem;
-        font-weight: 300; /* changed to match announcement */
+        font-weight: 300;
         flex-grow: 1;
         text-align: center;
         transform: translateX(-12px);
@@ -195,25 +195,5 @@
         </div>
         </main>
     </div>
-
-    <!-- GSAP smooth page transitions (moved inside body) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load', () => {
-      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
-    });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.href;
-        gsap.to("body", {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => (window.location.href = target)
-        });
-      });
-    });
-    </script>
   </body>
 </html>

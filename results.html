@@ -34,21 +34,21 @@
         --sem4-color: #4caf50;
       }
       * {
-        -webkit-tap-highlight-color: transparent; /* From transparent.css */
+        -webkit-tap-highlight-color: transparent;
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
       html, body {
-          overflow-x: hidden; /* Prevent horizontal scroll */
+          overflow-x: hidden;
       }
       body {
         font-family: "Roboto", sans-serif;
         background-color: var(--page-bg);
-        font-weight: 300; /* Adjusted default weight */
-        letter-spacing: 0.2px; /* Slightly reduced spacing */
+        font-weight: 300;
+        letter-spacing: 0.2px;
         color: var(--font-primary);
-        font-size: 13px; /* Base font size */
+        font-size: 13px;
       }
       .page-container {
         width: 100%;
@@ -58,21 +58,21 @@
       .page-header {
         display: flex;
         align-items: center;
-        padding: 8px 12px; /* Reduced padding */
+        padding: 8px 12px;
         background-color: var(--header-dark-bg);
         position: sticky;
         top: 0;
         z-index: 10;
       }
       .page-header .back-arrow {
-        font-size: 1.6rem; /* unified back icon size */
+        font-size: 1.6rem;
         cursor: pointer;
         color: var(--header-dark-text);
         text-decoration: none;
       }
       .page-header .title {
         font-size: 1rem;
-        font-weight: 300; /* unified title weight */
+        font-weight: 300;
         color: var(--header-dark-text);
         position: absolute;
         left: 50%;
@@ -80,84 +80,84 @@
         white-space: nowrap;
       }
       .main-content {
-        padding: 0 0 12px; /* Reduced bottom padding */
+        padding: 0 0 12px;
       }
       .overall-card {
         background: var(--overall-grad);
-        border-radius: 0 0 12px 12px; /* Slightly smaller radius */
-        padding: 16px; /* Reduced padding */
+        border-radius: 0 0 12px 12px;
+        padding: 16px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        color: var(--card-bg); /* Text color set to white */
-        box-shadow: 0 3px 10px -4px rgba(255, 154, 139, 0.45); /* Adjusted shadow */
-        margin-bottom: 14px; /* Reduced margin */
+        color: var(--card-bg);
+        box-shadow: 0 3px 10px -4px rgba(255, 154, 139, 0.45);
+        margin-bottom: 14px;
       }
       .progress-circle-large {
-        width: 110px; /* Reduced size */
-        height: 110px; /* Reduced size */
+        width: 110px;
+        height: 110px;
         border-radius: 50%;
         display: grid;
         place-items: center;
         background: conic-gradient(
           var(--color) calc(var(--percent) * 3.6deg),
-          rgba(255, 255, 255, 0.25) 0deg /* Adjusted alpha */
+          rgba(255, 255, 255, 0.25) 0deg
         );
         position: relative;
-        margin-bottom: 8px; /* Reduced margin */
+        margin-bottom: 8px;
       }
       .progress-circle-large::before {
         content: "";
         position: absolute;
-        width: 96px; /* Adjusted size */
-        height: 96px; /* Adjusted size */
+        width: 96px;
+        height: 96px;
         background: var(--overall-grad);
         border-radius: 50%;
       }
       .cpa-value {
         position: relative;
-        font-size: 1.8rem; /* Slightly smaller */
+        font-size: 1.8rem;
         font-weight: 400;
-        color: var(--font-primary); /* Text color back to dark */
+        color: var(--font-primary);
       }
       .performance-label {
-        font-size: 0.85rem; /* Slightly smaller */
-        font-weight: 300; /* Adjusted weight */
+        font-size: 0.85rem;
+        font-weight: 300;
         position: relative;
-        color: var(--font-primary); /* Text color back to dark */
+        color: var(--font-primary);
       }
       .semester-grid-container {
-        padding: 0 12px; /* Reduced padding */
+        padding: 0 12px;
       }
       .semester-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 10px; /* Reduced gap */
+        gap: 10px;
       }
       .semester-card {
         background: var(--card-bg);
         border: 1px solid var(--border-color);
-        border-radius: 6px; /* Smaller radius */
+        border-radius: 6px;
         overflow: hidden;
-        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06); /* Adjusted shadow */
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
       }
       .semester-header {
         background: var(--header-dark-bg);
         color: var(--header-dark-text);
-        padding: 6px; /* Reduced padding */
+        padding: 6px;
         text-align: center;
-        font-size: 0.8rem; /* Slightly smaller */
-        font-weight: 300; /* Adjusted weight */
+        font-size: 0.8rem;
+        font-weight: 300;
       }
       .semester-body {
-        padding: 12px; /* Reduced padding */
+        padding: 12px;
         display: flex;
         justify-content: center;
         align-items: center;
       }
       .progress-circle-small {
-        width: 66px; /* Reduced size */
-        height: 66px; /* Reduced size */
+        width: 66px;
+        height: 66px;
         border-radius: 50%;
         display: grid;
         place-items: center;
@@ -170,18 +170,18 @@
       .progress-circle-small::before {
         content: "";
         position: absolute;
-        width: 54px; /* Adjusted size */
-        height: 54px; /* Adjusted size */
+        width: 54px;
+        height: 54px;
         background: var(--card-bg);
         border-radius: 50%;
       }
       .gpa-value {
         position: relative;
-        font-size: 1rem; /* Slightly smaller */
+        font-size: 1rem;
         color: var(--font-secondary);
         font-weight: 400;
       }
-      .full-page { /* Loading overlay styles */
+      .full-page {
         position: fixed;
         top: 0;
         left: 0;
@@ -315,26 +315,6 @@
           }, 500);
         }
       });
-    </script>
-
-    <!-- GSAP smooth page transitions (moved inside body) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load', () => {
-      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
-    });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.href;
-        gsap.to("body", {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => (window.location.href = target)
-        });
-      });
-    });
     </script>
   </body>
 </html>

@@ -102,7 +102,7 @@
       .page-header .details-btn {
         position: absolute;
         right: 12px;
-        background-color: #f38f31; /* Accent color */
+        background-color: #f38f31;
         color: #000;
         padding: 4px 8px;
         border-radius: 5px;
@@ -148,7 +148,6 @@
         padding: 0 12px;
       }
 
-      /* Base tile styling (compressed) */
       .tile-edurev {
         background-color: var(--card-bg);
         border: 1px solid var(--border-color);
@@ -165,7 +164,6 @@
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
       }
 
-      /* Image styles */
       .tile-edurev img {
         margin-top: 16px;
         height: 56px;
@@ -254,26 +252,6 @@
           }, 500);
         }
       });
-    </script>
-
-    <!-- GSAP smooth page transitions (moved inside body) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load', () => {
-      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
-    });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.href;
-        gsap.to("body", {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => (window.location.href = target)
-        });
-      });
-    });
     </script>
   </body>
 </html>

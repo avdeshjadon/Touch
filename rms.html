@@ -181,25 +181,19 @@ body { background-color: var(--page-bg); color: var(--text-primary); font-size:1
             const tabs = document.querySelectorAll('.tab-item');
             const requestCards = document.querySelectorAll('.request-card');
 
-            // --- Tab Filtering Logic ---
-            // Set 'All' tab as active initially
             document.getElementById('tab-all').classList.add('active');
 
             tabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     const filter = this.getAttribute('data-filter');
 
-                    // Remove 'active' class from all tabs
                     tabs.forEach(t => t.classList.remove('active'));
                     
-                    // Add 'active' class to the clicked tab
                     this.classList.add('active');
 
-                    // Filter the cards
                     requestCards.forEach(card => {
                         const status = card.getAttribute('data-status');
                         
-                        // Show all cards for the 'all' filter, or show cards matching the specific status filter
                         if (filter === 'all' || filter === status) {
                             card.classList.remove('hidden');
                         } else {
@@ -209,38 +203,16 @@ body { background-color: var(--page-bg); color: var(--text-primary); font-size:1
                 });
             });
 
-            // --- LOADER SCRIPT (Copied from edurevolution.html) ---
             const loader = document.getElementById("loading-page");
             if (loader) {
-              // Wait a very short moment to ensure the content is ready, then fade out
               setTimeout(() => {
                 loader.style.opacity = "0";
                 setTimeout(() => {
                   loader.classList.add("hidden");
-                }, 500); // Duration of the CSS transition
+                }, 500);
               }, 100); 
             }
         });
-    </script>
-
-    <!-- GSAP smooth page transitions (moved inside body) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load', () => {
-      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
-    });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.href;
-        gsap.to("body", {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => (window.location.href = target)
-        });
-      });
-    });
     </script>
   </body>
 </html>

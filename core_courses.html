@@ -115,14 +115,14 @@
       }
 
       .page-header .icon {
-        font-size: 1.6rem; /* unified */
+        font-size: 1.6rem;
         cursor: pointer;
       }
 
       .page-header h1 {
         margin: 0;
         font-size: 1rem;
-        font-weight: 300; /* unified */
+        font-weight: 300;
         flex-grow: 1;
         text-align: center;
       }
@@ -263,26 +263,6 @@
           }, 500);
         }
       });
-    </script>
-
-    <!-- GSAP smooth page transitions (moved inside body) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load', () => {
-      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
-    });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.href;
-        gsap.to("body", {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => (window.location.href = target)
-        });
-      });
-    });
     </script>
   </body>
 </html>

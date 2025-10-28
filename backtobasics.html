@@ -164,7 +164,6 @@
     </style>
   </head>
   <body>
-    <!-- Loading Page (consistent with other pages) -->
     <div id="loading-page" class="full-page loading-page">
       <div class="loading-container">
         <img src="images/seal.svg" alt="University Seal" class="loading-seal" />
@@ -172,7 +171,6 @@
       </div>
     </div>
 
-    <!-- Main Back To Basics Page -->
     <div id="btb-page" class="full-page">
       <header class="page-header">
         <a href="index.html" class="icon-link">
@@ -191,19 +189,16 @@
       </nav>
 
       <main class="content-area">
-        <!-- Content for Current Week -->
         <div id="content-current" class="content-pane active">
           <div class="no-record-card">No record found</div>
         </div>
 
-        <!-- Content for Archives -->
         <div id="content-archives" class="content-pane">
           <div class="no-record-card">No record found</div>
         </div>
       </main>
     </div>
 
-    <!-- Loader Script (consistent with other pages) -->
     <script>
       window.addEventListener("load", function () {
         const loader = document.getElementById("loading-page");
@@ -216,7 +211,6 @@
       });
     </script>
 
-    <!-- Tab Switching Logic -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const tabCurrent = document.getElementById("tab-current");
@@ -248,21 +242,5 @@
         });
       });
     </script>
-
-    <!-- GSAP smooth page transitions -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-      window.addEventListener('load', () => {
-        gsap.from("body",{opacity:0,duration:0.6,ease:"power2.out"});
-      });
-      document.querySelectorAll('a').forEach(link=>{
-        link.addEventListener('click',e=>{
-          e.preventDefault();
-          const target=link.href;
-          gsap.to("body",{opacity:0,duration:0.3,ease:"power2.in",onComplete:()=> (window.location.href=target)});
-        });
-      });
-    </script>
   </body>
 </html>
-

@@ -78,12 +78,10 @@
       }
 
       .header-placeholder {
-        /* To keep H1 centered when there is no right button */
         width: 1.6rem; 
       }
       
       .details-btn-placeholder {
-        /* To keep H1 centered when there is a right button placeholder */
         width: 48px; 
       }
       
@@ -111,9 +109,9 @@
       }
 
       .alert-box {
-        background-color: #fcebeb; /* Light red background */
-        border: 1px solid #d9534f; /* Red border */
-        color: #d9534f; /* Red text color */
+        background-color: #fcebeb;
+        border: 1px solid #d9534f;
+        color: #d9534f;
         padding: 8px;
         border-radius: 4px;
         font-size: 0.9rem;
@@ -226,18 +224,5 @@
 
       </main>
     </div>
-
-    <!-- GSAP smooth page transitions -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load',()=>{gsap.from("body",{opacity:0,duration:0.6,ease:"power2.out"});});
-    document.querySelectorAll('a').forEach(link=>{
-      link.addEventListener('click',e=>{
-        e.preventDefault();
-        const target=link.href;
-        gsap.to("body",{opacity:0,duration:0.3,ease:"power2.in",onComplete:()=> (window.location.href=target)});
-      });
-    });
-    </script>
   </body>
 </html>

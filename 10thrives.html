@@ -42,7 +42,7 @@
         z-index: 10;
       }
       .page-header .icon {
-        font-size: 1.6rem; /* unified */
+        font-size: 1.6rem;
         cursor: pointer;
       }
       .page-header h1 {
@@ -167,7 +167,6 @@
     </style>
   </head>
   <body>
-    <!-- Loading Page (consistent with other pages) -->
     <div id="loading-page" class="full-page loading-page">
       <div class="loading-container">
         <img src="images/seal.svg" alt="University Seal" class="loading-seal" />
@@ -175,7 +174,6 @@
       </div>
     </div>
 
-    <!-- Main 10 to Thrive Page -->
     <div id="thrive-page" class="full-page">
       <header class="page-header">
         <a href="index.html" class="icon-link">
@@ -197,7 +195,6 @@
       </nav>
 
       <main class="content-area">
-        <!-- Content for Current -->
         <div id="content-current" class="content-pane active">
           <div class="info-card">
             10 to Thrive is not yet started for your School. It will be
@@ -205,19 +202,16 @@
           </div>
         </div>
 
-        <!-- Content for Upcoming -->
         <div id="content-upcoming" class="content-pane">
           <div class="info-card">No record found</div>
         </div>
 
-        <!-- Content for Archives -->
         <div id="content-archives" class="content-pane">
           <div class="info-card">No record found</div>
         </div>
       </main>
     </div>
 
-    <!-- Loader Script (consistent with other pages) -->
     <script>
       window.addEventListener("load", function () {
         const loader = document.getElementById("loading-page");
@@ -230,7 +224,6 @@
       });
     </script>
 
-    <!-- Tab Switching Logic -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const tabs = document.querySelectorAll(".tab-item");
@@ -254,30 +247,6 @@
             if (targetPane) {
               targetPane.classList.add("active");
             }
-          });
-        });
-      });
-    </script>
-
-    <!-- GSAP smooth page transitions -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-      window.addEventListener("load", () => {
-        gsap.from("body", {
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.out",
-        });
-      });
-      document.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          const target = link.href;
-          gsap.to("body", {
-            opacity: 0,
-            duration: 0.3,
-            ease: "power2.in",
-            onComplete: () => (window.location.href = target),
           });
         });
       });

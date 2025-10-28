@@ -42,8 +42,8 @@
       .page-header {
         display: flex;
         align-items: center;
-        padding: 8px 12px;            /* same as index */
-        min-height: 56px;             /* same header height as index */
+        padding: 8px 12px;
+        min-height: 56px;
         background-color: var(--header-bg);
         color: var(--header-text);
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -52,7 +52,6 @@
         z-index: 10;
         border-bottom: 1px solid var(--border-color);
       }
-      /* hamburger (index-like) - robust, self-contained */
       .hamburger-menu {
         -webkit-tap-highlight-color: transparent;
         width: 26px;
@@ -72,20 +71,18 @@
         width: 100%;
         height: 2.6px;
         border-radius: 2px;
-        background: #333; /* fallback solid color */
         background: linear-gradient(
           to right,
           #ff8373,
           #fed278
-        ); /* decorative gradient like index */
+        );
         transition: width 0.24s ease, transform 0.18s ease;
       }
       .hamburger-line:nth-child(3) {
         width: 60%;
-        align-self: flex-start; /* starts from left edge, ends near center */
+        align-self: flex-start;
       }
 
-      /* small side-drawer + overlay to mimic index behaviour */
       .overlay {
         position: fixed;
         top: 0;
@@ -119,7 +116,6 @@
       .page-side-drawer.open {
         left: 0;
       }
-      /* when drawer open, add subtle blur to main content */
       body.drawer-open .happenings-list,
       body.drawer-open .page-header {
         filter: blur(4px);
@@ -153,7 +149,7 @@
         width: 60px;
         height: 60px;
         border-radius: 4px;
-        object-fit: contain; /* Changed to contain for SVG logo */
+        object-fit: contain;
         margin-right: 15px;
         flex-shrink: 0;
         background-color: var(--border-color);
@@ -165,7 +161,6 @@
         line-height: 1.3;
       }
 
-      /* replace existing bottom-nav rules with index-like styles */
       .bottom-nav {
         position: fixed;
         bottom: 0;
@@ -198,24 +193,21 @@
         color: #f39c12;
       }
 
-      /* Header title matches index: centered, same size & weight */
       .page-header h1 {
         margin: 0;
-        font-size: 1rem;   /* same as index header-title */
-        font-weight: 400;  /* same as index header-title */
+        font-size: 1rem;
+        font-weight: 400;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         line-height: 1;
         white-space: nowrap;
       }
-      /* hide any leftover boxicon glyphs that might conflict */
       .page-header > .icon,
       .page-header i.icon { display: none !important; }
     </style>
   </head>
   <body>
-    <!-- overlay + drawer (index-like) -->
     <div id="overlay" class="overlay"></div>
     <aside id="page-side-drawer" class="page-side-drawer" aria-hidden="true">
       <nav>
@@ -223,7 +215,6 @@
         <a href="happenings.html">Happenings</a>
         <a href="lpurms.html">RMS</a>
         <a href="quickquiz.html">Quick Quiz</a>
-        <!-- add any other quick links you want here -->
       </nav>
     </aside>
 
@@ -375,7 +366,6 @@
         </a>
       </main>
 
-      <!-- replace this existing bottom-nav with the index.html version -->
       <nav class="bottom-nav">
         <a href="index.html" class="nav-item active"
           ><i class="bx bx-grid-alt"></i><span>Dashboard</span></a
@@ -392,7 +382,6 @@
       </nav>
     </div>
 
-    <!-- clean drawer open/close + keyboard handler -->
     <script>
       (function () {
         const ham = document.getElementById("hamburger-menu");
@@ -454,26 +443,6 @@
 
         setActiveByLocation();
       })();
-    </script>
-
-    <!-- GSAP smooth page transitions (moved inside body) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script>
-    window.addEventListener('load', () => {
-      gsap.from("body", {opacity: 0, duration: 0.6, ease: "power2.out"});
-    });
-    document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = link.href;
-        gsap.to("body", {
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.in",
-          onComplete: () => (window.location.href = target)
-        });
-      });
-    });
     </script>
   </body>
 </html>

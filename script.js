@@ -18,12 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
     .forEach((btn) => {
       btn.addEventListener("click", hideAllPages);
     });
-  // also handle mess-coupon header/back icons (mess-coupon-header uses different class)
   document
     .querySelectorAll(".mess-coupon-header .bx-arrow-back, .mess-coupon-header .bx-x")
     .forEach((btn) => btn.addEventListener("click", hideAllPages));
 
-  // explicit id-based listeners (safer, for elements added/targeted by id)
   if (backFromMess) backFromMess.addEventListener("click", hideAllPages);
   if (backFromPass) backFromPass.addEventListener("click", hideAllPages);
 
@@ -214,7 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000);
   }
 
-  // --- New: prevent horizontal page panning except inside horizontal scroll areas ---
   (function preventPageHorizontalPan() {
     let startX = 0;
     let startY = 0;
@@ -240,21 +237,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const dx = t.clientX - startX;
         const dy = t.clientY - startY;
 
-        // If horizontal movement dominates (user swiping left/right)
         if (Math.abs(dx) > Math.abs(dy)) {
-          // Allow horizontal swipe only if the event target is inside a horizontal scroller
           const insideHorizontalScroller =
             e.target && e.target.closest && e.target.closest(".horizontal-scroll-container");
 
           if (!insideHorizontalScroller) {
-            // Prevent the page from panning horizontally / shifting / overlapping
-            // Use passive:false to allow preventDefault
             e.preventDefault();
           }
-          // else allow default so horizontal scroller works normally
         }
       },
-      { passive: false } // need false to call preventDefault()
+      { passive: false }
     );
 
     document.addEventListener(
@@ -266,7 +258,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   })();
 
-  // subtle tiles-grid upward animation on user scroll (mobile-friendly)
   (function tilesGridScrollElevate() {
     const tilesGrid = document.querySelector(".tiles-grid");
     if (!tilesGrid) return;
@@ -277,8 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
       ticking = true;
       requestAnimationFrame(() => {
         const rect = tilesGrid.getBoundingClientRect();
-        const threshold = 20; // pixels scrolled before elevation applies
-        // apply elevation only when grid is visible in viewport and user scrolled down a bit
+        const threshold = 20;
         if (rect.top < window.innerHeight && rect.bottom > 0 && window.scrollY > threshold) {
           tilesGrid.classList.add("tiles-elevated");
         } else {
