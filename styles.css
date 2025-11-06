@@ -959,17 +959,18 @@ body.sidebar-open .bottom-nav {
   position: absolute;
   top: 15px;
   right: 15px;
-  background-color: #e9ecef;
+  background-color: #b7b9bc;
   color: #495057;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 45%;
+  width: 45px;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 600;
   font-size: 1rem;
-  border: 2px solid #adb5bd;
 }
 .pass-header {
   display: flex;
