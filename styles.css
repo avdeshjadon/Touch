@@ -1,7 +1,6 @@
 :root {
-
---sidebar-grad-start:#e4603c;
---sidebar-grad-end: #f2b15b;
+  --sidebar-grad-start: #e4603c;
+  --sidebar-grad-end: #f2b15b;
   --profile-text-color: #000;
   --main-bg: #f8f9fa;
   --main-grad: linear-gradient(to right, #ff8373, #fed278);
@@ -427,7 +426,7 @@ body.sidebar-open .bottom-nav {
   /* ensure last row has breathing room from bottom nav */
   padding-bottom: 15px;
   /* prepare for smooth translate animation on scroll */
-  transition: transform 220ms cubic-bezier(.2,.8,.2,1);
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .tile {
@@ -748,7 +747,7 @@ body.sidebar-open .bottom-nav {
   align-items: center;
   padding: 12px 16px;
   background-color: #303134; /* Changed to Black/Dark Background */
-  color: #FFFFFF; /* Changed to White Text */
+  color: #ffffff; /* Changed to White Text */
   flex-shrink: 0;
   position: sticky;
   top: 0;
@@ -762,17 +761,17 @@ body.sidebar-open .bottom-nav {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  color: #FFFFFF; /* Changed to White */
+  color: #ffffff; /* Changed to White */
   pointer-events: none;
 }
 .mess-coupon-header .link {
   font-size: 0.95rem;
   cursor: pointer;
   margin-left: auto;
-  color: #FFFFFF; /* Changed to White */
+  color: #ffffff; /* Changed to White */
 }
 .mess-coupon-header .icon {
-  color: #FFFFFF; /* Changed to White */
+  color: #ffffff; /* Changed to White */
 }
 
 .mess-profile-card {
@@ -955,7 +954,9 @@ body.sidebar-open .bottom-nav {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   padding: 20px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 0 6px rgba(100, 99, 100, 0.25),
+    0 10px 25px rgba(0, 0, 0, 0.08);
   position: relative;
   font-family: "Poppins", sans-serif;
   margin-bottom: 0;
@@ -1004,6 +1005,11 @@ body.sidebar-open .bottom-nav {
   color: #1c1a1a;
   font-weight: 600;
 }
+#pass-program{
+  color: black;
+  font-size: 12px;
+  font-weight: 500;
+}
 .pass-details p {
   margin: 4px 0 10px;
   font-size: 0.85rem;
@@ -1018,9 +1024,9 @@ body.sidebar-open .bottom-nav {
   color: #333;
 }
 .meal-approved {
-  margin-top: 45px;      /* small gap under date/time */
+  margin-top: 45px; /* small gap under date/time */
   text-align: center;
-  font-size: 1.6rem;    /* slightly smaller to fit nicely */
+  font-size: 1.6rem; /* slightly smaller to fit nicely */
   font-weight: 500;
   color: #71bb3f;
   margin-bottom: 5px;
@@ -1030,26 +1036,29 @@ body.sidebar-open .bottom-nav {
 .accepted-video-container {
   margin-left: -20px;
   margin-right: -20px;
-    background-color: #fff; 
-    border: 20px solid #551149; /* Frame color from original accepted-box */
-    flex-grow: 1; 
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: -1px; 
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    height: 350px;
+  background-color: #fcfbfc;
+  border-left: 12px solid #551149; /* Frame color from original accepted-box */
+  border-right: 12px solid #551149;
+  border-top: 16px solid #551149;
+  border-bottom: 16px solid #551149;
+
+  flex-grow: 1;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .accepted-video {
-    width: 70%;
-    max-width: 300px;
-    height: auto;
-    display: block;
-    object-fit: contain; 
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 /* REMOVED OLD .accepted-box STYLES */
@@ -1065,7 +1074,6 @@ body.sidebar-open .bottom-nav {
 }
 */
 /* --- MODIFICATION END --- */
-
 
 .modal-overlay {
   position: fixed;
