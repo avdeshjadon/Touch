@@ -1012,36 +1012,54 @@ body.sidebar-open .bottom-nav {
   color: #333;
 }
 .meal-approved {
+  margin-top: 50px;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: #71bb3f;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 }
 
+/* --- MODIFICATION START --- */
+.accepted-video-container {
+  margin-left: -20px;
+  margin-right: -20px;
+    background-color: #fff; 
+    border: 20px solid #551149; /* Frame color from original accepted-box */
+    flex-grow: 1; 
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -1px; 
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 350px;
+}
+
+.accepted-video {
+    width: 70%;
+    max-width: 300px;
+    height: auto;
+    display: block;
+    object-fit: contain; 
+}
+
+/* REMOVED OLD .accepted-box STYLES */
+/*
 .accepted-box {
-  background-color: #fff;
-  border: 20px solid #551149;
-  padding: 15px;
-  height: 400px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ...
 }
 .accepted-box .accepted-text {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #2b9348;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  ...
 }
 .accepted-box i {
-  font-size: 2.5rem;
+  ...
 }
+*/
+/* --- MODIFICATION END --- */
+
 
 .modal-overlay {
   position: fixed;

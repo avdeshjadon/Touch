@@ -93,6 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function hideAllPages() {
     stopCamera();
     clearInterval(countdownInterval);
+    
+    // Stop the accepted video when leaving the pass page
+    const acceptedVideo = document.getElementById("accepted-video");
+    if (acceptedVideo) {
+        acceptedVideo.pause();
+        acceptedVideo.currentTime = 0; // Reset video to start
+    }
+    
     allPages.forEach((p) => p.classList.add("hidden"));
     document.querySelector(".main-header").classList.remove("hidden");
     document.querySelector(".main-content").classList.remove("hidden");
@@ -194,6 +202,20 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     showPage(document.getElementById("mess-pass-page"));
+    
+    // --- MODIFICATION: Play the video ---
+    const acceptedVideo = document.getElementById("accepted-video");
+    if (acceptedVideo) {
+        // ensure correct properties and reset to start
+        acceptedVideo.loop = true;
+        acceptedVideo.muted = true;
+        try { acceptedVideo.currentTime = 0; } catch (e) {}
+        acceptedVideo.play().catch(error => {
+            console.warn("Video Autoplay Failed (user interaction may be required):", error);
+        });
+    }
+    // --- END MODIFICATION ---
+
     startCountdown();
   }
 
