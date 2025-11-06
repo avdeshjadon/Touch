@@ -211,9 +211,12 @@
         <section class="timetable-section">
           <div class="section-header">
             <h2>Today's Timetable</h2>
-            <a href="https://yourdost.com/userDashboard/home" style="text-decoration: none;">
-  <button class="cta-button">Your Dost</button>
-</a>
+            <a
+              href="https://yourdost.com/userDashboard/home"
+              style="text-decoration: none"
+            >
+              <button class="cta-button">Your Dost</button>
+            </a>
           </div>
           <div class="horizontal-scroll-container">
             <div class="timetable-card">
@@ -424,7 +427,11 @@
       </header>
       <main class="mess-coupon-page-content">
         <div class="mess-profile-card">
-          <img src="images/avdesh.png" alt="Profile Picture" class="profile-pic" />
+          <img
+            src="images/avdesh.png"
+            alt="Profile Picture"
+            class="profile-pic"
+          />
           <h2 class="name">Avdesh Jadon</h2>
 
           <!-- Updated + Added details to match screenshot -->
@@ -442,7 +449,8 @@
           </div>
           <div class="detail">
             <span class="detail-label">Hostel</span>
-            Boys Apartment-B817-Bed D (AC 4 Seater)
+            Boys Apartment- B817-Bed D (Apt AC Four Seater (With Pantry)) Dear
+            Student(12319278)
           </div>
         </div>
         <div class="mess-meal-selection">
@@ -546,26 +554,30 @@
 
     <script>
       (function () {
-        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+        const navItems = document.querySelectorAll(".bottom-nav .nav-item");
         if (!navItems.length) return;
-        const currentFile = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+        const currentFile = (
+          location.pathname.split("/").pop() || "index.html"
+        ).toLowerCase();
 
         function setActiveByLocation() {
-          navItems.forEach(a => {
-            const href = a.getAttribute('href') || '';
-            const target = (href === '#' ? 'index.html' : href.split('/').pop()).toLowerCase();
-            a.classList.toggle('active', target === currentFile);
+          navItems.forEach((a) => {
+            const href = a.getAttribute("href") || "";
+            const target = (
+              href === "#" ? "index.html" : href.split("/").pop()
+            ).toLowerCase();
+            a.classList.toggle("active", target === currentFile);
           });
         }
 
-        navItems.forEach(a => {
-          a.addEventListener('click', (e) => {
-            navItems.forEach(n => n.classList.remove('active'));
-            a.classList.add('active');
+        navItems.forEach((a) => {
+          a.addEventListener("click", (e) => {
+            navItems.forEach((n) => n.classList.remove("active"));
+            a.classList.add("active");
 
-            if (a.getAttribute('href') === '#') {
+            if (a.getAttribute("href") === "#") {
               e.preventDefault();
-              history.pushState(null, '', 'index.html');
+              history.pushState(null, "", "index.html");
             }
           });
         });
@@ -578,22 +590,36 @@
     <script>
       (function () {
         async function renderTodaysTimetable() {
-          const scroller = document.querySelector('.timetable-section .horizontal-scroll-container');
+          const scroller = document.querySelector(
+            ".timetable-section .horizontal-scroll-container"
+          );
           if (!scroller) return;
 
-          const days = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+          const days = [
+            "sunday",
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+          ];
           const dayKey = days[new Date().getDay()];
           const dayLabel = dayKey.charAt(0).toUpperCase() + dayKey.slice(1);
 
           try {
-            const resp = await fetch('timetable.html', { cache: 'no-store' });
-            if (!resp.ok) throw new Error('Failed to fetch timetable.html');
+            const resp = await fetch("timetable.html", { cache: "no-store" });
+            if (!resp.ok) throw new Error("Failed to fetch timetable.html");
             const html = await resp.text();
 
-            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const doc = new DOMParser().parseFromString(html, "text/html");
             const content = doc.querySelector(`#content-${dayKey}`);
-            const grid = content ? content.querySelector('.timetable-grid') : null;
-            const slotCards = grid ? Array.from(grid.querySelectorAll('.time-slot-card')) : [];
+            const grid = content
+              ? content.querySelector(".timetable-grid")
+              : null;
+            const slotCards = grid
+              ? Array.from(grid.querySelectorAll(".time-slot-card"))
+              : [];
 
             if (!slotCards.length) {
               scroller.innerHTML = `
@@ -613,15 +639,23 @@
               return;
             }
 
-            const cardsHTML = slotCards.map(slot => {
-              const time = (slot.querySelector('.card-header')?.textContent || '').trim();
-              const detail = (slot.querySelector('.card-body')?.textContent || '').trim();
+            const cardsHTML = slotCards
+              .map((slot) => {
+                const time = (
+                  slot.querySelector(".card-header")?.textContent || ""
+                ).trim();
+                const detail = (
+                  slot.querySelector(".card-body")?.textContent || ""
+                ).trim();
 
-              let course = (detail.match(/C:([A-Za-z0-9]+)/) || [])[1] || (detail.match(/[A-Z]{2,}\d{2,}/) || [])[0] || 'N/A';
-              let room = (detail.match(/R:\s*([^/]+)/) || [])[1];
-              room = room ? room.trim() : '—';
+                let course =
+                  (detail.match(/C:([A-Za-z0-9]+)/) || [])[1] ||
+                  (detail.match(/[A-Z]{2,}\d{2,}/) || [])[0] ||
+                  "N/A";
+                let room = (detail.match(/R:\s*([^/]+)/) || [])[1];
+                room = room ? room.trim() : "—";
 
-              return `
+                return `
                 <div class="timetable-card" style="cursor:pointer">
                   <div class="card-body">
                     <div class="card-text">
@@ -635,17 +669,18 @@
                   </div>
                   <div class="card-header">${time}</div>
                 </div>`;
-            }).join('');
+              })
+              .join("");
 
             scroller.innerHTML = cardsHTML;
           } catch (err) {
             // Keep existing static cards on error
-            console.warn('Unable to load timetable:', err);
+            console.warn("Unable to load timetable:", err);
           }
         }
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', renderTodaysTimetable);
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", renderTodaysTimetable);
         } else {
           renderTodaysTimetable();
         }
@@ -655,16 +690,18 @@
     <!-- Make dashboard timetable cards open timetable.html on click -->
     <script>
       (function () {
-        const scroller = document.querySelector('.horizontal-scroll-container');
+        const scroller = document.querySelector(".horizontal-scroll-container");
         if (!scroller) return;
-        scroller.addEventListener('click', function (e) {
-          const card = e.target.closest('.timetable-card');
+        scroller.addEventListener("click", function (e) {
+          const card = e.target.closest(".timetable-card");
           if (card) {
-            window.location.href = 'timetable.html';
+            window.location.href = "timetable.html";
           }
         });
         // cursor hint for initial static cards; dynamic cards already set inline
-        document.querySelectorAll('.timetable-card').forEach(c => c.style.cursor = 'pointer');
+        document
+          .querySelectorAll(".timetable-card")
+          .forEach((c) => (c.style.cursor = "pointer"));
       })();
     </script>
   </body>
