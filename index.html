@@ -105,8 +105,7 @@
               ><i class="bx bx-message-rounded-dots"></i> Feedback on Mentor
               Meeting</a
             >
-            <a href="#"><i class="bx bx-store-alt"></i> Food Shops</a
-            >
+            <a href="#"><i class="bx bx-store-alt"></i> Food Shops</a>
             <a href="#"
               ><i class="bx bx-microphone"></i> Guest Lecture/Workshop
               Feedback</a
@@ -121,23 +120,19 @@
               ><i class="bx bx-headphone"></i> Language Lab Slot Booking</a
             >
             <a href="#"><i class="bx bxs-t-shirt"></i> Laundry</a>
-            <a href="#"><i class="bx bx-user-voice"></i> Lecture Feedback</a
-            >
+            <a href="#"><i class="bx bx-user-voice"></i> Lecture Feedback</a>
             <a href="#"
               ><i class="bx bx-book-open"></i> Library Resource Feedback</a
             >
-            <a href="#"><i class="bx bx-search-alt"></i> Library Search</a
-            >
+            <a href="#"><i class="bx bx-search-alt"></i> Library Search</a>
             <a href="#"
               ><i class="bx bx-calendar-heart"></i> List of Holidays</a
             >
-            <a href="#"><i class="bx bx-wrench"></i> Make Up Adjustment</a
-            >
+            <a href="#"><i class="bx bx-wrench"></i> Make Up Adjustment</a>
             <a href="#"
               ><i class="bx bx-user-check"></i> Mentor Meeting Details</a
             >
-            <a href="#"><i class="bx bx-restaurant"></i> Mess Food Feedback</a
-            >
+            <a href="#"><i class="bx bx-restaurant"></i> Mess Food Feedback</a>
             <a href="#" id="tokens-link"
               ><i class="bx bx-coin-stack"></i><span>Tokens</span></a
             >
@@ -151,22 +146,17 @@
             <a href="#"
               ><i class="bx bx-barcode-reader"></i> Placement Barcode Scanner</a
             >
-            <a href="#"><i class="bx bx-briefcase-alt"></i> Placement Drive</a
-            >
-            <a href="#"><i class="bx bx-poll"></i> Placement Drive Summary</a
-            >
-            <a href="#"><i class="bx bx-train"></i> Railway Concession Form</a
-            >
-            <a href="#"><i class="bx bx-revision"></i> ReAppear Registration</a
-            >
+            <a href="#"><i class="bx bx-briefcase-alt"></i> Placement Drive</a>
+            <a href="#"><i class="bx bx-poll"></i> Placement Drive Summary</a>
+            <a href="#"><i class="bx bx-train"></i> Railway Concession Form</a>
+            <a href="#"><i class="bx bx-revision"></i> ReAppear Registration</a>
             <a href="results.html"
               ><i class="bx bx-line-chart"></i> Report Card</a
             >
             <a href="#"
               ><i class="bx bx-file"></i> Residential Reporting Slip</a
             >
-            <a href="rms.html"><i class="bx bx-task"></i> RMS Request Status</a
-            >
+            <a href="rms.html"><i class="bx bx-task"></i> RMS Request Status</a>
             <a href="#"><i class="bx bx-qr"></i> RMS Scanner</a>
             <a href="#"
               ><i class="bx bx-bulb"></i> Skill Development Feedback</a
@@ -180,16 +170,13 @@
             <a href="#"
               ><i class="bx bx-message-detail"></i> Student Feedback</a
             >
-            <a href="#"><i class="bx bx-user-x"></i> Teacher on Leave</a
-            >
+            <a href="#"><i class="bx bx-user-x"></i> Teacher on Leave</a>
             <a href="#"><i class="bx bx-calendar"></i> Time table</a>
-            <a href="#"><i class="bx bx-bus"></i> Transport Preference</a
-            >
+            <a href="#"><i class="bx bx-bus"></i> Transport Preference</a>
             <a href="#"
               ><i class="bx bx-headphone"></i> Uni Hospital Help Line</a
             >
-            <a href="#"><i class="bx bx-store"></i> Vendor Facility Search</a
-            >
+            <a href="#"><i class="bx bx-store"></i> Vendor Facility Search</a>
             <a href="#"><i class="bx bx-id-card"></i> View Marks</a>
             <a href="#"><i class="bx bx-map-alt"></i> Virtual Tour</a>
           </nav>
@@ -523,10 +510,16 @@
             <span id="pass-date">Oct 18, 2025</span>
             <span id="pass-time">04:05 PM</span>
           </div>
-          <!-- horizontally centered label directly below date/time -->
           <div class="meal-approved">Meal Accepted</div>
           <div class="accepted-video-container">
-              <video id="accepted-video" class="accepted-video" src="videos/accept.mp4" loop muted playsinline></video>
+            <video
+              id="accepted-video"
+              class="accepted-video"
+              src="videos/accept.mp4"
+              loop
+              muted
+              playsinline
+            ></video>
           </div>
         </div>
       </main>
@@ -684,7 +677,6 @@
 
             scroller.innerHTML = cardsHTML;
           } catch (err) {
-            // Keep existing static cards on error
             console.warn("Unable to load timetable:", err);
           }
         }
@@ -707,7 +699,6 @@
             window.location.href = "timetable.html";
           }
         });
-        // cursor hint for initial static cards; dynamic cards already set inline
         document
           .querySelectorAll(".timetable-card")
           .forEach((c) => (c.style.cursor = "pointer"));

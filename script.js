@@ -19,7 +19,9 @@ document.addEventListener("DOMContentLoaded", function () {
       btn.addEventListener("click", hideAllPages);
     });
   document
-    .querySelectorAll(".mess-coupon-header .bx-arrow-back, .mess-coupon-header .bx-x")
+    .querySelectorAll(
+      ".mess-coupon-header .bx-arrow-back, .mess-coupon-header .bx-x"
+    )
     .forEach((btn) => btn.addEventListener("click", hideAllPages));
 
   if (backFromMess) backFromMess.addEventListener("click", hideAllPages);
@@ -93,14 +95,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function hideAllPages() {
     stopCamera();
     clearInterval(countdownInterval);
-    
-    // Stop the accepted video when leaving the pass page
+
     const acceptedVideo = document.getElementById("accepted-video");
     if (acceptedVideo) {
-        acceptedVideo.pause();
-        acceptedVideo.currentTime = 0; // Reset video to start
+      acceptedVideo.pause();
+      acceptedVideo.currentTime = 0;
     }
-    
+
     allPages.forEach((p) => p.classList.add("hidden"));
     document.querySelector(".main-header").classList.remove("hidden");
     document.querySelector(".main-content").classList.remove("hidden");
@@ -202,19 +203,21 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     showPage(document.getElementById("mess-pass-page"));
-    
-    // --- MODIFICATION: Play the video ---
+
     const acceptedVideo = document.getElementById("accepted-video");
     if (acceptedVideo) {
-        // ensure correct properties and reset to start
-        acceptedVideo.loop = true;
-        acceptedVideo.muted = true;
-        try { acceptedVideo.currentTime = 0; } catch (e) {}
-        acceptedVideo.play().catch(error => {
-            console.warn("Video Autoplay Failed (user interaction may be required):", error);
-        });
+      acceptedVideo.loop = true;
+      acceptedVideo.muted = true;
+      try {
+        acceptedVideo.currentTime = 0;
+      } catch (e) {}
+      acceptedVideo.play().catch((error) => {
+        console.warn(
+          "Video Autoplay Failed (user interaction may be required):",
+          error
+        );
+      });
     }
-    // --- END MODIFICATION ---
 
     startCountdown();
   }
@@ -261,7 +264,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (Math.abs(dx) > Math.abs(dy)) {
           const insideHorizontalScroller =
-            e.target && e.target.closest && e.target.closest(".horizontal-scroll-container");
+            e.target &&
+            e.target.closest &&
+            e.target.closest(".horizontal-scroll-container");
 
           if (!insideHorizontalScroller) {
             e.preventDefault();
@@ -285,19 +290,27 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!tilesGrid) return;
     let ticking = false;
 
-    window.addEventListener("scroll", () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const rect = tilesGrid.getBoundingClientRect();
-        const threshold = 20;
-        if (rect.top < window.innerHeight && rect.bottom > 0 && window.scrollY > threshold) {
-          tilesGrid.classList.add("tiles-elevated");
-        } else {
-          tilesGrid.classList.remove("tiles-elevated");
-        }
-        ticking = false;
-      });
-    }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const rect = tilesGrid.getBoundingClientRect();
+          const threshold = 20;
+          if (
+            rect.top < window.innerHeight &&
+            rect.bottom > 0 &&
+            window.scrollY > threshold
+          ) {
+            tilesGrid.classList.add("tiles-elevated");
+          } else {
+            tilesGrid.classList.remove("tiles-elevated");
+          }
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
   })();
 });
